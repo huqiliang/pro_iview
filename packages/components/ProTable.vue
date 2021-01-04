@@ -5,6 +5,7 @@
       :columns="formColumns"
       v-bind="$attrs"
       v-on="$listeners"
+      :loading="loading"
       @search="search"
       @reset="reset"
     ></ProSearch>

@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <pro-table
-      :page-size="20"
       :request="request"
       :map="map"
       :columns="columns"

@@ -5,6 +5,8 @@ A high-level component library based on iView
 - [x] pro_table
 
 - [x] pro_search
+  
+- [ ] Edit_table
 
 - [ ] pro_form
 

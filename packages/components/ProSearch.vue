@@ -11,7 +11,9 @@
     </div>
     <div class="buttons">
       <Button @click="reset" class="ml10">重置</Button>
-      <Button @click="search" class="ml10" type="primary">查询</Button>
+      <Button @click="search" :loading="loading" class="ml10" type="primary"
+        >查询</Button
+      >
       <span class="ml10 text">收起</span>
     </div>
   </Form>
@@ -20,6 +22,9 @@
 <script>
 export default {
   props: {
+    loading: {
+      default: false
+    },
     columns: {
       required: true
     },
