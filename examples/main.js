@@ -7,7 +7,6 @@ import "view-design/dist/styles/iview.css";
 Vue.use(ViewUI);
 // 导入组件库
 import ProTable from "./../packages/index";
-console.log(ProTable);
 // 注册组件库
 Vue.config.productionTip = false;
 Vue.use(ProTable);
