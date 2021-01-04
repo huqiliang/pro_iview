@@ -1,5 +1,5 @@
 <template>
-  <Form inline :label-width="80" class="prosearch">
+  <Form inline v-bind="$attrs" v-on="$listeners" class="prosearch">
     <div class="inputs">
       <FormItem
         v-for="item in columns"
@@ -10,7 +10,7 @@
       </FormItem>
     </div>
     <div class="buttons">
-      <Button class="ml10">重置</Button>
+      <Button @click="reset" class="ml10">重置</Button>
       <Button @click="search" class="ml10" type="primary">查询</Button>
       <span class="ml10 text">收起</span>
     </div>
@@ -29,6 +29,10 @@ export default {
     }
   },
   methods: {
+    reset() {
+      this.$emit("input", {});
+      this.$emit("reset");
+    },
     search() {
       this.$emit("search");
     }
@@ -39,8 +43,7 @@ export default {
 <style lang="less">
 .prosearch {
   margin: 0 10px;
-  display: flex;
-  justify-content: space-between;
+
   .inputs {
     display: flex;
     .input {

@@ -5,6 +5,7 @@
       :request="request"
       :map="map"
       :columns="columns"
+      :label-width="90"
     ></pro-table>
   </div>
 </template>
@@ -38,10 +39,9 @@ export default {
       ],
       request(options) {
         console.log(options);
-        return axios.get(
-          "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
-          options
-        );
+        return axios.get("https://yapi.ihotel.cn/mock/67/sys/sysOptionList", {
+          params: { ...options }
+        });
       },
       map: {
         dataPath: "data",

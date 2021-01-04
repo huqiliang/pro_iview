@@ -1,10 +1,12 @@
 <template>
   <div class="protable">
-    {{ form }}
     <ProSearch
       v-model="form"
       :columns="formColumns"
+      v-bind="$attrs"
+      v-on="$listeners"
       @search="search"
+      @reset="reset"
     ></ProSearch>
     <Table
       :loading="loading"
@@ -20,6 +22,7 @@
         v-if="proData"
         :total="total"
         @on-change="pageChange"
+        @on-page-size-change="pageSizeChange"
         transfer
         show-total
         show-sizer
@@ -93,11 +96,19 @@ export default {
       return arr;
     },
     pageChange(current) {
-      console.log(current);
       this.page.current = current;
       this.fetch();
     },
+    pageSizeChange(pageSize) {
+      this.page.pageSize = pageSize;
+      if (this.page.current == 1) {
+        this.fetch();
+      }
+    },
     search() {
+      this.fetch();
+    },
+    reset() {
       this.fetch();
     },
     async fetch() {
