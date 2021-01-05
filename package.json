@@ -1,7 +1,7 @@
 {
-  "name": "iview_pro",
-  "version": "1.0.0",
-  "private": true,
+  "name": "pro_iview",
+  "version": "1.0.1",
+  "main":"packages/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "lib": "vue-cli-service build --target lib --name pro-components --dest lib packages/index.js",

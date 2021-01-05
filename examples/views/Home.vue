@@ -79,7 +79,8 @@ export default {
       map: {
         dataPath: "data",
         totalPath: "totalRows"
-      }
+      },
+      submitForm() {}
     };
   },
   components: {}

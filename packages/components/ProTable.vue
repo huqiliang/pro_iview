@@ -42,7 +42,7 @@
     </div>
     <Modal
       :loading="formDialog.formLoading"
-      @on-ok="submitForm"
+      @on-ok="submit"
       v-model="formDialog.show"
       title="修改"
     >
@@ -100,6 +100,9 @@ export default {
         dataPath: "", //数据映射路径
         totalPath: ""
       }
+    },
+    submitForm: {
+      type: Function
     }
   },
   computed: {
@@ -225,12 +228,17 @@ export default {
       this.proData = get(res.data, this.map.dataPath);
       this.total = get(res.data, this.map.totalPath);
     },
-    async submitForm() {
-      const res = await axios({
-        url: this.request,
-        method: "POST",
-        data: this.formDialog.proFormData
-      });
+    async submit() {
+      let res;
+      if (this.submitForm) {
+        res = await this.submitForm(this.formDialog.proFormData);
+      } else {
+        res = await axios({
+          url: this.request,
+          method: "POST",
+          data: this.formDialog.proFormData
+        });
+      }
       if (res.data) {
         this.$Message.success({
           content: res.data.msg || "成功"
