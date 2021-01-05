@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 // @ is an alias to /src
 
 export default {
@@ -21,6 +21,7 @@ export default {
         {
           title: "cataLog",
           key: "cataLog",
+          notShowForm: true,
           renderSearch() {},
           renderTable: () => {
             return <div>aaa</div>;
@@ -53,7 +54,17 @@ export default {
             {
               title: "删除",
               type: "delete",
-              request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
+              method: "post",
+              requestParams: "id",
+              request(options) {
+                console.log(options);
+                return axios.delete(
+                  "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+                  {
+                    params: { ...options }
+                  }
+                );
+              }
             }
           ]
         }

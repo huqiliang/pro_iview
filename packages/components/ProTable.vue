@@ -17,7 +17,16 @@
       v-on="$listeners"
       class="table"
       border
-    ></Table>
+    >
+      <div slot="header" class="tableHeader">
+        <div class="title">高级表格</div>
+        <div class="buttons">
+          <Button @click="tableAction()" type="primary"
+            ><Icon type="md-add" />新建</Button
+          >
+        </div>
+      </div>
+    </Table>
     <div class="page">
       <Page
         v-if="proData"
@@ -63,6 +72,9 @@ export default {
     columns: {
       required: true
     },
+    method: {
+      default: "GET"
+    },
     request: {
       required: true
     },
@@ -92,7 +104,7 @@ export default {
   methods: {
     columnFilter(type) {
       let arr = [];
-      const showType = type === "table" ? "notShowTable" : "notShowForm";
+      const showType = type === "table" ? "notShowTable" : "notShowSearch";
       const renderType = type === "table" ? "renderTable" : "renderSearch";
       map(this.columns, value => {
         if (!value[showType]) {
@@ -110,7 +122,7 @@ export default {
                           if (val.action) {
                             val.action(params);
                           } else if (val.type) {
-                            this.tableAction(val);
+                            this.tableAction(val, params);
                           } else {
                             console.warn("未定义类型");
                           }
@@ -132,14 +144,24 @@ export default {
       });
       return arr;
     },
-    async tableAction(val) {
+    customRequest(val, params) {
+      if (isString(val.request)) {
+        return axios({
+          url: val.request,
+          method: val.method ? val.method : "delete",
+          params: { id: params.row[val.requestParams] }
+        }).then(this.fetch);
+      } else {
+        return val.request(params).then(this.fetch);
+      }
+    },
+    async tableAction(val, params) {
       switch (val.type) {
         case "edit":
           this.formDialog.show = true;
           break;
         case "delete":
-          await axios.delete(val.request);
-          this.fetch();
+          await this.customRequest(val, params);
           break;
         default:
           break;
@@ -165,7 +187,9 @@ export default {
       let res;
       this.loading = true;
       if (isString(this.request)) {
-        res = await axios.get(this.request, {
+        res = await axios({
+          url: this.request,
+          method: this.method,
           params: { ...this.page, ...this.form }
         });
       } else if (isObject(this.request)) {
@@ -185,6 +209,15 @@ export default {
 
 <style lang="less">
 .protable {
+  .tableHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    .title {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
   .table {
     margin: 10px;
   }
