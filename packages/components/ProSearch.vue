@@ -12,15 +12,14 @@
         </FormItem>
       </Col>
       <div class="buttons">
-        <Button @click="reset" class="ml10">新增</Button>
         <Button @click="reset" class="ml10">重置</Button>
         <Button @click="search" :loading="loading" class="ml10" type="primary"
           >查询</Button
         >
-        <a class="ml10 text" @click="upDown"
-          >{{ isDown ? "收起" : "展开"
-          }}<Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'"
-        /></a>
+        <a class="ml10 text" @click="upDown">
+          {{ isDown ? "收起" : "展开" }}
+          <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
+        </a>
       </div>
     </Row>
   </Form>

@@ -1,14 +1,15 @@
 <template>
   <div class="proform">
-    <Form ref="form" :model="form" inline>
+    <Form ref="form" :model="value" inline>
       <FormItem
         :prop="item.key"
-        v-for="item in formList"
         :key="item.key"
         :label="item.title + ' :'"
-        :label-width="70"
+        :label-width="100"
+        v-for="item in columns"
       >
-        <Input type="text" v-model="item.value" placeholder="Username"> </Input>
+        <Input type="text" v-model="value[item.key]" :placeholder="item.title">
+        </Input>
       </FormItem>
     </Form>
   </div>
@@ -17,18 +18,16 @@
 <script>
 export default {
   props: {
-    form: {}
+    columns: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    value: {}
   },
   data() {
-    return {
-      formList: [
-        {
-          title: "12",
-          key: "a",
-          value: 1
-        }
-      ]
-    };
+    return {};
   }
 };
 </script>

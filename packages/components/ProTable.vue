@@ -2,7 +2,7 @@
   <div class="protable">
     <ProSearch
       v-model="form"
-      :columns="formColumns"
+      :columns="searchColumns"
       :loading="loading"
       v-bind="$attrs"
       v-on="$listeners"
@@ -18,10 +18,10 @@
       class="table"
       border
     >
-      <div slot="header" class="tableHeader">
-        <div class="title">高级表格</div>
+      <div v-if="toolBar" slot="header" class="tableHeader">
+        <div class="title">{{ title }}</div>
         <div class="buttons">
-          <Button @click="tableAction()" type="primary"
+          <Button @click="tableAction({ type: 'new' })" type="primary"
             ><Icon type="md-add" />新建</Button
           >
         </div>
@@ -40,8 +40,16 @@
         v-on="$listeners"
       />
     </div>
-    <Modal v-model="formDialog.show" title="修改">
-      <ProForm v-if="formDialog.show"></ProForm>
+    <Modal
+      :loading="formDialog.formLoading"
+      @on-ok="submitForm"
+      v-model="formDialog.show"
+      title="修改"
+    >
+      <ProForm
+        :columns="formColumns"
+        v-model="formDialog.proFormData"
+      ></ProForm>
     </Modal>
   </div>
 </template>
@@ -56,7 +64,9 @@ export default {
   data() {
     return {
       formDialog: {
-        show: false
+        show: false,
+        proFormData: {},
+        formLoading: true
       },
       loading: false,
       proData: [],
@@ -69,6 +79,12 @@ export default {
     };
   },
   props: {
+    toolBar: {
+      default: true
+    },
+    title: {
+      default: "表格标题"
+    },
     columns: {
       required: true
     },
@@ -88,10 +104,13 @@ export default {
   },
   computed: {
     tableColumns() {
-      return this.columnFilter("table");
+      return this.columnFilter("notShowTable", "renderTable");
+    },
+    searchColumns() {
+      return this.columnFilter("notShowSearch", "renderSearch");
     },
     formColumns() {
-      return this.columnFilter("search");
+      return this.columnFilter("notShowForm", "renderForm");
     }
   },
   components: {
@@ -102,15 +121,13 @@ export default {
     this.fetch();
   },
   methods: {
-    columnFilter(type) {
+    columnFilter(showType, renderType) {
       let arr = [];
-      const showType = type === "table" ? "notShowTable" : "notShowSearch";
-      const renderType = type === "table" ? "renderTable" : "renderSearch";
       map(this.columns, value => {
         if (!value[showType]) {
           if (has(value, renderType)) {
             value.render = value[renderType];
-          } else if (value.key === "action" && type === "table") {
+          } else if (value.key === "action" && showType === "notShowTable") {
             value.render = (h, params) => {
               return (
                 <div class="actions">
@@ -136,7 +153,7 @@ export default {
               );
             };
           }
-          if (!(value.key === "action" && type === "search")) {
+          if (!(value.key === "action" && showType !== "notShowTable")) {
             //排除操作在search里面显示
             arr.push(value);
           }
@@ -157,7 +174,12 @@ export default {
     },
     async tableAction(val, params) {
       switch (val.type) {
+        case "new":
+          this.formDialog.proFormData = {};
+          this.formDialog.show = true;
+          break;
         case "edit":
+          this.formDialog.proFormData = params.row;
           this.formDialog.show = true;
           break;
         case "delete":
@@ -202,6 +224,20 @@ export default {
 
       this.proData = get(res.data, this.map.dataPath);
       this.total = get(res.data, this.map.totalPath);
+    },
+    async submitForm() {
+      const res = await axios({
+        url: this.request,
+        method: "POST",
+        data: this.formDialog.proFormData
+      });
+      if (res.data) {
+        this.$Message.success({
+          content: res.data.msg || "成功"
+        });
+        this.formDialog.show = false;
+        this.fetch();
+      }
     }
   }
 };
