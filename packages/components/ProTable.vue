@@ -3,9 +3,9 @@
     <ProSearch
       v-model="form"
       :columns="formColumns"
+      :loading="loading"
       v-bind="$attrs"
       v-on="$listeners"
-      :loading="loading"
       @search="search"
       @reset="reset"
     ></ProSearch>
@@ -31,6 +31,9 @@
         v-on="$listeners"
       />
     </div>
+    <Modal v-model="formDialog.show" title="修改">
+      <ProForm v-if="formDialog.show"></ProForm>
+    </Modal>
   </div>
 </template>
 
@@ -38,10 +41,14 @@
 import axios from "axios";
 import { isString, isObject, get, map, has } from "lodash";
 import ProSearch from "./ProSearch";
+import ProForm from "./ProForm";
 export default {
   name: "ProTable",
   data() {
     return {
+      formDialog: {
+        show: false
+      },
       loading: false,
       proData: [],
       form: {},
@@ -72,11 +79,12 @@ export default {
       return this.columnFilter("table");
     },
     formColumns() {
-      return this.columnFilter("form");
+      return this.columnFilter("search");
     }
   },
   components: {
-    ProSearch
+    ProSearch,
+    ProForm
   },
   created() {
     this.fetch();
@@ -85,16 +93,57 @@ export default {
     columnFilter(type) {
       let arr = [];
       const showType = type === "table" ? "notShowTable" : "notShowForm";
-      const renderType = type === "table" ? "renderTable" : "renderTable";
+      const renderType = type === "table" ? "renderTable" : "renderSearch";
       map(this.columns, value => {
         if (!value[showType]) {
           if (has(value, renderType)) {
-            value.render = value.renderTable;
+            value.render = value[renderType];
+          } else if (value.key === "action" && type === "table") {
+            value.render = (h, params) => {
+              return (
+                <div class="actions">
+                  {map(value.actions, val => {
+                    return (
+                      <a
+                        class="button"
+                        onClick={() => {
+                          if (val.action) {
+                            val.action(params);
+                          } else if (val.type) {
+                            this.tableAction(val);
+                          } else {
+                            console.warn("未定义类型");
+                          }
+                        }}
+                      >
+                        {val.title}
+                      </a>
+                    );
+                  })}
+                </div>
+              );
+            };
           }
-          arr.push(value);
+          if (!(value.key === "action" && type === "search")) {
+            //排除操作在search里面显示
+            arr.push(value);
+          }
         }
       });
       return arr;
+    },
+    async tableAction(val) {
+      switch (val.type) {
+        case "edit":
+          this.formDialog.show = true;
+          break;
+        case "delete":
+          await axios.delete(val.request);
+          this.fetch();
+          break;
+        default:
+          break;
+      }
     },
     pageChange(current) {
       this.page.current = current;
@@ -143,6 +192,12 @@ export default {
     margin-top: 15px;
     display: flex;
     justify-content: flex-end;
+  }
+  .actions {
+    font-size: 12px;
+    .button {
+      margin-right: 10px;
+    }
   }
 }
 </style>

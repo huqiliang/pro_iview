@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 // @ is an alias to /src
 
 export default {
@@ -21,27 +21,50 @@ export default {
         {
           title: "cataLog",
           key: "cataLog",
-          renderForm() {},
+          renderSearch() {},
           renderTable: () => {
             return <div>aaa</div>;
           }
         },
         {
           title: "createUser",
-          // notShowTable: true,
           key: "createUser"
         },
         {
           title: "descript",
           key: "descript"
+        },
+        {
+          title: "descript2",
+          key: "descript2"
+        },
+        {
+          title: "descript3",
+          key: "descript3"
+        },
+        {
+          title: "操作",
+          key: "action",
+          actions: [
+            {
+              title: "编辑",
+              type: "edit"
+            },
+            {
+              title: "删除",
+              type: "delete",
+              request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
+            }
+          ]
         }
       ],
-      request(options) {
-        console.log(options);
-        return axios.get("https://yapi.ihotel.cn/mock/67/sys/sysOptionList", {
-          params: { ...options }
-        });
-      },
+      request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+      // request(options) {
+      //   console.log(options);
+      //   return axios.get("https://yapi.ihotel.cn/mock/67/sys/sysOptionList", {
+      //     params: { ...options }
+      //   });
+      // },
       map: {
         dataPath: "data",
         totalPath: "totalRows"
