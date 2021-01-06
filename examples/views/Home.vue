@@ -1,11 +1,6 @@
 <template>
   <div class="home">
-    <pro-table
-      :request="request"
-      :map="map"
-      :columns="columns"
-      :label-width="90"
-    ></pro-table>
+    <pro-table :request="request" :map="map" :columns="columns"></pro-table>
   </div>
 </template>
 
