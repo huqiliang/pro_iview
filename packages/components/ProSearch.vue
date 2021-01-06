@@ -1,6 +1,5 @@
 <template>
   <Form v-bind="$attrs" v-on="$listeners" class="prosearch">
-    {{ value }}
     <Row>
       <Col
         span="8"
