@@ -22,7 +22,12 @@ export default {
           title: "cataLog",
           key: "cataLog",
           notShowForm: true,
-          renderSearch() {},
+          // renderSearch: () => {
+          //   return <div>aaa</div>;
+          // },
+          renderSearch: {
+            type: "InputNumber"
+          },
           renderTable: () => {
             return <div>aaa</div>;
           }

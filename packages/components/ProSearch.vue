@@ -1,5 +1,6 @@
 <template>
   <Form v-bind="$attrs" v-on="$listeners" class="prosearch">
+    {{ value }}
     <Row>
       <Col
         span="8"
@@ -8,7 +9,13 @@
         :key="item.key"
       >
         <FormItem class="formItem" :label="item.title + ' :'">
-          <Input clearable v-model="value[item.key]" class="input" />
+          <ProSearchItem
+            :render="item.renderSearch"
+            v-if="item.renderSearch"
+            v-model="value[item.key]"
+            class="input"
+          ></ProSearchItem>
+          <Input clearable v-model="value[item.key]" v-else class="input" />
         </FormItem>
       </Col>
       <div class="buttons">
@@ -26,6 +33,7 @@
 </template>
 
 <script>
+import ProSearchItem from "./ProSearch/ProSearchItem";
 export default {
   data() {
     return {
@@ -62,6 +70,9 @@ export default {
     search() {
       this.$emit("search");
     }
+  },
+  components: {
+    ProSearchItem
   }
 };
 </script>
@@ -79,6 +90,9 @@ export default {
     vertical-align: middle;
     cursor: pointer;
     margin-left: 15px;
+  }
+  .input {
+    width: 100%;
   }
 }
 </style>
