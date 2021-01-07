@@ -1,14 +1,16 @@
 <template>
   <div class="protable">
-    <ProSearch
-      v-model="form"
-      :columns="searchColumns"
-      :loading="loading"
-      v-bind="$attrs"
-      v-on="$listeners"
-      @search="search"
-      @reset="reset"
-    ></ProSearch>
+    <slot name="search">
+      <ProSearch
+        :columns="searchColumns"
+        :loading="loading"
+        v-model="form"
+        v-bind="$attrs"
+        v-on="$listeners"
+        @search="search"
+        @reset="reset"
+      ></ProSearch>
+    </slot>
     <Table
       :loading="loading"
       :columns="tableColumns"

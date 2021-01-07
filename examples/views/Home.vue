@@ -5,7 +5,9 @@
       :map="map"
       :columns="columns"
       :submitForm="submitForm"
-    ></pro-table>
+    >
+      <div slot="search"></div>
+    </pro-table>
   </div>
 </template>
 
