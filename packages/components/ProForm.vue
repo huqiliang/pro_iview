@@ -16,7 +16,9 @@
 </template>
 
 <script>
+// import { map } from "lodash";
 export default {
+  name: "ProForm",
   props: {
     columns: {
       type: Array,
@@ -24,10 +26,9 @@ export default {
         return [];
       }
     },
-    value: {}
-  },
-  data() {
-    return {};
+    value: {
+      default: {}
+    }
   }
 };
 </script>

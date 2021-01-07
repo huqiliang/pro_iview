@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <pro-form :columns="columns"></pro-form>
     <pro-table
       :request="request"
       :map="map"
@@ -101,12 +102,12 @@ export default {
       },
       submitForm: "/222"
     };
-  },
-  components: {}
+  }
 };
 </script>
 <style>
 .home {
-  width: 60%;
+  width: 70%;
+  margin: 0 auto;
 }
 </style>

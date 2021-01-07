@@ -51,6 +51,7 @@
 <script>
 import ProSearchItem from "./ProSearch/ProSearchItem";
 export default {
+  name: "ProSearch",
   data() {
     return {
       isDown: true
