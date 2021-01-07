@@ -64,7 +64,11 @@ export default {
     columns: {
       required: true
     },
-    value: {},
+    value: {
+      default() {
+        return {};
+      }
+    },
     searchLineNum: {
       default: 3
     }

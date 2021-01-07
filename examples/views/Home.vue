@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <pro-search :columns="columns"></pro-search>
     <pro-form :columns="columns"></pro-form>
     <pro-table
       :request="request"
@@ -14,7 +15,6 @@
 
 <script>
 import axios from "axios";
-// @ is an alias to /src
 
 export default {
   name: "Home",
@@ -102,6 +102,12 @@ export default {
       },
       submitForm: "/222"
     };
+  },
+  methods: {
+    table() {
+      const ref = this.$refs.proSearch;
+      console.log(ref.value);
+    }
   }
 };
 </script>

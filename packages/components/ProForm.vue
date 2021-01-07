@@ -27,7 +27,9 @@ export default {
       }
     },
     value: {
-      default: {}
+      default() {
+        return {};
+      }
     }
   }
 };
