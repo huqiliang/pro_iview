@@ -56,7 +56,7 @@
 
 <script>
 import axios from "axios";
-import { isString, isObject, get, map, has } from "lodash";
+import { isString, isObject, isFunction, get, map, has } from "lodash";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
 export default {
@@ -101,9 +101,7 @@ export default {
         totalPath: ""
       }
     },
-    submitForm: {
-      type: Function
-    }
+    submitForm: {}
   },
   computed: {
     tableColumns() {
@@ -230,11 +228,15 @@ export default {
     },
     async submit() {
       let res;
-      if (this.submitForm) {
+      if (isFunction(this.submitForm)) {
         res = await this.submitForm(this.formDialog.proFormData);
       } else {
         res = await axios({
-          url: this.request,
+          url: !this.submitForm
+            ? this.request
+            : isString(this.submitForm)
+            ? this.submitForm
+            : this.request,
           method: "POST",
           data: this.formDialog.proFormData
         });

@@ -22,8 +22,11 @@
         ></ProSearchItem>
         <Input clearable v-model="value[item.key]" v-else class="input" />
       </FormItem>
-      <FormItem class="item" style="margin-left:15px" :style="widthCalc()">
-        <label class="ivu-form-item-label">
+      <FormItem :style="widthCalc()" class="item" style="flex:auto">
+        <label
+          v-show="!isDown || (columns && columns.length % searchLineNum !== 0)"
+          class="ivu-form-item-label"
+        >
           <pre></pre>
         </label>
         <div class="input" style="clear:both;text-align:right">
@@ -31,7 +34,11 @@
           <Button @click="search" :loading="loading" class="ml10" type="primary"
             >查询</Button
           >
-          <a class="text" @click="upDown">
+          <a
+            v-if="columns && columns.length > searchLineNum"
+            class="text"
+            @click="upDown"
+          >
             {{ isDown ? "收起" : "展开" }}
             <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
           </a>
@@ -69,18 +76,20 @@ export default {
         };
       }
     },
-    widthCalc() {
+    widthCalc(isFull) {
       return {
-        width: `calc((100% - ${15 * (this.searchLineNum - 1)}px) / ${
-          this.searchLineNum
-        })`
+        width: isFull
+          ? "100%"
+          : `calc((100% - ${15 * (this.searchLineNum - 1)}px) / ${
+              this.searchLineNum
+            })`
       };
     },
     itemShow(i) {
       if (this.isDown) {
         return true;
       } else {
-        if (i > 1) {
+        if (i + 2 > this.searchLineNum) {
           return false;
         }
         return true;
@@ -119,8 +128,8 @@ export default {
   }
   .text {
     vertical-align: middle;
-    cursor: pointer;
-    margin-left: 12px;
+    position: relative;
+    left: 12px;
   }
   .input {
     width: 100%;

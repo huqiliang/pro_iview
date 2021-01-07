@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <pro-table :request="request" :map="map" :columns="columns"></pro-table>
+    <pro-table
+      :request="request"
+      :map="map"
+      :columns="columns"
+      :submitForm="submitForm"
+    ></pro-table>
   </div>
 </template>
 
@@ -16,7 +21,7 @@ export default {
         {
           title: "cataLog",
           key: "cataLog",
-          notShowForm: true,
+          notShowSearch: true,
           // renderSearch: () => {
           //   return <div>aaa</div>;
           // },
@@ -32,16 +37,28 @@ export default {
           key: "createUser"
         },
         {
+          title: "createUse2r2",
+          key: "createUs2er2"
+        },
+        {
+          title: "createUser3",
+          key: "createUser2"
+        },
+        {
+          title: "createUser3",
+          key: "createUser3"
+        },
+        {
+          title: "createUser4",
+          key: "createUser4"
+        },
+        {
+          title: "createUs3er4",
+          key: "createUs3er4"
+        },
+        {
           title: "descript",
           key: "descript"
-        },
-        {
-          title: "descript2",
-          key: "descript2"
-        },
-        {
-          title: "descript3",
-          key: "descript3"
         },
         {
           title: "操作",
@@ -80,7 +97,7 @@ export default {
         dataPath: "data",
         totalPath: "totalRows"
       },
-      submitForm() {}
+      submitForm: "/222"
     };
   },
   components: {}
