@@ -1,14 +1,12 @@
 <template>
   <div class="home">
-    <pro-search :columns="columns"></pro-search>
-    <pro-form :columns="columns"></pro-form>
+    <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form>
     <pro-table
       :request="request"
       :map="map"
       :columns="columns"
       :submitForm="submitForm"
     >
-      <div slot="search"></div>
     </pro-table>
   </div>
 </template>
@@ -20,6 +18,18 @@ export default {
   name: "Home",
   data() {
     return {
+      autoData: {
+        columns: [
+          {
+            title: "标题",
+            key: "toolBar",
+            type: "radio"
+          }
+        ],
+        value: {
+          toolBar: false
+        }
+      },
       columns: [
         {
           title: "cataLog",

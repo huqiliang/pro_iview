@@ -14,12 +14,12 @@
         :key="item.key"
         :label="item.title + ' :'"
       >
-        <ProSearchItem
+        <ProTypeItem
           :render="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
           class="input"
-        ></ProSearchItem>
+        ></ProTypeItem>
         <Input clearable v-model="value[item.key]" v-else class="input" />
       </FormItem>
       <FormItem :style="widthCalc()" class="item" style="flex:auto">
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import ProSearchItem from "./ProSearch/ProSearchItem";
+import ProTypeItem from "./ProTypeItem/ProTypeItem";
 export default {
   name: "ProSearch",
   data() {
@@ -112,7 +112,7 @@ export default {
     }
   },
   components: {
-    ProSearchItem
+    ProTypeItem
   }
 };
 </script>

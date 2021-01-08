@@ -224,9 +224,15 @@ export default {
         });
       }
       this.loading = false;
-
-      this.proData = get(res.data, this.map.dataPath);
-      this.total = get(res.data, this.map.totalPath);
+      if (res.data) {
+        const data = get(res.data, this.map.dataPath);
+        if (data) {
+          this.proData = data;
+          this.total = get(res.data, this.map.totalPath);
+        } else {
+          console.warn("未获取到数据");
+        }
+      }
     },
     async submit() {
       let res;

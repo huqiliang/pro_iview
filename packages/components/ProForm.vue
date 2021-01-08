@@ -8,7 +8,18 @@
         :label-width="100"
         v-for="item in columns"
       >
-        <Input type="text" v-model="value[item.key]" :placeholder="item.title">
+        <ProTypeItem
+          :render="item.renderForm"
+          v-if="item.renderForm"
+          v-model="value[item.key]"
+          class="input"
+        ></ProTypeItem>
+        <Input
+          v-else
+          type="text"
+          v-model="value[item.key]"
+          :placeholder="item.title"
+        >
         </Input>
       </FormItem>
     </Form>
@@ -16,7 +27,7 @@
 </template>
 
 <script>
-// import { map } from "lodash";
+import ProTypeItem from "./ProTypeItem/ProTypeItem";
 export default {
   name: "ProForm",
   props: {
@@ -31,8 +42,17 @@ export default {
         return {};
       }
     }
+  },
+  components: {
+    ProTypeItem
   }
 };
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.proform {
+  .input {
+    width: 100%;
+  }
+}
+</style>
