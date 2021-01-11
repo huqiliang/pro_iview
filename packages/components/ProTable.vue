@@ -47,7 +47,7 @@
       :loading="formDialog.formLoading"
       @on-ok="submit"
       v-model="formDialog.show"
-      title="修改"
+      :title="formDialog.isEdit ? '修改' : '新建'"
     >
       <ProForm
         :columns="formColumns"
@@ -68,6 +68,7 @@ export default {
     return {
       formDialog: {
         show: false,
+        isEdit: true,
         proFormData: {},
         formLoading: true
       },
@@ -180,10 +181,12 @@ export default {
       switch (val.type) {
         case "new":
           this.formDialog.proFormData = {};
+          this.formDialog.isEdit = false;
           this.formDialog.show = true;
           break;
         case "edit":
           this.formDialog.proFormData = params.row;
+          this.formDialog.isEdit = true;
           this.formDialog.show = true;
           break;
         case "delete":
