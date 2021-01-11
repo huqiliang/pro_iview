@@ -33,6 +33,7 @@
       <Page
         v-if="proData"
         :total="total"
+        :current="this.page.current"
         @on-change="pageChange"
         @on-page-size-change="pageSizeChange"
         transfer
@@ -203,9 +204,18 @@ export default {
       }
     },
     search() {
+      this.page = {
+        current: 1,
+        pageSize: 10
+      };
       this.fetch();
     },
     reset() {
+      this.page = {
+        current: 1,
+        pageSize: 10
+      };
+      this.formDialog.proFormData = {};
       this.fetch();
     },
     async fetch() {
