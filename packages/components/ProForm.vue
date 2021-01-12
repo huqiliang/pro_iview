@@ -9,7 +9,7 @@
         v-for="item in columns"
       >
         <ProTypeItem
-          :render="item.renderForm"
+          :renderItem="item.renderForm"
           v-if="item.renderForm"
           v-model="value[item.key]"
           class="input"

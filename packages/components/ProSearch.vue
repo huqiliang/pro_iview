@@ -15,7 +15,7 @@
         :label="item.title + ' :'"
       >
         <ProTypeItem
-          :render="item.renderSearch"
+          :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
           class="input"

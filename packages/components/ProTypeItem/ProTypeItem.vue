@@ -7,21 +7,22 @@ export default {
         return null;
       }
     },
-    render: {
+    renderItem: {
       default() {
         return null;
       }
     }
   },
   render(h) {
-    const isFunction = _.isFunction(this.render);
-    if (_.isEmpty(this.render)) {
+    const isFunction = _.isFunction(this.renderItem);
+    if (_.isEmpty(this.renderItem)) {
       return null;
     }
-    if (_.isObject(this.render)) {
-      return h(this.render.type, {
+    if (_.isObject(this.renderItem)) {
+      return h(this.renderItem.type, {
         props: {
-          value: this.value
+          value: this.value,
+          ...this.renderItem.props
         },
         on: {
           input: value => {
@@ -29,11 +30,12 @@ export default {
           },
           "on-change": value => {
             this.$emit("input", value);
-          }
+          },
+          ...this.renderItem.on
         }
       });
     }
-    return isFunction ? this.render() : null;
+    return isFunction ? this.renderItem() : null;
   }
 };
 </script>

@@ -59,7 +59,7 @@
 
 <script>
 import axios from "axios";
-import { isString, isObject, isFunction, get, map, has } from "lodash";
+import _, { isString, isObject, isFunction, get, map, has } from "lodash";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
 export default {
@@ -128,8 +128,9 @@ export default {
   },
   methods: {
     columnFilter(showType, renderType) {
+      const columns = _.cloneDeep(this.columns);
       let arr = [];
-      map(this.columns, value => {
+      map(columns, value => {
         if (!value[showType]) {
           if (has(value, renderType)) {
             value.render = value[renderType];
