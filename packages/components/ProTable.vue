@@ -168,7 +168,6 @@ export default {
       return arr;
     },
     customRequest(val, params) {
-      console.log(val.request);
       if (isString(val.request)) {
         return axios({
           url: val.request,
@@ -194,6 +193,7 @@ export default {
           break;
         case "delete":
           await this.customRequest(val, params);
+          this.fetch();
           break;
         default:
           break;
@@ -259,7 +259,6 @@ export default {
     async submit() {
       let res;
       this.formDialog.formLoading = false;
-      console.log(this.usedRow.val, "request");
       if (has(this.usedRow.val, "request")) {
         const { val, params } = this.usedRow;
         res = await this.customRequest(val, params);
@@ -278,7 +277,6 @@ export default {
           });
         }
       }
-      console.log(this.options);
       if (res.data) {
         this.$Message.success({
           content: res.data.msg || "成功"
@@ -286,7 +284,6 @@ export default {
         this.formDialog.show = false;
         this.fetch();
       }
-      console.log(res);
       this.formDialog.formLoading = true;
     }
   }
