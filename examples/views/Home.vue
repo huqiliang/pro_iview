@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form>
+    <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <pro-table
       :request="request"
       :map="map"
@@ -79,22 +79,23 @@ export default {
           actions: [
             {
               title: "编辑",
-              type: "edit"
+              method: "POST",
+              type: "edit",
+              request(options) {
+                console.log(options);
+                return axios.post(
+                  "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+                  {
+                    a: options.row.cateLog
+                  }
+                );
+              }
             },
             {
               title: "删除",
               type: "delete",
               method: "post",
-              requestParams: "id",
-              request(options) {
-                console.log(options);
-                return axios.delete(
-                  "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
-                  {
-                    params: { ...options }
-                  }
-                );
-              }
+              requestParams: "id"
             }
           ]
         }

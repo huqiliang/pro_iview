@@ -76,6 +76,7 @@ export default {
       proData: [],
       form: {},
       total: null,
+      usedRow: null,
       page: {
         current: 1,
         pageSize: 10
@@ -167,6 +168,7 @@ export default {
       return arr;
     },
     customRequest(val, params) {
+      console.log(val.request);
       if (isString(val.request)) {
         return axios({
           url: val.request,
@@ -174,10 +176,11 @@ export default {
           params: { id: params.row[val.requestParams] }
         }).then(this.fetch);
       } else {
-        return val.request(params).then(this.fetch);
+        return val.request(params);
       }
     },
     async tableAction(val, params) {
+      this.usedRow = { val, params };
       switch (val.type) {
         case "new":
           this.formDialog.proFormData = {};
@@ -237,31 +240,45 @@ export default {
         });
       }
       this.loading = false;
-      if (res.data) {
+      if (res && res.data) {
         const data = get(res.data, this.map.dataPath);
         if (data) {
           this.proData = data;
           this.total = get(res.data, this.map.totalPath);
         } else {
+          this.proData = [];
+          this.total = null;
           console.warn("未获取到数据");
         }
+      } else {
+        this.proData = [];
+        this.total = null;
+        console.error("出错了");
       }
     },
     async submit() {
       let res;
-      if (isFunction(this.submitForm)) {
-        res = await this.submitForm(this.formDialog.proFormData);
+      this.formDialog.formLoading = false;
+      console.log(this.usedRow.val, "request");
+      if (has(this.usedRow.val, "request")) {
+        const { val, params } = this.usedRow;
+        res = await this.customRequest(val, params);
       } else {
-        res = await axios({
-          url: !this.submitForm
-            ? this.request
-            : isString(this.submitForm)
-            ? this.submitForm
-            : this.request,
-          method: "POST",
-          data: this.formDialog.proFormData
-        });
+        if (isFunction(this.submitForm)) {
+          res = await this.submitForm(this.formDialog.proFormData);
+        } else {
+          res = await axios({
+            url: !this.submitForm
+              ? this.request
+              : isString(this.submitForm)
+              ? this.submitForm
+              : this.request,
+            method: "POST",
+            data: this.formDialog.proFormData
+          });
+        }
       }
+      console.log(this.options);
       if (res.data) {
         this.$Message.success({
           content: res.data.msg || "成功"
@@ -269,6 +286,8 @@ export default {
         this.formDialog.show = false;
         this.fetch();
       }
+      console.log(res);
+      this.formDialog.formLoading = true;
     }
   }
 };
