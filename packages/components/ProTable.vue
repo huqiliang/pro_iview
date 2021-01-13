@@ -5,20 +5,20 @@
         :columns="searchColumns"
         :loading="loading"
         v-model="form"
-        v-bind="$attrs"
-        v-on="$listeners"
         @search="search"
         @reset="reset"
+        v-bind="$attrs"
+        v-on="$listeners"
       ></ProSearch>
     </slot>
     <Table
       :loading="loading"
       :columns="tableColumns"
       :data="proData"
-      v-bind="$attrs"
-      v-on="$listeners"
       class="table"
       border
+      v-bind="$attrs"
+      v-on="$listeners"
     >
       <div v-if="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ title }}</div>
@@ -49,10 +49,14 @@
       v-model="formDialog.show"
       :title="formDialog.isEdit ? '修改' : '新建'"
     >
-      <ProForm
-        :columns="formColumns"
-        v-model="formDialog.proFormData"
-      ></ProForm>
+      <div class="content">
+        <ProForm
+          :columns="formColumns"
+          v-model="formDialog.proFormData"
+          v-bind="$attrs"
+          v-on="$listeners"
+        ></ProForm>
+      </div>
     </Modal>
   </div>
 </template>
@@ -292,6 +296,10 @@ export default {
 </script>
 
 <style lang="less">
+.content {
+  width: 80%;
+  margin: 0 auto;
+}
 .protable {
   .tableHeader {
     display: flex;

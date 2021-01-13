@@ -1,10 +1,5 @@
 <template>
-  <Form
-    v-bind="$attrs"
-    label-position="left"
-    v-on="$listeners"
-    class="prosearch"
-  >
+  <Form label-position="left" v-on="$listeners" class="prosearch">
     <div class="search">
       <FormItem
         class="item"
@@ -18,7 +13,7 @@
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
-          class="input"
+          class="input ivu-input-wrapper"
         ></ProTypeItem>
         <Input clearable v-model="value[item.key]" v-else class="input" />
       </FormItem>

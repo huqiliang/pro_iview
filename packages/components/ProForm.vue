@@ -1,18 +1,24 @@
 <template>
   <div class="proform">
-    <Form ref="form" :model="value" inline>
+    <Form
+      ref="form"
+      :model="value"
+      :label-width="110"
+      label-position="left"
+      v-bind="$attrs"
+      v-on="$listeners"
+    >
       <FormItem
         :prop="item.key"
         :key="item.key"
         :label="item.title + ' :'"
-        :label-width="100"
         v-for="item in columns"
       >
         <ProTypeItem
           :renderItem="item.renderForm"
           v-if="item.renderForm"
           v-model="value[item.key]"
-          class="input"
+          class="input ivu-input-wrapper"
         ></ProTypeItem>
         <Input
           v-else
@@ -48,11 +54,3 @@ export default {
   }
 };
 </script>
-
-<style lang="less" scoped>
-.proform {
-  .input {
-    width: 100%;
-  }
-}
-</style>

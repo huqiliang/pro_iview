@@ -6,6 +6,7 @@
       :map="map"
       :columns="columns"
       :submitForm="submitForm"
+      :label-width="120"
     >
     </pro-table>
   </div>
@@ -13,7 +14,7 @@
 
 <script>
 import axios from "axios";
-
+import dayjs from "dayjs";
 export default {
   name: "Home",
   data() {
@@ -34,20 +35,26 @@ export default {
         {
           title: "cataLog",
           key: "cataLog",
-          notShowSearch: true,
-          // renderSearch: () => {
-          //   return <div>aaa</div>;
-          // },
-          renderSearch: {
-            type: "InputNumber"
+          renderForm: {
+            type: "DatePicker",
+            props: {
+              placeholder: "lastDate",
+              format: "yyyy-MM-dd hh:mm:ss"
+            },
+            format(value) {
+              return dayjs(value).format("YYYY-MM-DD hh:mm:ss");
+            }
           },
           renderTable: () => {
-            return <div>aaa</div>;
+            return <span>aaa</span>;
           }
         },
         {
           title: "createUser",
-          key: "createUser"
+          key: "createUser",
+          renderSearch: () => {
+            return <div>aaa</div>;
+          }
         },
         {
           title: "createUse2r2",

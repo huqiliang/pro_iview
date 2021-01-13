@@ -13,12 +13,17 @@ export default {
       }
     }
   },
-  render(h) {
-    const isFunction = _.isFunction(this.renderItem);
-    if (_.isEmpty(this.renderItem)) {
-      return null;
+  methods: {
+    emit(value) {
+      if (_.has(this.renderItem, "format")) {
+        this.$emit("input", this.renderItem.format(value));
+      } else {
+        this.$emit("input", value);
+      }
     }
-    if (_.isObject(this.renderItem)) {
+  },
+  render(h) {
+    if (_.isObjectLike(this.renderItem)) {
       return h(this.renderItem.type, {
         props: {
           value: this.value,
@@ -26,16 +31,18 @@ export default {
         },
         on: {
           input: value => {
-            this.$emit("input", value);
+            if (value) {
+              this.emit(value);
+            }
           },
-          "on-change": value => {
-            this.$emit("input", value);
-          },
+          "on-change": this.emit,
           ...this.renderItem.on
         }
       });
+    } else if (_.isFunction(this.renderItem)) {
+      return this.renderItem();
     }
-    return isFunction ? this.renderItem() : null;
+    return null;
   }
 };
 </script>
