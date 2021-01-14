@@ -118,7 +118,7 @@ export default {
         dataPath: "data",
         totalPath: "totalRows"
       },
-      submitForm: "/222"
+      submitForm: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
     };
   },
   methods: {

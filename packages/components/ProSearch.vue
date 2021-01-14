@@ -25,16 +25,22 @@
           <pre></pre>
         </label>
         <div class="input" style="clear:both;text-align:right">
-          <Button @click="reset" class="ml10">重置</Button>
-          <Button @click="search" :loading="loading" class="ml10" type="primary"
-            >查询</Button
+          <Button @click="reset" class="ml10">{{
+            t("pro.common.reset")
+          }}</Button>
+          <Button
+            @click="search"
+            :loading="loading"
+            class="ml10"
+            type="primary"
+            >{{ t("pro.common.search") }}</Button
           >
           <a
             v-if="columns && columns.length > searchLineNum"
             class="text"
             @click="upDown"
           >
-            {{ isDown ? "收起" : "展开" }}
+            {{ isDown ? t("pro.common.packUp") : t("pro.common.spread") }}
             <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
           </a>
         </div>
@@ -45,8 +51,11 @@
 
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
+import Locale from "../mixin/locale";
+
 export default {
   name: "ProSearch",
+  mixins: [Locale],
   data() {
     return {
       isDown: true

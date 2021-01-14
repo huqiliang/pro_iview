@@ -24,7 +24,7 @@
         <div class="title">{{ title }}</div>
         <div class="buttons">
           <Button @click="tableAction({ type: 'new' })" type="primary"
-            ><Icon type="md-add" />新建</Button
+            ><Icon type="md-add" />{{ t("pro.common.new") }}</Button
           >
         </div>
       </div>
@@ -47,7 +47,7 @@
       :loading="formDialog.formLoading"
       @on-ok="submit"
       v-model="formDialog.show"
-      :title="formDialog.isEdit ? '修改' : '新建'"
+      :title="formDialog.isEdit ? t('pro.common.edit') : t('pro.common.new')"
     >
       <div class="content">
         <ProForm
@@ -66,8 +66,11 @@ import axios from "axios";
 import _, { isString, isObject, isFunction, get, map, has } from "lodash";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
+import Locale from "../mixin/locale";
+
 export default {
   name: "ProTable",
+  mixins: [Locale],
   data() {
     return {
       formDialog: {
@@ -92,7 +95,9 @@ export default {
       default: true
     },
     title: {
-      default: "表格标题"
+      default() {
+        return this.$t("pro.table.title");
+      }
     },
     columns: {
       required: true
@@ -284,7 +289,7 @@ export default {
       }
       if (res.data) {
         this.$Message.success({
-          content: res.data.msg || "成功"
+          content: res.data.msg || this.$t("pro.common.success")
         });
         this.formDialog.show = false;
         this.fetch();
