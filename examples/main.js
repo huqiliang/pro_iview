@@ -23,8 +23,8 @@ const messages = {
 };
 const i18n = new VueI18n({
   locale: "zh-CN", // set locale
-  messages // set locale messages
-  //silentTranslationWarn: true
+  messages, // set locale messages
+  silentTranslationWarn: true
 });
 
 new Vue({

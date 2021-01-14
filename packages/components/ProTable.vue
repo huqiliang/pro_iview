@@ -21,7 +21,7 @@
       v-on="$listeners"
     >
       <div v-if="toolBar" slot="header" class="tableHeader">
-        <div class="title">{{ title }}</div>
+        <div class="title">{{ tableTitle }}</div>
         <div class="buttons">
           <Button @click="tableAction({ type: 'new' })" type="primary"
             ><Icon type="md-add" />{{ t("pro.common.new") }}</Button
@@ -96,7 +96,7 @@ export default {
     },
     title: {
       default() {
-        return this.$t("pro.table.title");
+        return "";
       }
     },
     columns: {
@@ -118,6 +118,9 @@ export default {
     submitForm: {}
   },
   computed: {
+    tableTitle() {
+      return this.title || this.t("pro.table.title");
+    },
     tableColumns() {
       return this.columnFilter("notShowTable", "renderTable");
     },

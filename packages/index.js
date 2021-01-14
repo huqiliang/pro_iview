@@ -23,7 +23,7 @@ if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 
-const API = {
+export default {
   version,
   locale: locale.use,
   i18n: locale.i18n,
@@ -32,10 +32,3 @@ const API = {
   // 以下是具体的组件列表
   ...components
 };
-API.lang = code => {
-  const langObject = window["iview/locale"].default;
-  if (code === langObject.i.locale) locale.use(langObject);
-  else console.log(`The ${code} language pack is not loaded.`); // eslint-disable-line no-console
-};
-
-export default API;
