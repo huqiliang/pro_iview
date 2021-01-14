@@ -200,7 +200,7 @@ export default {
           this.formDialog.show = true;
           break;
         case "edit":
-          this.formDialog.proFormData = params.row;
+          this.formDialog.proFormData = _.cloneDeep(params.row);
           this.formDialog.isEdit = true;
           this.formDialog.show = true;
           break;
@@ -274,7 +274,9 @@ export default {
       this.formDialog.formLoading = false;
       if (has(this.usedRow.val, "request")) {
         const { val, params } = this.usedRow;
-        res = await this.customRequest(val, params);
+        const usedRow = _.cloneDeep(params);
+        usedRow.row = this.formDialog.proFormData;
+        res = await this.customRequest(val, usedRow);
       } else {
         if (isFunction(this.submitForm)) {
           res = await this.submitForm(this.formDialog.proFormData);
