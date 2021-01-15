@@ -7,7 +7,7 @@
       :columns="columns"
       :submitForm="submitForm"
       :searchLineNum="2"
-      :searchLableWidth="150"
+      :searchLableWidth="120"
     >
     </pro-table>
   </div>

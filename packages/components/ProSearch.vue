@@ -13,10 +13,15 @@
         <label
           class="ivu-form-item-label itemLabel"
           :style="{
-            width: position === 'top' ? '100%' : `${searchLableWidth}px`
+            width:
+              position === 'top'
+                ? '100%'
+                : searchLableWidth
+                ? `${searchLableWidth}px`
+                : 'auto'
           }"
-          >{{ item.title }} :</label
-        >
+          >{{ item.title }}:
+        </label>
         <ProTypeItem
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
@@ -87,9 +92,7 @@ export default {
         return {};
       }
     },
-    searchLableWidth: {
-      default: 100
-    },
+    searchLableWidth: {},
     searchLineNum: {
       default: 3
     }
