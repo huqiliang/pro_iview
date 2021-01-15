@@ -1,25 +1,34 @@
 <template>
-  <Form label-position="left" v-on="$listeners" class="prosearch">
+  <Form v-on="$listeners" class="prosearch">
     <div class="search">
-      <FormItem
+      <div
         class="item"
-        :style="[offset(i), widthCalc()]"
+        :class="position"
         v-for="(item, i) in columns"
         v-show="itemShow(i)"
+        :style="[offset(i), widthCalc()]"
         :key="item.key"
         :label="item.title + ' :'"
       >
+        <label
+          class="ivu-form-item-label"
+          :style="{ width: position === 'top' ? '100%' : '100px' }"
+          >cataLog :</label
+        >
         <ProTypeItem
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
-          class="input ivu-input-wrapper"
+          class="input"
         ></ProTypeItem>
-        <Input clearable v-model="value[item.key]" v-else class="input" />
-      </FormItem>
-      <FormItem :style="widthCalc()" class="item" style="flex:auto">
+        <Input clearable v-model="value[item.key]" v-else />
+      </div>
+      <div :style="widthCalc()" class="item" style="flex:auto">
         <label
-          v-show="!isDown || (columns && columns.length % searchLineNum !== 0)"
+          v-show="
+            position === 'top' &&
+              (!isDown || (columns && columns.length % searchLineNum !== 0))
+          "
           class="ivu-form-item-label"
         >
           <pre></pre>
@@ -44,7 +53,7 @@
             <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
           </a>
         </div>
-      </FormItem>
+      </div>
     </div>
   </Form>
 </template>
@@ -62,6 +71,9 @@ export default {
     };
   },
   props: {
+    position: {
+      default: "left"
+    },
     loading: {
       default: false
     },
@@ -124,6 +136,19 @@ export default {
 <style lang="less">
 .prosearch {
   margin: 0 10px;
+  .item {
+    margin-bottom: 20px;
+  }
+  .left {
+    display: flex;
+    text-align: left;
+  }
+  .top {
+    position: relative;
+    .ivu-form-item-label {
+      text-align: left;
+    }
+  }
   .buttons {
     text-align: right;
   }
@@ -142,6 +167,9 @@ export default {
   }
   .input {
     width: 100%;
+    height: 32px;
+    line-height: 34px;
+    text-align: left;
   }
 }
 </style>

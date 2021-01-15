@@ -6,7 +6,7 @@
       :map="map"
       :columns="columns"
       :submitForm="submitForm"
-      :label-width="120"
+      :searchLineNum="2"
     >
     </pro-table>
   </div>
