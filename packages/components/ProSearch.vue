@@ -3,17 +3,19 @@
     <div class="search">
       <div
         class="item"
-        :class="position"
         v-for="(item, i) in columns"
         v-show="itemShow(i)"
+        :class="position"
         :style="[offset(i), widthCalc()]"
         :key="item.key"
         :label="item.title + ' :'"
       >
         <label
-          class="ivu-form-item-label"
-          :style="{ width: position === 'top' ? '100%' : '100px' }"
-          >cataLog :</label
+          class="ivu-form-item-label itemLabel"
+          :style="{
+            width: position === 'top' ? '100%' : `${searchLableWidth}px`
+          }"
+          >{{ item.title }} :</label
         >
         <ProTypeItem
           :renderItem="item.renderSearch"
@@ -85,6 +87,9 @@ export default {
         return {};
       }
     },
+    searchLableWidth: {
+      default: 100
+    },
     searchLineNum: {
       default: 3
     }
@@ -138,6 +143,10 @@ export default {
   margin: 0 10px;
   .item {
     margin-bottom: 20px;
+    .itemLabel {
+      text-align: left;
+      padding: 10px 0;
+    }
   }
   .left {
     display: flex;
