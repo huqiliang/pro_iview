@@ -51,6 +51,7 @@
     >
       <div class="content">
         <ProForm
+          ref="proForm"
           :columns="formColumns"
           v-model="formDialog.proFormData"
           v-bind="$attrs"
@@ -151,17 +152,22 @@ export default {
               return (
                 <div class="actions">
                   {map(value.actions, val => {
-                    return (
+                    return val.type === "delete" ? (
+                      <Poptip
+                        transfer={true}
+                        confirm
+                        title={this.t("pro.table.deleteTip")}
+                        onOn-ok={() => this.typeAction(val, params)}
+                        ok-text={this.t("pro.common.yes")}
+                        cancel-text={this.t("pro.common.no")}
+                      >
+                        <a class="button">{val.title}</a>
+                      </Poptip>
+                    ) : (
                       <a
                         class="button"
                         onClick={() => {
-                          if (val.action) {
-                            val.action(params);
-                          } else if (val.type) {
-                            this.tableAction(val, params);
-                          } else {
-                            console.warn("未定义类型");
-                          }
+                          this.typeAction(val, params);
                         }}
                       >
                         {val.title}
@@ -189,6 +195,15 @@ export default {
         }).then(this.fetch);
       } else {
         return val.request(params);
+      }
+    },
+    typeAction(val, params) {
+      if (val.action) {
+        val.action(params);
+      } else if (val.type) {
+        this.tableAction(val, params);
+      } else {
+        console.warn("未定义类型");
       }
     },
     async tableAction(val, params) {
@@ -269,37 +284,45 @@ export default {
         console.error("出错了");
       }
     },
-    async submit() {
-      let res;
+    submit() {
       this.formDialog.formLoading = false;
-      if (has(this.usedRow.val, "request")) {
-        const { val, params } = this.usedRow;
-        const usedRow = _.cloneDeep(params);
-        usedRow.row = this.formDialog.proFormData;
-        res = await this.customRequest(val, usedRow);
-      } else {
-        if (isFunction(this.submitForm)) {
-          res = await this.submitForm(this.formDialog.proFormData);
+      this.$refs["proForm"].validate(async valid => {
+        if (valid) {
+          let res;
+          if (has(this.usedRow.val, "request")) {
+            const { val, params } = this.usedRow;
+            const usedRow = _.cloneDeep(params);
+            usedRow.row = this.formDialog.proFormData;
+            res = await this.customRequest(val, usedRow);
+          } else {
+            if (isFunction(this.submitForm)) {
+              res = await this.submitForm(this.formDialog.proFormData);
+            } else {
+              res = await axios({
+                url: !this.submitForm
+                  ? this.request
+                  : isString(this.submitForm)
+                  ? this.submitForm
+                  : this.request,
+                method: "POST",
+                data: this.formDialog.proFormData
+              });
+            }
+          }
+          if (res.data) {
+            this.$Message.success({
+              content: res.data.msg || this.$t("pro.common.success")
+            });
+            this.formDialog.show = false;
+            this.fetch();
+          }
+          this.formDialog.formLoading = true;
         } else {
-          res = await axios({
-            url: !this.submitForm
-              ? this.request
-              : isString(this.submitForm)
-              ? this.submitForm
-              : this.request,
-            method: "POST",
-            data: this.formDialog.proFormData
-          });
+          setTimeout(() => {
+            this.formDialog.formLoading = true;
+          }, 100);
         }
-      }
-      if (res.data) {
-        this.$Message.success({
-          content: res.data.msg || this.$t("pro.common.success")
-        });
-        this.formDialog.show = false;
-        this.fetch();
-      }
-      this.formDialog.formLoading = true;
+      });
     }
   }
 };

@@ -51,6 +51,9 @@ export default {
         },
         {
           title: "createUser",
+          rules: {
+            required: true
+          },
           key: "createUser",
           renderSearch: () => {
             return <div>aaa</div>;
@@ -102,7 +105,7 @@ export default {
               title: "删除",
               type: "delete",
               method: "post",
-              requestParams: "id"
+              request: "/id"
             }
           ]
         }

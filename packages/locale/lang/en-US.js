@@ -10,10 +10,13 @@ export default {
       reset: "Rest",
       search: "Search",
       action: "Action",
-      success: "Success"
+      success: "Success",
+      yes: "Yes",
+      no: "No"
     },
     table: {
-      title: "Table Title"
+      title: "Table Title",
+      deleteTip: "Are you sure delete this row?"
     }
   }
 };

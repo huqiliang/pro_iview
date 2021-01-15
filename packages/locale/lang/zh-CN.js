@@ -10,10 +10,13 @@ export default {
       reset: "重置",
       search: "查询",
       action: "操作",
-      success: "成功"
+      success: "成功",
+      yes: "确定",
+      no: "取消"
     },
     table: {
-      title: "表格标题"
+      title: "表格标题",
+      deleteTip: "是否删除该行?"
     }
   }
 };

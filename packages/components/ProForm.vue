@@ -12,6 +12,7 @@
         :prop="item.key"
         :key="item.key"
         :label="item.title + ' :'"
+        :rules="item.rules"
         v-for="item in columns"
       >
         <ProTypeItem
@@ -47,6 +48,11 @@ export default {
       default() {
         return {};
       }
+    }
+  },
+  methods: {
+    validate(fn) {
+      this.$refs["form"].validate(fn);
     }
   },
   components: {
