@@ -148,7 +148,7 @@ export default {
     margin-bottom: 20px;
     .itemLabel {
       text-align: left;
-      padding: 10px 0;
+      padding: 10px 10px 10px 0;
     }
   }
   .left {
