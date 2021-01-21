@@ -2,6 +2,7 @@
 import _ from "lodash";
 export default {
   props: {
+    item: null,
     value: {
       default() {
         return null;
@@ -14,7 +15,7 @@ export default {
     }
   },
   methods: {
-    emit(value) {
+    input(value) {
       if (_.has(this.renderItem, "format")) {
         this.$emit("input", this.renderItem.format(value));
       } else {
@@ -32,15 +33,15 @@ export default {
         on: {
           input: value => {
             if (value) {
-              this.emit(value);
+              this.input(value);
             }
           },
-          "on-change": this.emit,
+          "on-change": this.input,
           ...this.renderItem.on
         }
       });
     } else if (_.isFunction(this.renderItem)) {
-      return this.renderItem();
+      return this.renderItem({ h, input: this.input, value: this.value });
     }
     return null;
   }
