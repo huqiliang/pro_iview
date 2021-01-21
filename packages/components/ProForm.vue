@@ -3,7 +3,7 @@
     <Form
       ref="form"
       :model="value"
-      :label-width="110"
+      :label-width="labelWidth"
       label-position="left"
       v-bind="$attrs"
       v-on="$listeners"
@@ -38,6 +38,12 @@ import ProTypeItem from "./ProTypeItem/ProTypeItem";
 export default {
   name: "ProForm",
   props: {
+    labelWidth: {
+      type: Number,
+      default() {
+        return 110;
+      }
+    },
     columns: {
       type: Array,
       default() {
@@ -51,6 +57,9 @@ export default {
     }
   },
   methods: {
+    reset(fn) {
+      this.$refs["form"].resetFields(fn);
+    },
     validate(fn) {
       this.$refs["form"].validate(fn);
     }

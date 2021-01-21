@@ -46,6 +46,7 @@
     <Modal
       :loading="formDialog.formLoading"
       @on-ok="submit"
+      @on-cancel="cancel"
       v-model="formDialog.show"
       :title="formDialog.isEdit ? t('pro.common.edit') : t('pro.common.new')"
     >
@@ -249,8 +250,12 @@ export default {
         current: 1,
         pageSize: 10
       };
+      this.$refs["proForm"].reset();
       this.formDialog.proFormData = {};
       this.fetch();
+    },
+    cancel() {
+      this.$refs["proForm"].reset();
     },
     async fetch() {
       let res;
@@ -314,6 +319,7 @@ export default {
               content: res.data.msg || this.$t("pro.common.success")
             });
             this.formDialog.show = false;
+            this.$refs["proForm"].reset();
             this.fetch();
           }
           this.formDialog.formLoading = true;
