@@ -8636,6 +8636,11 @@ vue-i18n@^8.22.3:
   resolved "https://registry.npmjs.org/vue-i18n/-/vue-i18n-8.22.3.tgz#4ac0fdc3e71d4fe188938c40a9ffca32cde60732"
   integrity sha512-Vhyx7sZEmmW/aZLkzSlXei08Rv3hTondx4J9wbOjnThocTIK1QiXV6QRdT4BTnhT24JixDSf6kGkxqCXSaJ3Jw==
 
+vue-json-pretty@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/vue-json-pretty/-/vue-json-pretty-1.7.1.tgz#c7cd0ef9e85d89025a8bf87a0da14b0fc7d19913"
+  integrity sha512-D7aHQ5XPooSAEndTkb/RvXXJdmuCjaj14IMRdJwO4q+yJMpzPv87FT2gz4Dt2mCr1EzFyat7z7Qv9R+l/1as+w==
+
 "vue-loader-v16@npm:vue-loader@^16.0.0-beta.7":
   version "16.1.2"
   resolved "https://registry.npm.taobao.org/vue-loader/download/vue-loader-16.1.2.tgz?cache=0&sync_timestamp=1608187944571&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-loader%2Fdownload%2Fvue-loader-16.1.2.tgz#5c03b6c50d2a5f983c7ceba15c50d78ca2b298f4"

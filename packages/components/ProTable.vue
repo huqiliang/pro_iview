@@ -65,7 +65,8 @@
 
 <script>
 import axios from "axios";
-import _, { isString, isObject, isFunction, get, map, has } from "lodash";
+import _, { isString, isFunction, get, map, has } from "lodash";
+import customRequest from "../libs/request";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
 import Locale from "../mixin/locale";
@@ -187,17 +188,6 @@ export default {
       });
       return arr;
     },
-    customRequest(val, params) {
-      if (isString(val.request)) {
-        return axios({
-          url: val.request,
-          method: val.method ? val.method : "delete",
-          params: { id: params.row[val.requestParams] }
-        }).then(this.fetch);
-      } else {
-        return val.request(params);
-      }
-    },
     typeAction(val, params) {
       if (val.action) {
         val.action(params);
@@ -221,7 +211,7 @@ export default {
           this.formDialog.show = true;
           break;
         case "delete":
-          await this.customRequest(val, params);
+          await customRequest(val, params.row);
           this.fetch();
           break;
         default:
@@ -258,20 +248,21 @@ export default {
       this.$refs["proForm"].reset();
     },
     async fetch() {
-      let res;
+      // let res;
       this.loading = true;
-      if (isString(this.request)) {
-        res = await axios({
-          url: this.request,
-          method: this.method,
-          params: { ...this.page, ...this.form }
-        });
-      } else if (isObject(this.request)) {
-        res = await this.request({
-          ...this.page,
-          ...this.form
-        });
-      }
+      // if (isString(this.request)) {
+      //   res = await axios({
+      //     url: this.request,
+      //     method: this.method,
+      //     params: { ...this.page, ...this.form }
+      //   });
+      // } else if (isObject(this.request)) {
+      //   res = await this.request({
+      //     ...this.page,
+      //     ...this.form
+      //   });
+      // }
+      const res = await customRequest(this.request, this.form);
       this.loading = false;
       if (res && res.data) {
         const data = get(res.data, this.map.dataPath);
@@ -298,7 +289,7 @@ export default {
             const { val, params } = this.usedRow;
             const usedRow = _.cloneDeep(params);
             usedRow.row = this.formDialog.proFormData;
-            res = await this.customRequest(val, usedRow);
+            res = await customRequest(val, usedRow.row);
           } else {
             if (isFunction(this.submitForm)) {
               res = await this.submitForm(this.formDialog.proFormData);

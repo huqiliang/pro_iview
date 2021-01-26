@@ -105,7 +105,8 @@ export default {
               title: "删除",
               type: "delete",
               method: "post",
-              request: "/id"
+              url: "/id",
+              keys: ["id"]
             }
           ]
         }
