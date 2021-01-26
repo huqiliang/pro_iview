@@ -262,7 +262,10 @@ export default {
       //     ...this.form
       //   });
       // }
-      const res = await customRequest(this.request, this.form);
+      const res = await customRequest(this.request, {
+        ...this.page,
+        ...this.form
+      });
       this.loading = false;
       if (res && res.data) {
         const data = get(res.data, this.map.dataPath);
