@@ -28,7 +28,7 @@ export default ({ request, method, keys, datas }) => {
   }
   // 对象 是request:{url:"/url"}
   else if (_.isObjectLike(request)) {
-    const keys = _.has(request, "keys") ? request.keys : keys;
+    const keyOption = _.has(request, "keys") ? request.keys : keys;
 
     if (_.has(request, "request") && !_.has(request, "url")) {
       if (_.isFunction(request.request)) {
@@ -37,7 +37,7 @@ export default ({ request, method, keys, datas }) => {
       request.url = request.request;
     }
     const method = method ? method : request.method;
-    return axios({ ...request, ...pick({ method, keys, datas }) });
+    return axios({ ...request, ...pick({ method, keys: keyOption, datas }) });
   }
   // 对象本身就是axios
   else if (_.isFunction(request)) {
