@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import _, { isString, isFunction, get, map, has } from "lodash";
+// import axios from "axios";
+import _, { get, map, has } from "lodash";
 import customRequest from "../libs/request";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
@@ -211,7 +211,7 @@ export default {
           this.formDialog.show = true;
           break;
         case "delete":
-          await customRequest(val, params.row);
+          await customRequest({ request: val, datas: params.row });
           this.fetch();
           break;
         default:
@@ -248,23 +248,13 @@ export default {
       this.$refs["proForm"].reset();
     },
     async fetch() {
-      // let res;
       this.loading = true;
-      // if (isString(this.request)) {
-      //   res = await axios({
-      //     url: this.request,
-      //     method: this.method,
-      //     params: { ...this.page, ...this.form }
-      //   });
-      // } else if (isObject(this.request)) {
-      //   res = await this.request({
-      //     ...this.page,
-      //     ...this.form
-      //   });
-      // }
-      const res = await customRequest(this.request, {
-        ...this.page,
-        ...this.form
+      const res = await customRequest({
+        request: this.request,
+        datas: {
+          ...this.page,
+          ...this.form
+        }
       });
       this.loading = false;
       if (res && res.data) {
@@ -287,27 +277,15 @@ export default {
       this.formDialog.formLoading = false;
       this.$refs["proForm"].validate(async valid => {
         if (valid) {
-          let res;
-          if (has(this.usedRow.val, "request")) {
-            const { val, params } = this.usedRow;
-            const usedRow = _.cloneDeep(params);
-            usedRow.row = this.formDialog.proFormData;
-            res = await customRequest(val, usedRow.row);
-          } else {
-            if (isFunction(this.submitForm)) {
-              res = await this.submitForm(this.formDialog.proFormData);
-            } else {
-              res = await axios({
-                url: !this.submitForm
-                  ? this.request
-                  : isString(this.submitForm)
-                  ? this.submitForm
-                  : this.request,
-                method: "POST",
-                data: this.formDialog.proFormData
-              });
-            }
-          }
+          let res = {};
+          const { val } = this.usedRow;
+          const { method } = val;
+          const request = val.type === "new" ? this.submitForm : val;
+          res = await customRequest({
+            request,
+            method,
+            datas: this.formDialog.proFormData
+          });
           if (res.data) {
             this.$Message.success({
               content: res.data.msg || this.$t("pro.common.success")

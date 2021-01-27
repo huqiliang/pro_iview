@@ -1,29 +1,43 @@
 import axios from "axios";
 import _ from "lodash";
-export default (request, datas) => {
-  // 字符串 是request:"/url"
-  if (_.isString(request)) {
-    return axios.get(request, { params: datas });
-  }
-  // 对象 是request:{url:"/url"}
-  if (_.isObjectLike(request)) {
+
+function pick({ method, datas, keys }) {
+  try {
     let params = {},
       data = {};
-    const method = request.method ? _.toUpper(request.method) : "GET";
-    const datasPick = _.has(request, "keys")
-      ? _.pick(datas, request.keys)
-      : datas;
-
-    if (method === "GET") {
+    const md = method ? _.toUpper(method) : "GET";
+    //_.has(request, "keys")
+    const datasPick = !_.isEmpty(keys) ? _.pick(datas, keys) : datas;
+    if (md === "GET") {
       params = datasPick;
     } else {
       data = datasPick;
     }
-    return axios({ ...request, params, data });
+    return { params, data };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export default ({ request, method, keys, datas }) => {
+  // 字符串 是request:"/url"
+  if (_.isString(request)) {
+    return axios({ url: request, method, ...pick({ method, keys, datas }) });
+  }
+  // 对象 是request:{url:"/url"}
+  else if (_.isObjectLike(request)) {
+    const keys = _.has(request, "keys") ? request.keys : keys;
+    if (_.has(request, "request") && !_.has(request, "url")) {
+      request.url = request.request;
+    }
+    const method = method ? method : request.method;
+    return axios({ ...request, ...pick({ method, keys, datas }) });
   }
   // 对象本身就是axios
-  if (_.isFunction(request)) {
+  else if (_.isFunction(request)) {
     return request(datas);
   }
-  return { type: "error", msg: "something is wrong" };
+  return new Promise(resolve => {
+    resolve({ data: { type: "error", msg: "something is wrong" } });
+  });
 };

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import dayjs from "dayjs";
 export default {
   name: "Home",
@@ -91,21 +91,22 @@ export default {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request(options) {
-                console.log(options);
-                return axios.post(
-                  "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
-                  {
-                    a: options.row.cateLog
-                  }
-                );
-              }
+              request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
+              // request(options) {
+              //   console.log(options);
+              //   return axios.post(
+              //     "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+              //     {
+              //       a: options.row.cateLog
+              //     }
+              //   );
+              // }
             },
             {
               title: "删除",
               type: "delete",
-              method: "post",
-              url: "/id",
+              method: "delete",
+              request: "/id",
               keys: ["id"]
             }
           ]
