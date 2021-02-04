@@ -21,7 +21,7 @@
           ></Tree>
         </div>
         <div slot="right" class="split-pane-right">
-          <config></config>
+          <config v-if="tableConfig" v-model="tableConfig"></config>
           <div class="tableConfig">
             <div class="tableText">不包含此空白区域</div>
             <div class="tableText2">不包含此空白区域</div>
@@ -95,7 +95,6 @@ export default {
     },
     async selectPage(node, page) {
       const { id } = page;
-      console.log(id);
       const res = await pageMenusService.getPageConfig(id);
       if (res.data) {
         this.tableConfig = res.data;

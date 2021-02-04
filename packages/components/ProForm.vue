@@ -18,14 +18,16 @@
         <ProTypeItem
           :renderItem="item.renderForm"
           v-if="item.renderForm"
-          v-model="value[item.key]"
+          :value="getValue(value, item)"
+          @input="change(item, $event)"
           class="input ivu-input-wrapper"
         ></ProTypeItem>
         <Input
           v-else
           type="text"
-          v-model="value[item.key]"
+          :value="getValue(value, item)"
           :placeholder="item.title"
+          @input="change(item, $event)"
         >
         </Input>
       </FormItem>
@@ -35,6 +37,7 @@
 
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
+import { get } from "lodash";
 export default {
   name: "ProForm",
   props: {
@@ -57,6 +60,13 @@ export default {
     }
   },
   methods: {
+    getValue(value, item) {
+      return get(value, item.key);
+    },
+    change(item, value) {
+      this.value[item.key] = value;
+      // this.$emit("input", value);
+    },
     reset(fn) {
       this.$refs["form"].resetFields(fn);
     },

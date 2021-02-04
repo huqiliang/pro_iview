@@ -9,11 +9,13 @@
           :label="item.label"
           :name="item.name"
         >
-          <!-- <pro-form
+          {{ value }}
+          <pro-form
             v-if="item.columns"
             :label-width="80"
             :columns="item.columns"
-          ></pro-form> -->
+            v-model="value"
+          ></pro-form>
         </TabPane>
         <!-- <TabPane label="表单配置" name="form">表单配置的内容</TabPane>
         <TabPane label="数据配置" name="datas">数据配置的内容</TabPane> -->
@@ -27,9 +29,11 @@
 </template>
 <script>
 export default {
+  props: {
+    value: Object
+  },
   data() {
     return {
-      value: {},
       rightDrawer: false,
       configList: [
         {
@@ -48,8 +52,8 @@ export default {
           columns: [
             { title: "配置方式", key: "request" },
             { title: "请求配置", key: "request2" },
-            { title: "数据路径", key: "map.path" },
-            { title: "分页总数", key: "map.totalRows" }
+            { title: "数据路径", key: "map.dataPath" },
+            { title: "分页总数", key: "map.totalPath" }
           ]
         }
       ],
