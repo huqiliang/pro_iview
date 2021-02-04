@@ -1,9 +1,5 @@
 <template>
-  <div id="app">
-    <Button @click="change('zh-CN')">中文</Button>
-    <Button @click="change('en-US')">E文</Button>
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script>

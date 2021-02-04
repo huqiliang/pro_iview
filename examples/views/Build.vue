@@ -1,6 +1,7 @@
 <template>
   <div class="build">
-    <pro-table :request="config" :columns="columns" :map="map"> </pro-table>
+    <!-- <pro-table :request="config" :columns="columns" :map="map"> </pro-table> -->
+
     <Form inline>
       <FormItem>
         <Select v-model="config.method">
