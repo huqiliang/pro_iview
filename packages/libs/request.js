@@ -1,7 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
 
-function pick({ method, datas, keys }) {
+const pick = ({ method, datas, keys }) => {
   try {
     let params = {},
       data = {};
@@ -17,7 +17,7 @@ function pick({ method, datas, keys }) {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export default ({ request, method, keys, datas }) => {
   // 字符串 是request:"/url"
@@ -38,10 +38,9 @@ export default ({ request, method, keys, datas }) => {
   }
   // 对象本身就是axios
   else if (_.isFunction(request)) {
-    console.log(request);
     return request(datas);
   }
-  return new Promise(resolve => {
+  return new Promise(({ resolve }) => {
     resolve({ data: { type: "error", msg: "something is wrong" } });
   });
 };

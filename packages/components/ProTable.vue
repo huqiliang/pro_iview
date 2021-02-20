@@ -102,9 +102,7 @@ export default {
         return "";
       }
     },
-    columns: {
-      required: true
-    },
+    columns: {},
     method: {
       default: "GET"
     },
@@ -247,7 +245,7 @@ export default {
     cancel() {
       this.$refs["proForm"].reset();
     },
-    async fetch() {
+    async fetch(fn) {
       this.loading = true;
       const res = await customRequest({
         request: this.request,
@@ -257,6 +255,11 @@ export default {
         }
       });
       this.loading = false;
+      let msg = {
+        code: 0,
+        status: "success",
+        msg: "请求成功!"
+      };
       if (res && res.data) {
         const data = get(res.data, this.map.dataPath);
         if (data) {
@@ -265,13 +268,32 @@ export default {
         } else {
           this.proData = [];
           this.total = null;
-          console.warn("未获取到数据");
+          msg = {
+            code: -1,
+            status: "fail",
+            data: res.data,
+            msg: "请检查数据路径和分页配置"
+          };
         }
       } else {
         this.proData = [];
         this.total = null;
-        console.error("出错了");
+        msg = {
+          code: -1,
+          status: "error",
+          msg: "请求出错!"
+        };
       }
+      if (fn) {
+        fn(msg);
+      }
+    },
+    getDatas() {
+      return {
+        search: this.form,
+        table: this.proData,
+        page: { ...this.page, total: this.total }
+      };
     },
     submit() {
       this.formDialog.formLoading = false;

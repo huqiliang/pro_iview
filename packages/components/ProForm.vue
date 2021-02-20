@@ -9,9 +9,9 @@
       v-on="$listeners"
     >
       <FormItem
-        :prop="item.key"
         :key="item.key"
         :label="item.title + ' :'"
+        :prop="propItem(item)"
         :rules="item.rules"
         v-for="item in columns"
       >
@@ -37,7 +37,7 @@
 
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
-import { get } from "lodash";
+import _ from "lodash";
 export default {
   name: "ProForm",
   props: {
@@ -61,11 +61,20 @@ export default {
   },
   methods: {
     getValue(value, item) {
-      return get(value, item.key);
+      return _.get(value, item.key);
+    },
+    propItem(item) {
+      let key = item.key;
+      if (key.indexOf(".") > -1) {
+        key = _.replace(key, ".", "-");
+      }
+      return key;
     },
     change(item, value) {
-      this.value[item.key] = value;
-      // this.$emit("input", value);
+      const copyValue = _.cloneDeep(this.value);
+      _.set(copyValue, item.key, value);
+      this.$emit("input", copyValue);
+      // this.$set(this.value, copyValue);
     },
     reset(fn) {
       this.$refs["form"].resetFields(fn);

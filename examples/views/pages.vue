@@ -1,7 +1,7 @@
 <template>
   <div class="pages">
     <div class="split">
-      <Split v-model="split1">
+      <Split v-model="split">
         <div slot="left" class="split-pan-left">
           <div class="language">
             <Button style="margin-right:10px">项目配置</Button>
@@ -21,14 +21,20 @@
           ></Tree>
         </div>
         <div slot="right" class="split-pane-right">
-          <config v-if="tableConfig" v-model="tableConfig"></config>
+          <config @reget="reget" v-model="tableConfig"></config>
           <div class="tableConfig">
             <div class="tableText">不包含此空白区域</div>
             <div class="tableText2">不包含此空白区域</div>
             <div class="tableText3">不包含此空白区域</div>
             <div class="tableText4">不包含此空白区域</div>
             <div class="tableConfigInner">
-              <pro-table v-if="tableConfig" v-bind="tableConfig"> </pro-table>
+              <pro-table
+                ref="proTable"
+                v-bind="tableConfig"
+                v-show="tableConfig.columns"
+                v-if="proTableShow"
+              >
+              </pro-table>
             </div>
           </div>
         </div>
@@ -57,8 +63,15 @@ import _ from "lodash";
 export default {
   data() {
     return {
+      configTableDatas: "",
       pageName: {},
-      tableConfig: null,
+      tableConfig: {
+        request: "https://yapi.ihotel.cn/mock/106/api/table",
+        map: {
+          dataPath: "data",
+          totalPath: "totalRows"
+        }
+      },
       addPageModal: {
         show: false,
         columns: [
@@ -68,16 +81,40 @@ export default {
           }
         ]
       },
-      split1: 0.23,
+      split: 0.23,
       request: "",
       pageMenus: []
     };
   },
-
+  computed: {
+    proTableShow() {
+      return !_.isEmpty(this.tableConfig);
+    }
+  },
   async created() {
     this.fetchPageMenus();
   },
   methods: {
+    reget() {
+      this.$refs.proTable.fetch(data => {
+        this.$Message.info({
+          content: data.msg
+        });
+        const res = this.$refs.proTable.getDatas();
+        console.log(res);
+        if (!_.isEmpty(res.table) && res.table.length > 0) {
+          let arr = [];
+          _.map(res.table[0], (val, key) => {
+            console.log(val, key);
+            arr.push({
+              title: key,
+              key
+            });
+          });
+          this.$set(this.tableConfig, "columns", arr);
+        }
+      });
+    },
     async fetchPageMenus() {
       const pageMenus = await pageMenusService.getPageMenus();
       this.pageMenus = pageMenus.data;
@@ -163,7 +200,6 @@ export default {
     margin-right: 8px;
   }
   .split {
-    height: 100vh;
     border: 1px solid #dcdee2;
   }
   .split-pane {
