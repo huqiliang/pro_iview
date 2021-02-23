@@ -101,11 +101,9 @@ export default {
           content: data.msg
         });
         const res = this.$refs.proTable.getDatas();
-        console.log(res);
         if (!_.isEmpty(res.table) && res.table.length > 0) {
           let arr = [];
           _.map(res.table[0], (val, key) => {
-            console.log(val, key);
             arr.push({
               title: key,
               key

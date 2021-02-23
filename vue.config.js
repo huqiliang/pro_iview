@@ -4,6 +4,7 @@ function resolve(dir) {
 }
 module.exports = {
   // 修改 src 为 examples
+  runtimeCompiler: true,
   pages: {
     index: {
       entry: "examples/main.js",

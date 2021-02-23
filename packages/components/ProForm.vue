@@ -16,8 +16,8 @@
         v-for="item in columns"
       >
         <ProTypeItem
-          :renderItem="item.renderForm"
           v-if="item.renderForm"
+          :renderItem="item.renderForm"
           :value="getValue(value, item)"
           @input="change(item, $event)"
           class="input ivu-input-wrapper"

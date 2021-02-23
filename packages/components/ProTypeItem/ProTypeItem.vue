@@ -36,7 +36,6 @@ export default {
               this.input(value);
             }
           },
-          "on-change": this.input,
           ...this.renderItem.on
         }
       });

@@ -46,7 +46,15 @@ export default {
             }
           },
           renderTable: () => {
-            return <span>aaa</span>;
+            return (
+              <Button
+                onclick={() => {
+                  console.log("aaa");
+                }}
+              >
+                aaa
+              </Button>
+            );
           }
         },
         {
