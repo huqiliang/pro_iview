@@ -8,7 +8,7 @@ export default {
   render(h) {
     const com = Vue.extend({
       data: () => {
-        return this.datas;
+        return this.datas || {};
       },
       template: this.html
     });

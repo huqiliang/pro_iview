@@ -19,7 +19,6 @@
         </TabPane>
         <TabPane label="数据项配置" name="base">
           <Button @click="addList" type="primary">增加</Button>
-          {{ value.columns }}
           <Table :columns="sourceTableColoumns" :data="value.columns"></Table>
         </TabPane>
         <TabPane label="表单配置" name="form">表单配置的内容</TabPane>
@@ -37,6 +36,7 @@
 </template>
 <script>
 import _ from "lodash";
+
 import StrToComp from "./strToComp";
 
 export default {
@@ -149,44 +149,6 @@ export default {
           }
         }
       ],
-      renderColumns: [
-        {
-          title: "Table自定义",
-          key: "renderTable",
-          renderForm: {
-            type: "Input",
-            props: {
-              type: "textarea",
-              maxlength: 2000,
-              showWordLimit: true
-            }
-          }
-        },
-        {
-          title: "Search自定义",
-          key: "renderSearch",
-          renderForm: {
-            type: "i-input",
-            props: {
-              type: "textarea",
-              maxlength: 2000,
-              showWordLimit: true
-            }
-          }
-        },
-        {
-          title: "Form自定义",
-          key: "renderForm",
-          renderForm: {
-            type: "i-input",
-            props: {
-              type: "textarea",
-              maxlength: 2000,
-              showWordLimit: true
-            }
-          }
-        }
-      ],
       datasFormcolumns: [
         {
           title: "配置方式",
@@ -218,6 +180,24 @@ export default {
       ]
     };
   },
+  computed: {
+    renderColumns() {
+      const list = ["renderTable", "renderSearch", "renderForm"];
+      let arr = [];
+
+      _.map(list, value => {
+        arr.push({
+          title: `${value}`,
+          key: value,
+          renderForm: () => {
+            return <span>22</span>;
+          }
+        });
+      });
+      console.log(arr);
+      return arr;
+    }
+  },
   methods: {
     addList() {
       this.value.columns.unshift({
@@ -234,16 +214,18 @@ export default {
       const value = _.get(this.renderValues, type);
       let obj = {};
       if (value) {
-        console.log(type);
-        console.log(value);
-
         const html = _.cloneDeep(value);
+        console.log(html);
         obj[type] = () => {
           return <StrToComp html={html}></StrToComp>;
         };
         console.log(this.value.columns[this.selectedItem.index]);
-        console.log(obj[type]);
-        this.$set(this.value.columns[this.selectedItem.index], type, obj[type]);
+        console.log(type);
+        this.$set(
+          this.value.columns[this.selectedItem.index],
+          "renderTable",
+          obj[type]
+        );
       }
     },
     change() {
