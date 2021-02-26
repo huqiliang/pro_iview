@@ -18,15 +18,32 @@
           <Button type="primary" @click="reget">重新请求</Button>
         </TabPane>
         <TabPane label="数据项配置" name="base">
-          <Button @click="addList" type="primary">增加</Button>
-          <Table :columns="sourceTableColoumns" :data="value.columns"></Table>
+          <div class="configPane">
+            <Table
+              border
+              :row-class-name="rowClassName"
+              :columns="sourceTableColoumns"
+              :data="value.columns"
+            ></Table>
+          </div>
         </TabPane>
         <TabPane label="表单配置" name="form">表单配置的内容</TabPane>
       </Tabs>
       <div class="config-footer">
-        <span style="margin-right:10px;font-size:12px;">( 同步至服务器 )</span>
-        <Button style="margin-right: 8px" @click="value3 = false">重置</Button>
-        <Button type="primary" @click="value3 = false">保存</Button>
+        <div>
+          <Button class="addButton" @click="addList" type="primary"
+            >增加</Button
+          >
+        </div>
+        <div>
+          <span style="margin-right:10px;font-size:12px;"
+            >( 同步至服务器 )</span
+          >
+          <Button style="margin-right: 8px" @click="value3 = false"
+            >重置</Button
+          >
+          <Button type="primary" @click="value3 = false">保存</Button>
+        </div>
       </div>
     </Drawer>
     <Modal @on-ok="change" v-model="renderModal" title="自定义render">
@@ -61,7 +78,19 @@ export default {
       sourceTableColoumns: [
         {
           title: "Key",
-          key: "key"
+          key: "key",
+          render: (h, params) => {
+            return params.row.isAdd ? (
+              <Input
+                value={params.row.key}
+                onInput={value => {
+                  this.$set(this.value.columns[params.index], "key", value);
+                }}
+              />
+            ) : (
+              <span>{params.row.key}</span>
+            );
+          }
         },
         {
           title: "标题",
@@ -238,14 +267,12 @@ export default {
       );
     },
     addList() {
-      this.value.columns.unshift({
-        title: "ee",
-        notShowTable: true,
+      this.value.columns.push({
+        title: "操作",
+        key: "action",
+        isAdd: true,
         notShowSearch: true,
-        notShowForm: true,
-        render() {
-          return <Input />;
-        }
+        notShowForm: true
       });
     },
     setValue(type) {
@@ -280,6 +307,15 @@ export default {
     },
     reget() {
       this.$emit("reget");
+    },
+    rowClassName(row) {
+      if (row.key == "action") {
+        return "addActionColumn";
+      }
+      if (row.isAdd) {
+        return "addColumn";
+      }
+      return "";
     }
   }
 };
@@ -291,8 +327,18 @@ export default {
 .ivu-tabs-tabpane {
   padding: 0 20px;
 }
+.ivu-table .addColumn td {
+  background-color: #2db7f5;
+  color: #fff;
+}
+.ivu-table .addActionColumn td {
+  background-color: #f60;
+  color: #fff;
+}
 .drawer {
   .config-footer {
+    display: flex;
+    justify-content: space-between;
     height: 50px;
     width: 700px;
     position: fixed;
@@ -310,8 +356,11 @@ export default {
   justify-content: space-between;
 }
 .configPane {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 150px);
   overflow: scroll;
+  .addButton {
+    margin: 20px 10px 0 0;
+  }
   .columnsConfig {
     display: flex;
     line-height: 33px;

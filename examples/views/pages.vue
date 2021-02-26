@@ -28,6 +28,7 @@
             <div class="tableText3">不包含此空白区域</div>
             <div class="tableText4">不包含此空白区域</div>
             <div class="tableConfigInner">
+              {{ tableConfig }}
               <pro-table
                 ref="proTable"
                 v-bind="tableConfig"
