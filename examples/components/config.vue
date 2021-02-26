@@ -7,17 +7,17 @@
       width="700"
       :mask-closable="false"
     >
-      <Tabs value="datas" style="width:100%">
-        <TabPane label="数据源配置" name="datas">
+      <Tabs v-model="tabs" style="width:100%">
+        <TabPane label="数据源配置" name="sources">
           <pro-form
             :label-width="90"
             :columns="datasFormcolumns"
             :value="value"
             @input="input"
           ></pro-form>
-          <Button type="primary" @click="reget">重新请求</Button>
+          <Button type="primary" @click="reget">获取数据</Button>
         </TabPane>
-        <TabPane label="数据项配置" name="base">
+        <TabPane :disabled="!value.columns" label="数据项配置" name="columns">
           <div class="configPane">
             <Table
               border
@@ -27,11 +27,17 @@
             ></Table>
           </div>
         </TabPane>
-        <TabPane label="表单配置" name="form">表单配置的内容</TabPane>
+        <TabPane :disabled="!value.columns" label="表单配置" name="form"
+          >表单配置的内容</TabPane
+        >
       </Tabs>
       <div class="config-footer">
         <div>
-          <Button class="addButton" @click="addList" type="primary"
+          <Button
+            class="addButton"
+            @click="addList"
+            type="primary"
+            v-if="tabs === 'columns'"
             >增加</Button
           >
         </div>
@@ -70,9 +76,10 @@ export default {
   },
   data() {
     return {
+      tabs: "sources",
       renderModal: false,
       editorModal: false,
-      rightDrawer: true,
+      rightDrawer: false,
       selectedItem: {},
       renderValues: {},
       sourceTableColoumns: [
@@ -196,11 +203,11 @@ export default {
           }
         },
         {
-          title: "请求配置",
+          title: "请求方法",
           key: "method",
           renderForm({ value, input }) {
             return (
-              <Select value={value} onInput={input}>
+              <Select value={value ? value : "GET"} onInput={input}>
                 <Option value="GET">GET</Option>
                 <Option value="POST">POST</Option>
               </Select>
@@ -214,7 +221,13 @@ export default {
             required: true
           }
         },
-        { title: "分页总数", key: "map.totalPath" }
+        {
+          title: "分页总数",
+          key: "map.totalPath",
+          rules: {
+            required: true
+          }
+        }
       ]
     };
   },
@@ -255,6 +268,9 @@ export default {
     }
   },
   methods: {
+    openRightDrawer() {
+      this.rightDrawer = true;
+    },
     openEditor(type, renderType) {
       this.editorModal = true;
       this.selectRenderType = renderType;

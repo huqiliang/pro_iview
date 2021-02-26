@@ -21,18 +21,16 @@
           ></Tree>
         </div>
         <div slot="right" class="split-pane-right">
-          <config @reget="reget" v-model="tableConfig"></config>
-          <div class="tableConfig">
+          <config ref="config" @reget="reget" v-model="tableConfig"></config>
+          <div class="tableConfig" v-show="tableConfig.columns">
             <div class="tableText">不包含此空白区域</div>
             <div class="tableText2">不包含此空白区域</div>
             <div class="tableText3">不包含此空白区域</div>
             <div class="tableText4">不包含此空白区域</div>
             <div class="tableConfigInner">
-              {{ tableConfig }}
               <pro-table
                 ref="proTable"
                 v-bind="tableConfig"
-                v-show="tableConfig.columns"
                 v-if="proTableShow"
               >
               </pro-table>
@@ -92,8 +90,12 @@ export default {
       return !_.isEmpty(this.tableConfig);
     }
   },
-  async created() {
+  async mounted() {
     this.fetchPageMenus();
+    if (!this.tableConfig.columns) {
+      console.log(this.$refs);
+      this.$refs.config.openRightDrawer();
+    }
   },
   methods: {
     reget() {
