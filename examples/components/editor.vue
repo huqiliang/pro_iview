@@ -1,27 +1,44 @@
 <template>
   <div class="json-editor">
     <textarea ref="textarea" />
-    <Button type="primary" class="button" @click="format">格式化</Button>
+    <div class="button">
+      <Button style="margin-right:10px" type="primary" @click="format"
+        >格式化</Button
+      >
+      <Button type="primary" @click="save">保存</Button>
+    </div>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
 import CodeMirror from "codemirror";
 import "codemirror/addon/lint/lint.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/rubyblue.css"; // 主题显示，可以百度搜索其他的主题
 require("script-loader!jsonlint");
 import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/vue/vue";
 import "codemirror/addon/lint/lint";
 import "codemirror/addon/lint/json-lint";
 
 export default {
   name: "JsonEditor",
   /* eslint-disable vue/require-prop-types */
-  //   props: ['value'],
+  props: {
+    mode: {
+      type: String,
+      default() {
+        return "json";
+      }
+    },
+    value: {
+      type: Object
+    }
+  },
   data() {
     return {
-      value: "",
+      innerValue: "",
       jsonEditor: false
     };
   },
@@ -38,29 +55,44 @@ export default {
   //   deep: true
   // },
   mounted() {
-    // 模拟数据接口
-    this.value = {
-      type: "Select",
-      props: ""
-    };
+    if (_.isEmpty(this.value)) {
+      if (this.mode == "json") {
+        this.innerValue = {
+          type: "Input",
+          props: {}
+        };
+      }
+      if (this.mode == "vue") {
+        this.innerValue = `<Button>测试</Button>`;
+      }
+    } else {
+      this.innerValue = this.value;
+    }
     // CodeMirror的配置项，搜官网看这里的配置项配置
     this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
       lineNumbers: true, // 是否显示行数
-      mode: "application/json", // 接受的类型，json xml....
+      mode: this.mode === "json" ? "application/json" : "text/x-vue", // 接受的类型，json xml....
       gutters: ["CodeMirror-lint-markers"], // 样式的宽度
       theme: "rubyblue", // 主题
       lint: true
     });
 
     this.format();
-    // this.jsonEditor.on("change", cm => {
-    //   this.$emit("changed", cm.getValue());
-    //   // 编辑json框里面的内容可以时刻监听到值，通过cm.getValue()获取到
-    // });
+    this.jsonEditor.on("change", cm => {
+      // this.$emit("input", cm.getValue());
+      this.innerValue = cm.getValue();
+      // 编辑json框里面的内容可以时刻监听到值，通过cm.getValue()获取到
+    });
   },
   methods: {
+    save() {
+      if (this.mode === "json") {
+        this.innerValue = JSON.parse(this.innerValue);
+      }
+      this.$emit("save", this.innerValue);
+    },
     format() {
-      this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
+      this.jsonEditor.setValue(JSON.stringify(this.innerValue, null, 2));
     },
     getValue() {
       return this.jsonEditor.getValue();

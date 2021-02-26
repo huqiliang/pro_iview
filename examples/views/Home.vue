@@ -35,6 +35,9 @@ export default {
         {
           title: "cataLog",
           key: "cataLog",
+          renderSearch: {
+            type: "Radio"
+          },
           renderForm: {
             type: "DatePicker",
             props: {

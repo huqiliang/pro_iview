@@ -32,20 +32,29 @@
     <Modal @on-ok="change" v-model="renderModal" title="自定义render">
       <pro-form :columns="renderColumns" v-model="renderValues"></pro-form>
     </Modal>
+    <Modal :width="100" class="editorModal" v-model="editorModal" title="">
+      <div v-if="editorModal">
+        <editor mode="json" @save="editorSave"></editor>
+      </div>
+      <div slot="footer"></div>
+    </Modal>
   </div>
 </template>
 <script>
 import _ from "lodash";
 
 import StrToComp from "./strToComp";
+import editor from "./editor.vue";
 
 export default {
+  components: { editor },
   props: {
     value: Object
   },
   data() {
     return {
       renderModal: false,
+      editorModal: false,
       rightDrawer: true,
       selectedItem: {},
       renderValues: {},
@@ -184,21 +193,50 @@ export default {
     renderColumns() {
       const list = ["renderTable", "renderSearch", "renderForm"];
       let arr = [];
-
       _.map(list, value => {
         arr.push({
           title: `${value}`,
           key: value,
           renderForm: () => {
-            return <span>22</span>;
+            const isobj = _.isObjectLike(value);
+            return (
+              <div>
+                <Button
+                  onclick={() => {
+                    this.openEditor("json", value);
+                  }}
+                  style="margin-right:10px"
+                  type={isobj ? "primary" : "default"}
+                >
+                  json
+                </Button>
+                <Button
+                  onclick={() => {
+                    this.openEditor("vue", value);
+                  }}
+                >
+                  vue
+                </Button>
+              </div>
+            );
           }
         });
       });
-      console.log(arr);
       return arr;
     }
   },
   methods: {
+    openEditor(type, renderType) {
+      this.editorModal = true;
+      this.selectRenderType = renderType;
+    },
+    editorSave(value) {
+      this.$set(
+        this.value.columns[this.selectedItem.index],
+        this.selectRenderType,
+        value
+      );
+    },
     addList() {
       this.value.columns.unshift({
         title: "ee",
@@ -215,12 +253,9 @@ export default {
       let obj = {};
       if (value) {
         const html = _.cloneDeep(value);
-        console.log(html);
         obj[type] = () => {
           return <StrToComp html={html}></StrToComp>;
         };
-        console.log(this.value.columns[this.selectedItem.index]);
-        console.log(type);
         this.$set(
           this.value.columns[this.selectedItem.index],
           "renderTable",
@@ -298,6 +333,20 @@ export default {
   }
   .columnsConfigOnly:hover {
     background: #eee;
+  }
+}
+.editorModal {
+  .ivu-modal-body {
+    padding: 0;
+  }
+  .ivu-modal {
+    top: 0;
+  }
+  .ivu-modal-wrap * {
+    box-sizing: content-box;
+  }
+  .ivu-modal-footer {
+    display: none;
   }
 }
 </style>

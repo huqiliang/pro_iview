@@ -205,6 +205,7 @@ export default {
   }
   .split-pan-left {
     padding: 10px 20px;
+    height: 100%;
   }
   .split-pane-right {
     padding: 10px 20px;
