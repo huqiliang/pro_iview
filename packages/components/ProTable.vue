@@ -7,8 +7,8 @@
         v-model="form"
         @search="search"
         @reset="reset"
-        v-bind="$attrs"
-        v-on="$listeners"
+        v-bind="attrs.search"
+        v-on="listeners.search"
       ></ProSearch>
     </slot>
     <Table
@@ -17,8 +17,8 @@
       :data="proData"
       class="table"
       border
-      v-bind="$attrs"
-      v-on="$listeners"
+      v-bind="attrs.table"
+      v-on="listeners.table"
     >
       <div v-if="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ tableTitle }}</div>
@@ -39,8 +39,8 @@
         transfer
         show-total
         show-sizer
-        v-bind="$attrs"
-        v-on="$listeners"
+        v-bind="attrs.page"
+        v-on="listeners.page"
       />
     </div>
     <Modal
@@ -55,8 +55,8 @@
           ref="proForm"
           :columns="formColumns"
           v-model="formDialog.proFormData"
-          v-bind="$attrs"
-          v-on="$listeners"
+          v-bind="attrs.form"
+          v-on="listeners.form"
         ></ProForm>
       </div>
     </Modal>
@@ -94,6 +94,16 @@ export default {
     };
   },
   props: {
+    attrs: {
+      default() {
+        return {};
+      }
+    },
+    listeners: {
+      default() {
+        return {};
+      }
+    },
     toolBar: {
       default: true
     },

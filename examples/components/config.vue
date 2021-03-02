@@ -232,7 +232,7 @@ export default {
       baseColumns: [
         {
           title: "斑马纹",
-          key: "stripe",
+          key: "table.stripe",
           renderForm: {
             type: "i-switch",
             style: {
@@ -256,7 +256,7 @@ export default {
       },
       set(value) {
         console.log(value);
-        const newValue = { ...this.value, ...value };
+        const newValue = _.assign({}, this.value, { attrs: value });
         console.log(newValue);
         this.$emit("input", newValue);
       }
