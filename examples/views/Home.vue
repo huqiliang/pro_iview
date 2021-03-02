@@ -71,8 +71,8 @@ export default {
           }
         },
         {
-          title: "createUse2r2",
-          key: "createUs2er2"
+          title: "form",
+          key: "form"
         },
         {
           title: "createUser3",

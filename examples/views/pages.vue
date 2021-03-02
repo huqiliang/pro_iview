@@ -1,43 +1,39 @@
 <template>
   <div class="pages">
-    <div class="split">
-      <Split v-model="split">
-        <div slot="left" class="split-pan-left">
-          <div class="language">
-            <Button style="margin-right:10px">项目配置</Button>
-            <!-- <Button
+    <div class="split" :style="style">
+      <!-- <Split v-model="split" min="100"> -->
+      <div slot="left" class="split-pan-left">
+        <div class="language">
+          <Button style="margin:10px 0 0 10px">项目配置</Button>
+          <!-- <Button
               type="primary"
               style="margin-right:10px"
               @click="change('zh-CN')"
               >中文</Button
             >
             <Button @click="change('en-US')">English</Button> -->
-          </div>
-          <Tree
-            :data="pageMenus"
-            :render="renderContent"
-            class="tree-render"
-            @on-select-change="selectPage"
-          ></Tree>
         </div>
-        <div slot="right" class="split-pane-right">
-          <config ref="config" @reget="reget" v-model="tableConfig"></config>
-          <div class="tableConfig" v-show="tableConfig.columns">
-            <div class="tableText">不包含此空白区域</div>
-            <div class="tableText2">不包含此空白区域</div>
-            <div class="tableText3">不包含此空白区域</div>
-            <div class="tableText4">不包含此空白区域</div>
-            <div class="tableConfigInner">
-              <pro-table
-                ref="proTable"
-                v-bind="tableConfig"
-                v-if="proTableShow"
-              >
-              </pro-table>
-            </div>
+        <Tree
+          :data="pageMenus"
+          :render="renderContent"
+          class="tree-render"
+          @on-select-change="selectPage"
+        ></Tree>
+      </div>
+      <div slot="right" class="split-pane-right">
+        <config ref="config" @reget="reget" v-model="tableConfig"></config>
+        <div class="tableConfig" v-show="tableConfig.columns">
+          <div class="tableText">不包含此空白区域</div>
+          <div class="tableText2">不包含此空白区域</div>
+          <div class="tableText3">不包含此空白区域</div>
+          <div class="tableText4">不包含此空白区域</div>
+          <div class="tableConfigInner">
+            <pro-table ref="proTable" v-bind="tableConfig" v-if="proTableShow">
+            </pro-table>
           </div>
         </div>
-      </Split>
+      </div>
+      <!-- </Split> -->
     </div>
     <Modal
       v-model="addPageModal.show"
@@ -64,6 +60,9 @@ export default {
     return {
       configTableDatas: "",
       pageName: {},
+      style: {
+        height: "100vh"
+      },
       tableConfig: {
         request: "https://yapi.ihotel.cn/mock/106/api/table",
         map: {
@@ -113,6 +112,9 @@ export default {
             });
           });
           this.$set(this.tableConfig, "columns", arr);
+          this.style = {
+            height: "auto"
+          };
         }
       });
     },
@@ -201,17 +203,19 @@ export default {
     margin-right: 8px;
   }
   .split {
+    display: flex;
     border: 1px solid #dcdee2;
   }
   .split-pane {
     padding: 10px;
   }
   .split-pan-left {
-    padding: 10px 20px;
-    height: 100%;
+    border-right: 1px dashed #ccc;
+    min-height: 100%;
   }
   .split-pane-right {
     padding: 10px 20px;
+    min-height: 100vh;
   }
   .tableConfig {
     border: 1px dashed #ccc;
@@ -258,6 +262,9 @@ export default {
       margin: 10px;
       border: 1px dashed #eee;
     }
+  }
+  .tree-render {
+    padding: 10px 20px;
   }
   .tree-render .ivu-tree-title {
     width: 100%;

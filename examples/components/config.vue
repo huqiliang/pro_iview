@@ -27,9 +27,9 @@
             ></Table>
           </div>
         </TabPane>
-        <TabPane :disabled="!value.columns" label="表单配置" name="form"
-          >表单配置的内容</TabPane
-        >
+        <TabPane :disabled="!value.columns" label="基本配置" name="base">
+          <pro-form v-model="baseValue" :columns="baseColumns"></pro-form>
+        </TabPane>
       </Tabs>
       <div class="config-footer">
         <div>
@@ -228,10 +228,39 @@ export default {
             required: true
           }
         }
+      ],
+      baseColumns: [
+        {
+          title: "斑马纹",
+          key: "stripe",
+          renderForm: {
+            type: "i-switch",
+            style: {
+              width: "45px"
+            }
+          }
+        }
       ]
     };
   },
   computed: {
+    baseValue: {
+      get() {
+        let a = _.find(this.value, val =>
+          _.includes(_.map(this.baseColumns, "key"), val)
+        );
+        if (_.isEmpty(a)) {
+          a = {};
+        }
+        return a;
+      },
+      set(value) {
+        console.log(value);
+        const newValue = { ...this.value, ...value };
+        console.log(newValue);
+        this.$emit("input", newValue);
+      }
+    },
     renderColumns() {
       const list = ["renderTable", "renderSearch", "renderForm"];
       let arr = [];
@@ -243,15 +272,17 @@ export default {
             const isobj = _.isObjectLike(value);
             return (
               <div>
-                <Button
-                  onclick={() => {
-                    this.openEditor("json", value);
-                  }}
-                  style="margin-right:10px"
-                  type={isobj ? "primary" : "default"}
-                >
-                  json
-                </Button>
+                {value !== "renderTable" ? (
+                  <Button
+                    onclick={() => {
+                      this.openEditor("json", value);
+                    }}
+                    style="margin-right:10px"
+                    type={isobj ? "primary" : "default"}
+                  >
+                    json
+                  </Button>
+                ) : null}
                 <Button
                   onclick={() => {
                     this.openEditor("vue", value);
