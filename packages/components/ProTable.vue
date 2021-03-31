@@ -112,18 +112,21 @@ export default {
         return "";
       }
     },
-    columns: {},
+    columns: {
+      default() {
+        return [];
+      }
+    },
     method: {
       default: "GET"
     },
-    request: {
-      required: true
-    },
+    request: {},
     map: {
-      required: true,
-      default: {
-        dataPath: "", //数据映射路径
-        totalPath: ""
+      default() {
+        return {
+          dataPath: "data",
+          totalPath: "totalRows"
+        };
       }
     },
     submitForm: {}
@@ -256,46 +259,50 @@ export default {
       this.$refs["proForm"].reset();
     },
     async fetch(fn) {
-      this.loading = true;
-      const res = await customRequest({
-        request: this.request,
-        datas: {
-          ...this.page,
-          ...this.form
-        }
-      });
-      this.loading = false;
-      let msg = {
-        code: 0,
-        status: "success",
-        msg: "请求成功!"
-      };
-      if (res && res.data) {
-        const data = get(res.data, this.map.dataPath);
-        if (data) {
-          this.proData = data;
-          this.total = get(res.data, this.map.totalPath);
+      if (!_.isEmpty(this.request)) {
+        this.loading = true;
+        const res = await customRequest({
+          request: this.request,
+          datas: {
+            ...this.page,
+            ...this.form
+          }
+        });
+        this.loading = false;
+        let msg = {
+          code: 0,
+          status: "success",
+          msg: "请求成功!"
+        };
+        if (res && res.data) {
+          const data = get(res.data, this.map.dataPath);
+          if (data) {
+            this.proData = data;
+            this.total = get(res.data, this.map.totalPath);
+          } else {
+            this.proData = [];
+            this.total = null;
+            msg = {
+              code: -1,
+              status: "fail",
+              data: res.data,
+              msg: "请检查数据路径和分页配置"
+            };
+          }
         } else {
           this.proData = [];
           this.total = null;
           msg = {
             code: -1,
-            status: "fail",
-            data: res.data,
-            msg: "请检查数据路径和分页配置"
+            status: "error",
+            msg: "请求出错!"
           };
         }
+        if (fn) {
+          fn(msg);
+        }
       } else {
-        this.proData = [];
-        this.total = null;
-        msg = {
-          code: -1,
-          status: "error",
-          msg: "请求出错!"
-        };
-      }
-      if (fn) {
-        fn(msg);
+        console.log("请求路径为空，请检查");
       }
     },
     getDatas() {
