@@ -7,8 +7,8 @@
         v-model="form"
         @search="search"
         @reset="reset"
-        v-bind="attrs.search"
-        v-on="listeners.search"
+        v-bind="$attrs.search"
+        v-on="$listeners.search"
       ></ProSearch>
     </slot>
     <Table
@@ -17,8 +17,8 @@
       :data="proData"
       class="table"
       border
-      v-bind="attrs.table"
-      v-on="listeners.table"
+      v-bind="$attrs.table"
+      v-on="$listeners.table"
     >
       <div v-if="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ tableTitle }}</div>
@@ -39,8 +39,8 @@
         transfer
         show-total
         show-sizer
-        v-bind="attrs.page"
-        v-on="listeners.page"
+        v-bind="$attrs.page"
+        v-on="$listeners.page"
       />
     </div>
     <Modal
@@ -156,7 +156,7 @@ export default {
     columnFilter(showType, renderType) {
       const columns = _.cloneDeep(this.columns);
       let arr = [];
-      map(columns, value => {
+      map(columns, (value) => {
         if (!value[showType]) {
           if (has(value, renderType)) {
             value.render = value[renderType];
@@ -164,7 +164,7 @@ export default {
             value.render = (h, params) => {
               return (
                 <div class="actions">
-                  {map(value.actions, val => {
+                  {map(value.actions, (val) => {
                     return val.type === "delete" ? (
                       <Poptip
                         transfer={true}
@@ -314,7 +314,7 @@ export default {
     },
     submit() {
       this.formDialog.formLoading = false;
-      this.$refs["proForm"].validate(async valid => {
+      this.$refs["proForm"].validate(async (valid) => {
         if (valid) {
           let res = {};
           const { val } = this.usedRow;
