@@ -319,15 +319,16 @@ export default {
           let res = {};
           const { val } = this.usedRow;
           const { method } = val;
-          const request = val.type === "new" ? this.submitForm : val;
+          const request =
+            val.type === "new" ? this.submitForm || this.request : val;
           res = await customRequest({
             request,
-            method,
+            method: method || "POST",
             datas: this.formDialog.proFormData
           });
           if (res.data) {
             this.$Message.success({
-              content: res.data.msg || this.$t("pro.common.success")
+              content: _.get(res, this.map.message || "data2.message")
             });
             this.formDialog.show = false;
             this.$refs["proForm"].reset();
