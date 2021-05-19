@@ -22,6 +22,7 @@
           @input="change(item, $event)"
           class="input ivu-input-wrapper"
         ></ProTypeItem>
+        <div v-else-if="type === 'view'">{{ getValue(value, item) }}</div>
         <Input
           v-else
           type="text"
@@ -41,6 +42,12 @@ import _ from "lodash";
 export default {
   name: "ProForm",
   props: {
+    type: {
+      type: String,
+      default() {
+        return "edit";
+      }
+    },
     labelWidth: {
       type: Number,
       default() {
@@ -65,7 +72,7 @@ export default {
     },
     propItem(item) {
       let key = item.key;
-      if (key.indexOf(".") > -1) {
+      if (key && key.indexOf(".") > -1) {
         key = _.replace(key, ".", "-");
       }
       return key;

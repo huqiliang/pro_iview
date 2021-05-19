@@ -4,6 +4,7 @@ export default {
     common: {
       packUp: "PackUp",
       spread: "Spread",
+      view: "View",
       new: "New",
       edit: "Edit",
       delete: "Delete",

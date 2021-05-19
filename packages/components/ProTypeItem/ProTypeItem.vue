@@ -16,7 +16,6 @@ export default {
   },
   methods: {
     input(value) {
-      console.log(value);
       if (_.has(this.renderItem, "format")) {
         this.$emit("input", this.renderItem.format(value));
       } else {
@@ -35,7 +34,7 @@ export default {
           ...this.renderItem.style
         },
         on: {
-          input: value => {
+          input: (value) => {
             //删除是否为空的判断 不确定是否会产生bug
             this.input(value);
           },

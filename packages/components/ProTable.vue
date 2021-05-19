@@ -48,12 +48,13 @@
       @on-ok="submit"
       @on-cancel="cancel"
       v-model="formDialog.show"
-      :title="formDialog.isEdit ? t('pro.common.edit') : t('pro.common.new')"
+      :title="modalTitle"
     >
       <div class="content">
         <ProForm
           ref="proForm"
           :columns="formColumns"
+          :type="formDialog.type"
           v-model="formDialog.proFormData"
           v-bind="attrs.form"
           v-on="listeners.form"
@@ -78,7 +79,7 @@ export default {
     return {
       formDialog: {
         show: false,
-        isEdit: true,
+        type: "view",
         proFormData: {},
         formLoading: true
       },
@@ -132,6 +133,11 @@ export default {
     submitForm: {}
   },
   computed: {
+    modalTitle() {
+      return this.formDialog.type
+        ? this.t("pro.common." + this.formDialog.type)
+        : "标题";
+    },
     tableTitle() {
       return this.title || this.t("pro.table.title");
     },
@@ -191,7 +197,12 @@ export default {
               );
             };
           }
-          if (!(value.key === "action" && showType !== "notShowTable")) {
+          if (
+            !(
+              (value.key === "action" || value.type) &&
+              showType !== "notShowTable"
+            )
+          ) {
             //排除操作在search里面显示
             arr.push(value);
           }
@@ -210,23 +221,14 @@ export default {
     },
     async tableAction(val, params) {
       this.usedRow = { val, params };
-      switch (val.type) {
-        case "new":
-          this.formDialog.proFormData = {};
-          this.formDialog.isEdit = false;
-          this.formDialog.show = true;
-          break;
-        case "edit":
-          this.formDialog.proFormData = _.cloneDeep(params.row);
-          this.formDialog.isEdit = true;
-          this.formDialog.show = true;
-          break;
-        case "delete":
-          await customRequest({ request: val, datas: params.row });
-          this.fetch();
-          break;
-        default:
-          break;
+      if (val.type === "delete") {
+        await customRequest({ request: val, datas: params.row });
+        this.fetch();
+      } else {
+        this.formDialog.proFormData =
+          val.type === "new" ? {} : _.cloneDeep(params.row);
+        this.formDialog.type = val.type;
+        this.formDialog.show = true;
       }
     },
     pageChange(current) {
@@ -314,33 +316,44 @@ export default {
     },
     submit() {
       this.formDialog.formLoading = false;
-      this.$refs["proForm"].validate(async (valid) => {
-        if (valid) {
-          let res = {};
-          const { val } = this.usedRow;
-          const { method } = val;
-          const request =
-            val.type === "new" ? this.submitForm || this.request : val;
-          res = await customRequest({
-            request,
-            method: method || "POST",
-            datas: this.formDialog.proFormData
-          });
-          if (res.data) {
-            this.$Message.success({
-              content: _.get(res, this.map.message || "data2.message")
-            });
-            this.formDialog.show = false;
-            this.$refs["proForm"].reset();
-            this.fetch();
+      if (this.formDialog.type !== "view") {
+        this.$refs["proForm"].validate(async (valid) => {
+          if (valid) {
+            let res = {};
+            const { val } = this.usedRow;
+            const { method } = val;
+            const request =
+              val.type === "new" ? this.submitForm || this.request : val;
+            try {
+              res = await customRequest({
+                request,
+                method: method || "POST",
+                datas: this.formDialog.proFormData
+              });
+              if (res.data) {
+                this.$Message.success({
+                  content: _.get(res, this.map.message || "data.message")
+                });
+                this.formDialog.show = false;
+                this.$refs["proForm"].reset();
+                this.fetch();
+              }
+              this.formDialog.formLoading = true;
+            } catch (error) {
+              this.$Message.success({
+                content: error
+              });
+              this.formDialog.formLoading = true;
+            }
+          } else {
+            setTimeout(() => {
+              this.formDialog.formLoading = true;
+            }, 100);
           }
-          this.formDialog.formLoading = true;
-        } else {
-          setTimeout(() => {
-            this.formDialog.formLoading = true;
-          }, 100);
-        }
-      });
+        });
+      } else {
+        this.formDialog.show = false;
+      }
     }
   }
 };

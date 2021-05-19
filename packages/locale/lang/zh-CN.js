@@ -4,6 +4,7 @@ export default {
     common: {
       packUp: "收起",
       spread: "展开",
+      view: "查看",
       new: "新建",
       edit: "编辑",
       delete: "删除",
