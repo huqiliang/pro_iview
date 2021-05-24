@@ -8,30 +8,37 @@
       v-bind="$attrs"
       v-on="$listeners"
     >
-      <FormItem
-        :key="item.key"
-        :label="item.title + ' :'"
-        :prop="propItem(item)"
-        :rules="item.rules"
-        v-for="item in columns"
-      >
-        <ProTypeItem
-          v-if="item.renderForm"
-          :renderItem="item.renderForm"
-          :value="getValue(value, item)"
-          @input="change(item, $event)"
-          class="input ivu-input-wrapper"
-        ></ProTypeItem>
-        <div v-else-if="type === 'view'">{{ getValue(value, item) }}</div>
-        <Input
-          v-else
-          type="text"
-          :value="getValue(value, item)"
-          :placeholder="item.title"
-          @input="change(item, $event)"
+      <div v-for="(columns, index) in groupColunms" :key="index">
+        <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
+        <div
+          :class="{ p10: groupColunms && Object.keys(groupColunms).length > 1 }"
         >
-        </Input>
-      </FormItem>
+          <FormItem
+            :key="item.key"
+            :label="item.title + ' :'"
+            :prop="propItem(item)"
+            :rules="item.rules"
+            v-for="item in columns"
+          >
+            <ProTypeItem
+              v-if="item.renderForm"
+              :renderItem="item.renderForm"
+              :value="getValue(value, item)"
+              @input="change(item, $event)"
+              class="input ivu-input-wrapper"
+            ></ProTypeItem>
+            <div v-else-if="type === 'view'">{{ getValue(value, item) }}</div>
+            <Input
+              v-else
+              type="text"
+              :value="getValue(value, item)"
+              :placeholder="item.title"
+              @input="change(item, $event)"
+            >
+            </Input>
+          </FormItem>
+        </div>
+      </div>
     </Form>
   </div>
 </template>
@@ -66,6 +73,11 @@ export default {
       }
     }
   },
+  computed: {
+    groupColunms() {
+      return _.groupBy(this.columns, "group");
+    }
+  },
   methods: {
     getValue(value, item) {
       return _.get(value, item.key);
@@ -95,3 +107,12 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.groupTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.p10 {
+  padding: 20px 0 0 20px;
+}
+</style>

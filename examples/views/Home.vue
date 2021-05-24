@@ -10,7 +10,7 @@
     >
     </pro-table>
 
-    <pro-table :columns="columns" :searchLineNum="5"> </pro-table>
+    <!-- <pro-table :columns="columns" :searchLineNum="5"> </pro-table> -->
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
           {
             title: "标题",
             key: "toolBar",
+
             type: "radio"
           }
         ],
@@ -36,6 +37,7 @@ export default {
       columns: [
         {
           title: "cataLog",
+          group: "B",
           key: "cataLog",
           renderSearch: {
             type: "Radio"

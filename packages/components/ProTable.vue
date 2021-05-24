@@ -36,7 +36,7 @@
       <Page
         v-if="proData && !hide.search"
         :total="total"
-        :current="this.page.current"
+        :current="page.current"
         @on-change="pageChange"
         @on-page-size-change="pageSizeChange"
         transfer
