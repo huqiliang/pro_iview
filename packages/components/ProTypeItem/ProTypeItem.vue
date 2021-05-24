@@ -42,7 +42,12 @@ export default {
         }
       });
     } else if (_.isFunction(this.renderItem)) {
-      return this.renderItem({ h, input: this.input, value: this.value });
+      return this.renderItem({
+        h,
+        input: this.input,
+        value: this.value,
+        row: this.item
+      });
     }
     return null;
   }

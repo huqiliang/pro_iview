@@ -27,6 +27,7 @@
             </span>
             <ProTypeItem
               v-if="item.renderForm"
+              :item="item"
               :renderItem="item.renderForm"
               :value="getValue(value, item)"
               @input="change(item, $event)"
