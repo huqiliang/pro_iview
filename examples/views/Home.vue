@@ -1,9 +1,11 @@
 <template>
   <div class="home">
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
+    <Button @click="click">aaa</Button>
     <pro-table
       :request="request"
       :map="map"
+      :toolBar="toolBar"
       :columns="columns"
       :submitForm="submitForm"
       :search="{ searchLineNum: 2 }"
@@ -21,6 +23,7 @@ export default {
   name: "Home",
   data() {
     return {
+      toolBar: true,
       autoData: {
         columns: [
           {
@@ -142,6 +145,9 @@ export default {
     };
   },
   methods: {
+    click() {
+      this.toolBar = false;
+    },
     table() {
       const ref = this.$refs.proSearch;
       console.log(ref.value);

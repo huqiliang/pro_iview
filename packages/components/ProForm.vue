@@ -11,15 +11,20 @@
       <div v-for="(columns, index) in groupColunms" :key="index">
         <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
         <div
+          class="formContain"
           :class="{ p10: groupColunms && Object.keys(groupColunms).length > 1 }"
         >
+          <!-- <Icon type="md-bookmark" /> -->
           <FormItem
             :key="item.key"
-            :label="item.title + ' :'"
             :prop="propItem(item)"
             :rules="item.rules"
             v-for="item in columns"
           >
+            <span slot="label">
+              <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
+              {{ item.title + " :" }}
+            </span>
             <ProTypeItem
               v-if="item.renderForm"
               :renderItem="item.renderForm"
@@ -108,6 +113,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.formContain {
+  // display: flex;
+}
 .groupTitle {
   font-size: 20px;
   font-weight: bold;

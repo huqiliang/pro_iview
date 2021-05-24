@@ -26,9 +26,9 @@
       <div v-if="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ tableTitle }}</div>
         <div class="buttons">
-          <Button @click="tableAction({ type: 'new' })" type="primary"
-            ><Icon type="md-add" />{{ t("pro.common.new") }}</Button
-          >
+          <Button @click="tableAction({ type: 'new' })" type="primary">
+            <Icon type="md-add" />{{ t("pro.common.new") }}
+          </Button>
         </div>
       </div>
     </Table>
@@ -377,7 +377,12 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+/deep/ .ivu-table-title {
+  height: auto;
+  line-height: none;
+  border-bottom: 0;
+}
 .content {
   width: 80%;
   margin: 0 auto;
@@ -385,6 +390,9 @@ export default {
 .protable {
   .tableHeader {
     display: flex;
+    height: 48px;
+    line-height: 48px;
+    border-bottom: 1px solid #e8eaec;
     justify-content: space-between;
     padding: 0 20px;
     .title {
