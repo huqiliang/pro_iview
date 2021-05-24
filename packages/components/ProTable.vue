@@ -4,6 +4,7 @@
       <ProSearch
         :columns="searchColumns"
         :loading="loading"
+        v-if="!hide.search"
         v-model="form"
         @search="search"
         @reset="reset"
@@ -15,6 +16,8 @@
       :loading="loading"
       :columns="tableColumns"
       :data="proData"
+      v-if="!hide.table"
+      ref="table"
       class="table"
       border
       v-bind="$attrs.table"
@@ -31,7 +34,7 @@
     </Table>
     <div class="page">
       <Page
-        v-if="proData"
+        v-if="proData && !hide.search"
         :total="total"
         :current="this.page.current"
         @on-change="pageChange"
@@ -130,6 +133,14 @@ export default {
         };
       }
     },
+    data: {
+      type: Array
+    },
+    hide: {
+      default() {
+        return { search: false, table: false, pages: false };
+      }
+    },
     submitForm: {}
   },
   computed: {
@@ -156,7 +167,11 @@ export default {
     ProForm
   },
   created() {
-    this.fetch();
+    if (this.data) {
+      this.proData = this.data;
+    } else {
+      this.fetch();
+    }
   },
   methods: {
     columnFilter(showType, renderType) {
@@ -313,6 +328,9 @@ export default {
         table: this.proData,
         page: { ...this.page, total: this.total }
       };
+    },
+    getSelection() {
+      return this.$refs.table.getSelection();
     },
     submit() {
       this.formDialog.formLoading = false;

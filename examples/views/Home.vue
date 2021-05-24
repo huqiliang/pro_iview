@@ -6,9 +6,11 @@
       :map="map"
       :columns="columns"
       :submitForm="submitForm"
-      :searchLineNum="5"
+      :search="{ searchLineNum: 2 }"
     >
     </pro-table>
+
+    <pro-table :columns="columns" :searchLineNum="5"> </pro-table>
   </div>
 </template>
 
