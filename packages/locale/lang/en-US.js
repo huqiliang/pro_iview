@@ -8,7 +8,7 @@ export default {
       new: "New",
       edit: "Edit",
       delete: "Delete",
-      reset: "Rest",
+      reset: "Reset",
       search: "Search",
       action: "Action",
       success: "Success",
