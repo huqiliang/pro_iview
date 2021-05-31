@@ -20,8 +20,27 @@ module.exports = {
       }
     }
   },
+  configureWebpack: {
+    externals: {
+      vue: "Vue",
+      vuex: "vuex",
+      axios: "axios",
+      lodash: "lodash",
+      "view-design": "iview",
+      iview: "ViewUI",
+      "iview.css": "iview.css",
+      "vue-router": "vue-router"
+    }
+  },
   // 扩展 webpack 配置，使 packages 加入编译
   chainWebpack: config => {
     config.resolve.alias.set("@", resolve("examples"));
+    if (process.env.NODE_ENV === "production") {
+      if (process.env.ANALYZ_ENV) {
+        config
+          .plugin("webpack-bundle-analyzer")
+          .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin);
+      }
+    }
   }
 };

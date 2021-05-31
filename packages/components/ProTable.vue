@@ -231,7 +231,7 @@ export default {
       } else if (val.type) {
         this.tableAction(val, params);
       } else {
-        console.warn("未定义类型");
+        window.console.warn("未定义的类型");
       }
     },
     async tableAction(val, params) {
