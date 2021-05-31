@@ -177,7 +177,7 @@ export default {
     columnFilter(showType, renderType) {
       const columns = _.cloneDeep(this.columns);
       let arr = [];
-      map(columns, (value) => {
+      map(columns, value => {
         if (!value[showType]) {
           if (has(value, renderType)) {
             value.render = value[renderType];
@@ -185,7 +185,7 @@ export default {
             value.render = (h, params) => {
               return (
                 <div class="actions">
-                  {map(value.actions, (val) => {
+                  {map(value.actions, val => {
                     return val.type === "delete" ? (
                       <Poptip
                         transfer={true}
@@ -335,7 +335,7 @@ export default {
     submit() {
       this.formDialog.formLoading = false;
       if (this.formDialog.type !== "view") {
-        this.$refs["proForm"].validate(async (valid) => {
+        this.$refs["proForm"].validate(async valid => {
           if (valid) {
             let res = {};
             const { val } = this.usedRow;
@@ -380,7 +380,6 @@ export default {
 <style lang="less" scoped>
 /deep/ .ivu-table-title {
   height: auto;
-  line-height: none;
   border-bottom: 0;
 }
 .content {
@@ -408,10 +407,12 @@ export default {
     display: flex;
     justify-content: flex-end;
   }
-  .actions {
-    font-size: 12px;
-    .button {
-      margin-right: 10px;
+  /deep/ .ivu-table-cell {
+    .actions {
+      font-size: 12px !important;
+      .button {
+        margin-right: 10px;
+      }
     }
   }
 }
