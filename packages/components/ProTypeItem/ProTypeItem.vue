@@ -34,7 +34,7 @@ export default {
           ...this.renderItem.style
         },
         on: {
-          input: (value) => {
+          input: value => {
             //删除是否为空的判断 不确定是否会产生bug
             this.input(value);
           },

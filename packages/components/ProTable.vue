@@ -23,7 +23,7 @@
       v-bind="$attrs.table"
       v-on="$listeners.table"
     >
-      <div v-if="toolBar" slot="header" class="tableHeader">
+      <div v-show="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ tableTitle }}</div>
         <div class="buttons">
           <Button @click="tableAction({ type: 'new' })" type="primary">
