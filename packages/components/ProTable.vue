@@ -133,6 +133,9 @@ export default {
         };
       }
     },
+    format: {
+      type: Object
+    },
     data: {
       type: Array
     },
@@ -278,10 +281,14 @@ export default {
     async fetch(fn) {
       if (!_.isEmpty(this.request)) {
         this.loading = true;
+        const pageValue =
+          this.format && this.format.formatCurrent
+            ? this.format.formatCurrent(this.page)
+            : this.page;
         const res = await customRequest({
           request: this.request,
           datas: {
-            ...this.page,
+            ...pageValue,
             ...this.form
           }
         });

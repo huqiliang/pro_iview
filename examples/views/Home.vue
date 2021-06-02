@@ -9,6 +9,7 @@
       :columns="columns"
       :submitForm="submitForm"
       :search="{ searchLineNum: 2 }"
+      :format="format"
     >
     </pro-table>
 
@@ -35,6 +36,13 @@ export default {
         ],
         value: {
           toolBar: false
+        }
+      },
+      format: {
+        formatCurrent(page) {
+          const { current, pageSize } = page;
+          let offset = (current - 1) * pageSize;
+          return { ...page, current: offset };
         }
       },
       columns: [
