@@ -39,11 +39,11 @@ export default {
         }
       },
       format: {
-        formatCurrent(page) {
-          const { current, pageSize } = page;
-          let offset = (current - 1) * pageSize;
-          return { ...page, current: offset };
-        }
+        // formatCurrent({ page }) {
+        //   const { current, pageSize } = page;
+        //   return { ...page, current: (current - 1) * pageSize };
+        // }
+        formatCurrent: "(page.current - 1) * page.pageSize"
       },
       columns: [
         {

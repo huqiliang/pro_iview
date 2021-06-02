@@ -281,10 +281,24 @@ export default {
     async fetch(fn) {
       if (!_.isEmpty(this.request)) {
         this.loading = true;
-        const pageValue =
-          this.format && this.format.formatCurrent
-            ? this.format.formatCurrent(this.page)
-            : this.page;
+        let pageValue = this.page;
+        if (this.format && this.format.formatCurrent) {
+          if (_.isFunction(this.format.formatCurrent)) {
+            pageValue = this.format.formatCurrent(this.page);
+          }
+          if (_.isString(this.format.formatCurrent)) {
+            console.log(this.page);
+            const fn = new Function(
+              "page",
+              "return  " +
+                `Object.assign(${JSON.stringify(this.page)}, { current:${
+                  this.format.formatCurrent
+                } });`
+            );
+            pageValue = fn(this.page);
+          }
+        }
+        console.log(pageValue);
         const res = await customRequest({
           request: this.request,
           datas: {
