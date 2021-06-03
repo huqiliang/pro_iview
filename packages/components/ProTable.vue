@@ -287,7 +287,6 @@ export default {
             pageValue = this.format.formatCurrent(this.page);
           }
           if (_.isString(this.format.formatCurrent)) {
-            console.log(this.page);
             const fn = new Function(
               "page",
               "return  " +
@@ -298,7 +297,6 @@ export default {
             pageValue = fn(this.page);
           }
         }
-        console.log(pageValue);
         const res = await customRequest({
           request: this.request,
           datas: {

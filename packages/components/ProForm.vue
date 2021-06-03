@@ -37,6 +37,8 @@
             <Input
               v-else
               type="text"
+              :disabled="item.disabled"
+              :readonly="item.readonly"
               :value="getValue(value, item)"
               :placeholder="item.title"
               @input="change(item, $event)"
@@ -114,14 +116,15 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.formContain {
-  // display: flex;
-}
 .groupTitle {
   font-size: 20px;
   font-weight: bold;
 }
 .p10 {
   padding: 20px 0 0 20px;
+}
+/deep/ .ivu-input[disabled],
+fieldset[disabled] {
+  color: #666 !important;
 }
 </style>

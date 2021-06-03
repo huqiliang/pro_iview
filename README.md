@@ -8,6 +8,6 @@ A high-level component library based on iView
   
 - [ ] Edit_table
 
-- [ ] pro_form
+- [x] pro_form
 
 - [ ] 文档完善
