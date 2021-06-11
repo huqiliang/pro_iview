@@ -129,12 +129,18 @@ export default {
               // }
             },
             {
-              title: "删除",
               type: "delete",
-              method: "delete",
-              request: "/id",
-              keys: ["id"]
+              title: "删除",
+              request: "http://127.0.0.1:7068/api/v1/users/1",
+              method: "DELETE"
             }
+            // {
+            //   title: "删除",
+            //   type: "delete",
+            //   // method: "delete",
+            //   // request: "/id",
+            //   keys: ["id"]
+            // }
           ]
         }
       ],

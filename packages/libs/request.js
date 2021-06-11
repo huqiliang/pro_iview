@@ -33,8 +33,11 @@ export default ({ request, method, keys, datas }) => {
       }
       request.url = request.request;
     }
-    const method = method ? method : request.method;
-    return axios({ ...request, ...pick({ method, keys: keyOption, datas }) });
+    const myMethod = method ? method : request.method;
+    return axios({
+      ...request,
+      ...pick({ method: myMethod, keys: keyOption, datas })
+    });
   }
   // 对象本身就是axios
   else if (_.isFunction(request)) {
