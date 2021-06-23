@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "axios";
 import _ from "lodash";
 
 const pick = ({ method, datas, keys }) => {
@@ -18,9 +18,10 @@ const pick = ({ method, datas, keys }) => {
     console.log(error);
   }
 };
-
-export default ({ request, method, keys, datas }) => {
+const request = ({ request, method, keys, datas }) => {
   // 字符串 是request:"/url"
+  const axios = global.$http || Axios;
+
   if (_.isString(request)) {
     return axios({ url: request, method, ...pick({ method, keys, datas }) });
   }
@@ -47,3 +48,4 @@ export default ({ request, method, keys, datas }) => {
     resolve({ data: { type: "error", msg: "something is wrong" } });
   });
 };
+export default request;
