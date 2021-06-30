@@ -19,4 +19,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.buttonIcon {
+  margin-right: 2px;
+  position: relative;
+  top: -1px;
+}
 </style>

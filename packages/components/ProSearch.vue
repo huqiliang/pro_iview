@@ -41,16 +41,19 @@
           <pre></pre>
         </label>
         <div class="input" style="clear:both;text-align:right">
-          <Button @click="reset" class="ml10">{{
-            t("pro.common.reset")
-          }}</Button>
+          <Button @click="reset" class="ml10">
+            <Icon type="md-refresh" class="buttonIcon" />
+            <span>{{ t("pro.common.reset") }}</span>
+          </Button>
           <Button
             @click="search"
             :loading="loading"
             class="ml10"
             type="primary"
-            >{{ t("pro.common.search") }}</Button
           >
+            <Icon v-if="!loading" type="ios-search" class="buttonIcon" />
+            <span>{{ t("pro.common.search") }}</span>
+          </Button>
           <a
             v-if="columns && columns.length > searchLineNum"
             class="text"

@@ -27,7 +27,8 @@
         <div class="title">{{ tableTitle }}</div>
         <div class="buttons">
           <Button @click="tableAction({ type: 'new' })" type="primary">
-            <Icon type="md-add" />{{ t("pro.common.new") }}
+            <Icon type="md-add" class="buttonIcon" />
+            <span>{{ t("pro.common.new") }}</span>
           </Button>
         </div>
       </div>
