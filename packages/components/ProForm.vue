@@ -18,7 +18,7 @@
           <FormItem
             :key="item.key"
             :prop="propItem(item)"
-            :rules="item.rules"
+            :rules="item.rules || item.validate"
             v-for="item in columns"
           >
             <span slot="label">
