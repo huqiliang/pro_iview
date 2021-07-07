@@ -107,6 +107,8 @@ export default {
         },
         {
           title: "descript",
+          tooltip: true,
+          tooltipMaxWidth: 700,
           key: "descript"
         },
         {
@@ -144,7 +146,7 @@ export default {
           ]
         }
       ],
-      request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+      request: "https://yapi.ihotel.cn/mock/106/api/table",
       // request(options) {
       //   console.log(options);
       //   return axios.get("https://yapi.ihotel.cn/mock/67/sys/sysOptionList", {
