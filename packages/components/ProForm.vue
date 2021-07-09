@@ -18,7 +18,7 @@
           <FormItem
             :key="item.key"
             :prop="propItem(item)"
-            :rules="item.rules || item.validate"
+            :rules="ruleChange(item)"
             v-for="item in columns"
           >
             <span slot="label">
@@ -87,6 +87,15 @@ export default {
     }
   },
   methods: {
+    ruleChange(item) {
+      const rules = item.rules || item.validate;
+      _.map(rules, val => {
+        if (val.pattern && _.isString(val.pattern)) {
+          val.pattern = new RegExp(val.pattern);
+        }
+      });
+      return rules;
+    },
     getValue(value, item) {
       return _.get(value, item.key);
     },
