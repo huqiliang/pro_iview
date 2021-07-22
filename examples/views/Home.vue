@@ -3,6 +3,7 @@
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">aaa</Button>
     <pro-table
+      :data="data"
       :request="request"
       :map="map"
       :toolBar="toolBar"
@@ -24,6 +25,12 @@ export default {
   name: "Home",
   data() {
     return {
+      data: [
+        {
+          cataLog: "33",
+          createUser: "222"
+        }
+      ],
       toolBar: true,
       autoData: {
         columns: [
@@ -162,7 +169,10 @@ export default {
   },
   methods: {
     click() {
-      this.toolBar = false;
+      // this.toolBar = false;
+      this.$set(this.data, 0, {
+        createUser: "aa"
+      });
     },
     table() {
       const ref = this.$refs.proSearch;

@@ -147,6 +147,10 @@ export default {
     },
     submitForm: {}
   },
+  model: {
+    prop: "data",
+    event: "dataChange"
+  },
   computed: {
     modalTitle() {
       return this.formDialog.type
@@ -178,6 +182,9 @@ export default {
     }
   },
   methods: {
+    dataChange() {
+      this.$emit("dataChange", this.proData);
+    },
     columnFilter(showType, renderType) {
       const columns = _.cloneDeep(this.columns);
       let arr = [];
