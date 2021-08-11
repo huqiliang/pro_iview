@@ -35,7 +35,7 @@
     </Table>
     <div class="page">
       <Page
-        v-if="proData && !hide.search"
+        v-if="proData && !hide.page"
         :total="total"
         :current="page.current"
         @on-change="pageChange"
