@@ -431,9 +431,6 @@ export default {
       font-size: 16px;
     }
   }
-  .table {
-    margin: 10px;
-  }
   .page {
     margin-top: 15px;
     display: flex;
