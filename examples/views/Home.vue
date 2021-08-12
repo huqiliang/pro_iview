@@ -3,13 +3,12 @@
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">aaa</Button>
     <pro-table
-      :data="data"
       :request="request"
       :map="map"
       :toolBar="toolBar"
       :columns="columns"
       :submitForm="submitForm"
-      :search="{ searchLineNum: 2 }"
+      :search="{ searchLineNum: 3, value: { createUser3: 'gg' } }"
       :format="format"
     >
     </pro-table>
@@ -126,11 +125,11 @@ export default {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
+              request: "http://192.168.0.38:3000/mock/67/sys/sysOptionList"
               // request(options) {
               //   console.log(options);
               //   return axios.post(
-              //     "https://yapi.ihotel.cn/mock/67/sys/sysOptionList",
+              //     "http://192.168.0.38:3000/mock/67/sys/sysOptionList",
               //     {
               //       a: options.row.cateLog
               //     }
@@ -153,10 +152,10 @@ export default {
           ]
         }
       ],
-      request: "https://yapi.ihotel.cn/mock/106/api/table",
+      request: "http://192.168.0.38:3000/mock/106/api/table",
       // request(options) {
       //   console.log(options);
-      //   return axios.get("https://yapi.ihotel.cn/mock/67/sys/sysOptionList", {
+      //   return axios.get("http://192.168.0.38:3000/mock/67/sys/sysOptionList", {
       //     params: { ...options }
       //   });
       // },
@@ -164,7 +163,7 @@ export default {
         dataPath: "data",
         totalPath: "totalRows"
       },
-      submitForm: "https://yapi.ihotel.cn/mock/67/sys/sysOptionList"
+      submitForm: "http://192.168.0.38:3000/mock/67/sys/sysOptionList"
     };
   },
   methods: {

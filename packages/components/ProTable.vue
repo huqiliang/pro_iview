@@ -6,7 +6,7 @@
         :loading="loading"
         v-if="!hide.search"
         v-model="form"
-        @search="search"
+        @search="searchAction"
         @reset="reset"
         v-bind="$attrs.search"
         v-on="$listeners.search"
@@ -174,7 +174,12 @@ export default {
     ProSearch,
     ProForm
   },
-  created() {
+  mounted() {
+    //如果有搜索参数带入
+    const { search } = this.$attrs;
+    if (search) {
+      this.form = search.value;
+    }
     if (this.data) {
       this.proData = this.data;
     } else {
@@ -267,7 +272,7 @@ export default {
         this.fetch();
       }
     },
-    search() {
+    searchAction() {
       this.page = {
         current: 1,
         pageSize: 10
