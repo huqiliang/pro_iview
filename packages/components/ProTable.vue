@@ -313,6 +313,7 @@ export default {
         }
         const res = await customRequest({
           request: this.request,
+          method: this.method,
           datas: {
             ...pageValue,
             ...this.form
