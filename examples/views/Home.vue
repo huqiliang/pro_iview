@@ -18,7 +18,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import dayjs from "dayjs";
 export default {
   name: "Home",
@@ -83,12 +83,13 @@ export default {
         },
         {
           title: "createUser",
-          rules: {
-            required: true
-          },
           key: "createUser",
-          renderSearch: () => {
-            return <div>aaa</div>;
+          renderSearch: ({ value, input }) => {
+            return (
+              <Select value={value} oninput={input} clearable>
+                <Option value="1">1</Option>
+              </Select>
+            );
           }
         },
         {
@@ -152,13 +153,13 @@ export default {
           ]
         }
       ],
-      request: "http://192.168.0.38:3000/mock/106/api/table",
-      // request(options) {
-      //   console.log(options);
-      //   return axios.get("http://192.168.0.38:3000/mock/67/sys/sysOptionList", {
-      //     params: { ...options }
-      //   });
-      // },
+      // request: "http://192.168.0.38:3000/mock/106/api/table",
+      request(options) {
+        console.log(options);
+        return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
+          params: { ...options }
+        });
+      },
       map: {
         dataPath: "data",
         totalPath: "totalRows"

@@ -131,7 +131,7 @@ export default {
       this.isDown = !this.isDown;
     },
     reset() {
-      this.$emit("input", {});
+      // this.$emit("input", {});
       this.$emit("reset");
     },
     search() {

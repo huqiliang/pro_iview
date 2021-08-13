@@ -7,7 +7,7 @@
         v-if="!hide.search"
         v-model="form"
         @search="searchAction"
-        @reset="reset"
+        @reset="searchReset"
         v-bind="$attrs.search"
         v-on="$listeners.search"
       ></ProSearch>
@@ -279,20 +279,21 @@ export default {
       };
       this.fetch();
     },
-    reset() {
+    searchReset() {
       this.page = {
         current: 1,
         pageSize: 10
       };
-      this.$refs["proForm"].reset();
-      this.formDialog.proFormData = {};
+      // this.$refs["proForm"].reset();
+      // this.formDialog.proFormData = {};
+      this.form = {};
       this.fetch();
     },
     cancel() {
       this.$refs["proForm"].reset();
     },
     async fetch(fn) {
-      if (!_.isEmpty(this.request)) {
+      if (!_.isUndefined(this.request)) {
         this.loading = true;
         let pageValue = this.page;
         if (this.format && this.format.formatCurrent) {
