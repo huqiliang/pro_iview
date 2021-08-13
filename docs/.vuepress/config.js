@@ -21,6 +21,7 @@ module.exports = {
       "/guide/": [
         {
           title: "架构设计", // 必要的
+          collapsable: false,
           children: [
             {
               title: "组件总览",
@@ -34,6 +35,7 @@ module.exports = {
         },
         {
           title: "数据展示",
+          collapsable: false,
           children: [
             {
               title: "组件总览",
@@ -42,6 +44,20 @@ module.exports = {
             {
               title: "通用配置",
               path: "/guide/config"
+            }
+          ]
+        },
+        {
+          title: "服务端",
+          collapsable: false,
+          children: [
+            {
+              title: "简介",
+              path: "/guide/server/intro"
+            },
+            {
+              title: "页面配置",
+              path: "/guide/server/page"
             }
           ]
         }

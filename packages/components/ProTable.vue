@@ -90,7 +90,7 @@ export default {
       loading: false,
       proData: [],
       form: {},
-      total: null,
+      total: 0,
       usedRow: null,
       page: {
         current: 1,
@@ -286,7 +286,8 @@ export default {
       };
       // this.$refs["proForm"].reset();
       // this.formDialog.proFormData = {};
-      this.form = {};
+      const { search } = this.$attrs;
+      this.form = search?.value || {};
       this.fetch();
     },
     cancel() {
@@ -332,7 +333,7 @@ export default {
             this.total = get(res.data, this.map.totalPath);
           } else {
             this.proData = [];
-            this.total = null;
+            this.total = 0;
             msg = {
               code: -1,
               status: "fail",
@@ -342,7 +343,7 @@ export default {
           }
         } else {
           this.proData = [];
-          this.total = null;
+          this.total = 0;
           msg = {
             code: -1,
             status: "error",
