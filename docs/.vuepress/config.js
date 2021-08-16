@@ -58,26 +58,16 @@ module.exports = {
           ]
         }
       ],
-
       "/logs/": [
         {
           title: "更新日志",
           children: [
             {
-              title: "组件总览", // 必要的
-              path: "/foo/" // 可选的, 标题的跳转链接，应为绝对路径且必须存在
-            },
-            {
-              title: "总用配置总览", // 必要的
-              path: "/foo/" // 可选的, 标题的跳转链接，应为绝对路径且必须存在
+              title: "更新说明", // 必要的
+              path: "/logs/logs" // 可选的, 标题的跳转链接，应为绝对路径且必须存在
             }
           ] // 可选的, 标题的跳转链接，应为绝对路径且必须存在
         }
-      ],
-      "/": [
-        "" /* / */,
-        "contact" /* /contact.html */,
-        "about" /* /about.html */
       ]
     },
     sidebarDepth: 1, //左侧导航显示的层级
