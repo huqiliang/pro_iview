@@ -25,11 +25,7 @@ module.exports = {
           children: [
             {
               title: "组件总览",
-              path: "/guide/preview"
-            },
-            {
-              title: "通用配置",
-              path: "/guide/config"
+              path: "/guide/all/preview"
             }
           ]
         },
@@ -38,22 +34,22 @@ module.exports = {
           collapsable: false,
           children: [
             {
-              title: "组件总览",
-              path: "/guide/preview"
-            },
-            {
-              title: "通用配置",
-              path: "/guide/config"
+              title: "表格生成",
+              path: "/guide/data/config"
             }
           ]
         },
         {
-          title: "服务端",
+          title: "天工手册",
           collapsable: false,
           children: [
             {
               title: "简介",
               path: "/guide/server/intro"
+            },
+            {
+              title: "项目配置",
+              path: "/guide/server/product"
             },
             {
               title: "页面配置",
@@ -84,7 +80,7 @@ module.exports = {
         "about" /* /about.html */
       ]
     },
-    sidebarDepth: 2, //左侧导航显示的层级
+    sidebarDepth: 1, //左侧导航显示的层级
     lastUpdated: "Last Updated"
   }
 };

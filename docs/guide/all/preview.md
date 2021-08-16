@@ -9,4 +9,4 @@ ProComponents 是基于 Ant Design 而开发的模板组件，提供了更高级
 
 CRUD
 
-ProTable 可以快速实现查询表单和可编辑表格。ProDescriptions 可以实现节点编辑，以下有个例子可以切换三个组件。
+ProTable 可以快速实现查询表单和可编辑表格。
