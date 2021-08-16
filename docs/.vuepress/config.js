@@ -2,7 +2,7 @@ module.exports = {
   title: "iview高阶组件库", // 设置网站标题
   description: "iview高阶组件库",
   displayAllHeaders: true, //显示所有页面的标题链接
-
+  base: "/pro_iview/",
   head: [],
   plugins: [],
   themeConfig: {
@@ -13,7 +13,7 @@ module.exports = {
       { text: "更新日志", link: "/logs/" },
       {
         text: "github",
-        link: "https://github.com/huqiliang/pro_components"
+        link: "https://github.com/huqiliang/pro_iview"
       }
     ],
     sidebar: {

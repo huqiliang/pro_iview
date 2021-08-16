@@ -9,7 +9,8 @@
     "analyze": "vue-cli-service build --mode analyze",
     "lint": "vue-cli-service lint",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:publish": "sh doc_deploy.sh"
   },
   "dependencies": {
     "axios": "^0.21.1",
