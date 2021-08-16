@@ -44,7 +44,7 @@ const request = ({ request, method, keys, datas }) => {
   else if (_.isFunction(request)) {
     return request(datas);
   }
-  return new Promise(({ resolve }) => {
+  return new Promise(resolve => {
     resolve({ data: { type: "error", msg: "something is wrong" } });
   });
 };
