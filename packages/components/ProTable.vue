@@ -178,7 +178,7 @@ export default {
     //如果有搜索参数带入
     const { search } = this.$attrs;
     if (search) {
-      this.form = search.value;
+      this.form = _.cloneDeep(search.value);
     }
     if (this.data) {
       this.proData = this.data;
@@ -284,10 +284,10 @@ export default {
         current: 1,
         pageSize: 10
       };
-      // this.$refs["proForm"].reset();
+      this.$refs["proForm"].reset();
       // this.formDialog.proFormData = {};
       const { search } = this.$attrs;
-      this.form = search?.value || {};
+      this.form = _.cloneDeep(_.get(search, "value")) || {};
       this.fetch();
     },
     cancel() {
