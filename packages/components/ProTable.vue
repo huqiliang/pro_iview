@@ -89,7 +89,8 @@ export default {
       },
       loading: false,
       proData: [],
-      form: {},
+      searchForm: {},
+      // defaultSearchValue: null,
       total: 0,
       usedRow: null,
       page: {
@@ -168,6 +169,15 @@ export default {
     },
     formColumns() {
       return this.columnFilter("notShowForm", "renderForm");
+    },
+    form: {
+      get() {
+        return this.$attrs?.search || this.searchForm;
+      },
+      set(value) {
+        this.searchForm = value;
+        this.$emit("update:search", value);
+      }
     }
   },
   components: {
@@ -175,11 +185,9 @@ export default {
     ProForm
   },
   mounted() {
-    //如果有搜索参数带入
-    const { search } = this.$attrs;
-    if (search) {
-      this.form = _.cloneDeep(search.value);
-    }
+    // if (this.searchForm) {
+    //   this.form = this.searchForm.value;
+    // }
     if (this.data) {
       this.proData = this.data;
     } else {
@@ -284,11 +292,12 @@ export default {
         current: 1,
         pageSize: 10
       };
+      this.form = {};
       this.$refs["proForm"].reset();
       // this.formDialog.proFormData = {};
-      const { search } = this.$attrs;
-      this.form = _.cloneDeep(_.get(search, "value")) || {};
-      this.fetch();
+      this.$nextTick(() => {
+        this.fetch();
+      });
     },
     cancel() {
       this.$refs["proForm"].reset();

@@ -3,12 +3,13 @@
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">aaa</Button>
     <pro-table
+      ref="table"
       :request="request"
       :map="map"
       :toolBar="toolBar"
       :columns="columns"
       :submitForm="submitForm"
-      :search="{ searchLineNum: 3, value: { createUser3: 'gg' } }"
+      :search.sync="search.value"
       :format="format"
     >
     </pro-table>
@@ -24,6 +25,7 @@ export default {
   name: "Home",
   data() {
     return {
+      search: { searchLineNum: 3, value: { createUser3: "gg" } },
       data: [
         {
           cataLog: "33",
@@ -155,7 +157,7 @@ export default {
       ],
       // request: "http://192.168.0.38:3000/mock/106/api/table",
       request(options) {
-        console.log(options);
+        // console.log(options);
         return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
           params: { ...options }
         });
@@ -169,6 +171,8 @@ export default {
   },
   methods: {
     click() {
+      this.$set(this.search.value, "createUser3", "123");
+      this.$refs["table"].fetch();
       // this.toolBar = false;
       this.$set(this.data, 0, {
         createUser: "aa"
