@@ -1,5 +1,6 @@
 <template>
   <div class="protable">
+    {{ form }}
     <slot name="search">
       <ProSearch
         :columns="searchColumns"
@@ -172,11 +173,13 @@ export default {
     },
     form: {
       get() {
-        return this.$attrs?.search || this.searchForm;
+        return this.$attrs?.search?.value || this.searchForm;
       },
       set(value) {
         this.searchForm = value;
-        this.$emit("update:search", value);
+        if (this.$attrs.search && this.$attrs.search.value) {
+          this.$attrs.search.value = value;
+        }
       }
     }
   },

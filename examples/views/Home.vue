@@ -2,6 +2,7 @@
   <div class="home">
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">aaa</Button>
+    {{ search }}
     <pro-table
       ref="table"
       :request="request"
@@ -9,7 +10,7 @@
       :toolBar="toolBar"
       :columns="columns"
       :submitForm="submitForm"
-      :search.sync="search.value"
+      :search="search"
       :format="format"
     >
     </pro-table>
