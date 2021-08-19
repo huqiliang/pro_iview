@@ -1,6 +1,5 @@
 <template>
   <div class="protable">
-    {{ form }}
     <slot name="search">
       <ProSearch
         :columns="searchColumns"
