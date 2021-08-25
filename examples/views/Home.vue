@@ -12,6 +12,7 @@
       :submitForm="submitForm"
       :search="search"
       :format="format"
+      @on-row-click="tableAction"
     >
     </pro-table>
 
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+/* eslint-disable*/
 import axios from "axios";
 import dayjs from "dayjs";
 export default {
@@ -156,21 +158,24 @@ export default {
           ]
         }
       ],
-      // request: "http://192.168.0.38:3000/mock/106/api/table",
-      request(options) {
-        // console.log(options);
-        return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
-          params: { ...options }
-        });
-      },
+      request: "http://192.168.0.38:3000/mock/106/api/table",
+      // request(options) {
+      //   // console.log(options);
+      //   return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
+      //     params: { ...options }
+      //   });
+      // },
       map: {
         dataPath: "data",
         totalPath: "totalRows"
       },
-      submitForm: "http://192.168.0.38:3000/mock/67/sys/sysOptionList"
+      submitForm: "http://192.168.0.38:3000/mock/106/api/table"
     };
   },
   methods: {
+    tableAction() {
+      console.log("a");
+    },
     click() {
       this.$set(this.search.value, "createUser3", "123");
       this.$refs["table"].fetch();

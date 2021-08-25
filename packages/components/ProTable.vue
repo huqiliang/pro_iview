@@ -9,7 +9,7 @@
         @search="searchAction"
         @reset="searchReset"
         v-bind="$attrs.search"
-        v-on="$listeners.search"
+        v-on="$listeners"
       ></ProSearch>
     </slot>
     <Table
@@ -18,10 +18,9 @@
       :data="proData"
       v-if="!hide.table"
       ref="table"
-      class="table"
       border
       v-bind="$attrs.table"
-      v-on="$listeners.table"
+      v-on="$listeners"
     >
       <div v-show="toolBar" slot="header" class="tableHeader">
         <div class="title">{{ tableTitle }}</div>
@@ -44,7 +43,7 @@
         show-total
         show-sizer
         v-bind="$attrs.page"
-        v-on="$listeners.page"
+        v-on="$listeners"
       />
     </div>
     <Modal
