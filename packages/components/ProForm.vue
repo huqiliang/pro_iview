@@ -37,6 +37,7 @@
             <Input
               v-else
               type="text"
+              clearable
               :disabled="item.disabled"
               :readonly="item.readonly"
               :value="getValue(value, item)"

@@ -28,6 +28,7 @@ export default {
       return h(this.renderItem.type, {
         props: {
           value: this.value,
+          clearable: true,
           ...this.renderItem.props
         },
         style: {

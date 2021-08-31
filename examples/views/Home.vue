@@ -71,7 +71,7 @@ export default {
               format: "yyyy-MM-dd hh:mm:ss"
             },
             format(value) {
-              return dayjs(value).format("YYYY-MM-DD hh:mm:ss");
+              return value ? dayjs(value).format("YYYY-MM-DD hh:mm:ss") : "";
             }
           },
           renderTable: () => {
