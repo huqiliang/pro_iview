@@ -281,12 +281,12 @@ export default {
         this.fetch();
       }
     },
-    searchAction() {
+    async searchAction() {
       this.page = {
         current: 1,
         pageSize: 10
       };
-      this.fetch();
+      await this.fetch();
     },
     searchReset() {
       this.page = {
@@ -296,8 +296,8 @@ export default {
       this.form = {};
       this.$refs["proForm"].reset();
       // this.formDialog.proFormData = {};
-      this.$nextTick(() => {
-        this.fetch();
+      this.$nextTick(async () => {
+        await this.fetch();
       });
     },
     cancel() {
