@@ -60,8 +60,8 @@
           :columns="formColumns"
           :type="formDialog.type"
           v-model="formDialog.proFormData"
-          v-bind="attrs.form"
-          v-on="listeners.form"
+          v-bind="$attrs.form"
+          v-on="$listeners.form"
         ></ProForm>
       </div>
     </Modal>

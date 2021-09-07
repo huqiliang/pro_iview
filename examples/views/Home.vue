@@ -13,6 +13,7 @@
       :search="search"
       :format="format"
       @on-row-click="tableAction"
+      :form="form"
     >
     </pro-table>
 
@@ -29,6 +30,7 @@ export default {
   data() {
     return {
       search: { searchLineNum: 3, value: { createUser3: "gg" } },
+      form: { labelPosition: "right" },
       data: [
         {
           cataLog: "33",

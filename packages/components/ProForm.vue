@@ -4,7 +4,7 @@
       ref="form"
       :model="value"
       :label-width="labelWidth"
-      label-position="left"
+      :label-position="labelPosition"
       v-bind="$attrs"
       v-on="$listeners"
     >
@@ -68,6 +68,12 @@ export default {
       type: Number,
       default() {
         return 110;
+      }
+    },
+    labelPosition: {
+      type: String,
+      default() {
+        return "left";
       }
     },
     columns: {
