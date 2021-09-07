@@ -37,6 +37,7 @@
         v-if="proData && !hide.page"
         :total="total"
         :current="page.current"
+        :page-size="page.pageSize"
         @on-change="pageChange"
         @on-page-size-change="pageSizeChange"
         transfer
@@ -263,7 +264,7 @@ export default {
       this.usedRow = { val, params };
       if (val.type === "delete") {
         await customRequest({ request: val, datas: params.row });
-        this.fetch();
+        await this.fetch();
       } else {
         this.formDialog.proFormData =
           val.type === "new" ? {} : _.cloneDeep(params.row);
@@ -271,20 +272,21 @@ export default {
         this.formDialog.show = true;
       }
     },
-    pageChange(current) {
+    async pageChange(current) {
       this.page.current = current;
-      this.fetch();
+      await this.fetch();
     },
-    pageSizeChange(pageSize) {
+    async pageSizeChange(pageSize) {
       this.page.pageSize = pageSize;
       if (this.page.current == 1) {
-        this.fetch();
+        await this.fetch();
       }
     },
     async searchAction() {
+      console.log("search");
       this.page = {
-        current: 1,
-        pageSize: 10
+        ...this.page,
+        current: 1
       };
       await this.fetch();
     },
