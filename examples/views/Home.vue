@@ -14,6 +14,7 @@
       :format="format"
       @on-row-click="tableAction"
       :form="form"
+      :toolBarActions="toolBarActions"
     >
     </pro-table>
 
@@ -29,6 +30,26 @@ export default {
   name: "Home",
   data() {
     return {
+      toolBarActions: [
+        "new",
+        {
+          key: "test",
+          renderItem() {
+            return (
+              <Button
+                type="primary"
+                onclick={() => {
+                  console.log("自定义按钮");
+                }}
+              >
+                编辑
+              </Button>
+            );
+          }
+        },
+        "refresh",
+        "rowSetting"
+      ],
       search: { searchLineNum: 3, value: { createUser3: "gg" } },
       form: { labelPosition: "right" },
       data: [

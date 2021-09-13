@@ -12,41 +12,46 @@
         v-on="$listeners"
       ></ProSearch>
     </slot>
-    <Table
-      :loading="loading"
-      :columns="tableColumns"
-      :data="proData"
-      v-if="!hide.table"
-      ref="table"
-      border
-      v-bind="$attrs.table"
-      v-on="$listeners"
-    >
-      <div v-show="toolBar" slot="header" class="tableHeader">
-        <div class="title">{{ tableTitle }}</div>
-        <div class="buttons">
-          <Button @click="tableAction({ type: 'new' })" type="primary">
-            <Icon type="md-add" class="buttonIcon" />
-            <span>{{ t("pro.common.new") }}</span>
-          </Button>
-        </div>
-      </div>
-    </Table>
-    <div class="page">
-      <Page
-        v-if="proData && !hide.page"
-        :total="total"
-        :current="page.current"
-        :page-size="page.pageSize"
-        @on-change="pageChange"
-        @on-page-size-change="pageSizeChange"
-        transfer
-        show-total
-        show-sizer
-        v-bind="$attrs.page"
+    <VueFullscreen :fullscreen.sync="fullscreen">
+      <Table
+        :loading="loading"
+        :columns="tableColumns"
+        :data="proData"
+        v-if="!hide.table"
+        ref="table"
+        border
+        v-bind="$attrs.table"
         v-on="$listeners"
-      />
-    </div>
+      >
+        <div v-show="toolBar" slot="header" class="tableHeader">
+          <div class="title">{{ tableTitle }}</div>
+          <div class="buttons">
+            <template v-for="item in toolBarList">
+              <ProTypeItem
+                class="item_buttons"
+                :key="item.key"
+                :renderItem="item.renderItem"
+              ></ProTypeItem>
+            </template>
+          </div>
+        </div>
+      </Table>
+      <div class="page">
+        <Page
+          v-if="proData && !hide.page"
+          :total="total"
+          :current="page.current"
+          :page-size="page.pageSize"
+          @on-change="pageChange"
+          @on-page-size-change="pageSizeChange"
+          transfer
+          show-total
+          show-sizer
+          v-bind="$attrs.page"
+          v-on="$listeners"
+        />
+      </div>
+    </VueFullscreen>
     <Modal
       :loading="formDialog.formLoading"
       @on-ok="submit"
@@ -70,11 +75,14 @@
 
 <script>
 // import axios from "axios";
+import { component } from "vue-fullscreen";
 import _, { get, map, has } from "lodash";
 import customRequest from "../libs/request";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
 import Locale from "../mixin/locale";
+import ProTypeItem from "../components/ProTypeItem/ProTypeItem.vue";
+import RowSetting from "../components/ProTable/RowSetting.vue";
 
 export default {
   name: "ProTable",
@@ -87,6 +95,7 @@ export default {
         proFormData: {},
         formLoading: true
       },
+      fullscreen: false,
       loading: false,
       proData: [],
       searchForm: {},
@@ -100,6 +109,11 @@ export default {
     };
   },
   props: {
+    toolBarActions: {
+      default() {
+        return ["new", "refresh", "fullscreen", "rowSetting"];
+      }
+    },
     attrs: {
       default() {
         return {};
@@ -153,6 +167,96 @@ export default {
     event: "dataChange"
   },
   computed: {
+    toolBarList() {
+      const array = [
+        {
+          key: "new",
+          renderItem: () => {
+            return (
+              <Button
+                type="primary"
+                onclick={() => {
+                  this.tableAction({ type: "new" });
+                }}
+              >
+                <Icon type="md-add" class="buttonIcon" />
+                <span>{this.$t("pro.common.new")}</span>
+              </Button>
+            );
+          }
+        },
+        {
+          key: "refresh",
+          renderItem: () => {
+            return (
+              <Tooltip
+                transfer
+                placement="top"
+                content={this.$t("pro.common.refresh")}
+              >
+                <Icon
+                  onclick={() => {
+                    this.fetch();
+                  }}
+                  class="table_icon"
+                  type="md-refresh"
+                  size="20"
+                />
+              </Tooltip>
+            );
+          }
+        },
+        {
+          key: "fullscreen",
+          renderItem: () => {
+            return (
+              <Tooltip
+                transfer
+                placement="top"
+                content={this.$t("pro.common.fullscreen")}
+              >
+                <Icon
+                  onclick={() => {
+                    this.fullscreen = !this.fullscreen;
+                  }}
+                  class="table_icon"
+                  type="ios-expand"
+                  size="20"
+                />
+              </Tooltip>
+            );
+          }
+        },
+        {
+          key: "rowSetting",
+          renderItem: () => {
+            return (
+              <RowSetting
+                columns={this.tableColumns}
+                onChange={keys => {
+                  _.map(this.columns, item => {
+                    this.$set(
+                      item,
+                      "notShowTable",
+                      _.includes(keys, item.key) ? false : true
+                    );
+                  });
+                }}
+              ></RowSetting>
+            );
+          }
+        }
+      ];
+      let arr = [];
+      _.map(this.toolBarActions, val => {
+        if (_.isString(val)) {
+          arr.push(_.find(array, { key: val }));
+        } else if (_.isObject(val)) {
+          arr.push(val);
+        }
+      });
+      return arr;
+    },
     modalTitle() {
       return this.formDialog.type
         ? this.t("pro.common." + this.formDialog.type)
@@ -184,7 +288,9 @@ export default {
   },
   components: {
     ProSearch,
-    ProForm
+    ProForm,
+    ProTypeItem,
+    VueFullscreen: component
   },
   mounted() {
     // if (this.searchForm) {
@@ -434,16 +540,32 @@ export default {
   margin: 0 auto;
 }
 .protable {
+  .fullscreen {
+    background: #fff;
+  }
   .tableHeader {
     display: flex;
     height: 48px;
     line-height: 48px;
     border-bottom: 1px solid #e8eaec;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 10px 0 20px;
     .title {
       font-weight: bold;
       font-size: 16px;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      .item_buttons {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
+      }
+      .table_icon {
+        cursor: pointer;
+      }
     }
   }
   .page {

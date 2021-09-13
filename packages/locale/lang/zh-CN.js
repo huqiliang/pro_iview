@@ -13,11 +13,14 @@ export default {
       action: "操作",
       success: "成功",
       yes: "确定",
-      no: "取消"
+      no: "取消",
+      refresh: "刷新",
+      fullscreen: "全屏"
     },
     table: {
       title: "表格标题",
-      deleteTip: "是否删除该行?"
+      deleteTip: "是否删除该行?",
+      rowSetting: "列设置"
     }
   }
 };

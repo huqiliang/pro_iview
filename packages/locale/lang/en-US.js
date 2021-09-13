@@ -13,11 +13,14 @@ export default {
       action: "Action",
       success: "Success",
       yes: "Yes",
-      no: "No"
+      no: "No",
+      refresh: "Refresh",
+      fullscreen: "Fullscreen"
     },
     table: {
       title: "Table Title",
-      deleteTip: "Are you sure delete this row?"
+      deleteTip: "Are you sure delete this row?",
+      rowSetting: "Row Settings"
     }
   }
 };
