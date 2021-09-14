@@ -15,7 +15,7 @@ export default {
               }}
             >
               <Icon type="md-add" class="buttonIcon" />
-              <span>{this.$t("pro.common.new")}</span>
+              <span>{this.t("pro.common.new")}</span>
             </Button>
           );
         }
@@ -48,7 +48,7 @@ export default {
             <Tooltip
               transfer
               placement="top"
-              content={this.$t("pro.common.fullscreen")}
+              content={this.t("pro.common.fullscreen")}
             >
               <Icon
                 onclick={() => {

@@ -180,7 +180,7 @@ export default {
                 }}
               >
                 <Icon type="md-add" class="buttonIcon" />
-                <span>{this.$t("pro.common.new")}</span>
+                <span>{this.t("pro.common.new")}</span>
               </Button>
             );
           }
@@ -192,7 +192,7 @@ export default {
               <Tooltip
                 transfer
                 placement="top"
-                content={this.$t("pro.common.refresh")}
+                content={this.t("pro.common.refresh")}
               >
                 <Icon
                   onclick={() => {
@@ -213,7 +213,7 @@ export default {
               <Tooltip
                 transfer
                 placement="top"
-                content={this.$t("pro.common.fullscreen")}
+                content={this.t("pro.common.fullscreen")}
               >
                 <Icon
                   onclick={() => {
@@ -231,18 +231,22 @@ export default {
           key: "rowSetting",
           renderItem: () => {
             return (
-              <RowSetting
-                columns={this.tableColumns}
-                onChange={keys => {
-                  _.map(this.columns, item => {
-                    this.$set(
-                      item,
-                      "notShowTable",
-                      _.includes(keys, item.key) ? false : true
-                    );
-                  });
-                }}
-              ></RowSetting>
+              !_.isEmpty(this.tableColumns) && (
+                <RowSetting
+                  rowContent={this.t("pro.table.rowSetting")}
+                  resetContent={this.t("pro.common.reset")}
+                  columns={this.tableColumns}
+                  onChange={keys => {
+                    _.map(this.columns, item => {
+                      this.$set(
+                        item,
+                        "notShowTable",
+                        _.includes(keys, item.key) ? false : true
+                      );
+                    });
+                  }}
+                ></RowSetting>
+              )
             );
           }
         }
