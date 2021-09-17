@@ -8,10 +8,12 @@ import VueI18n from "vue-i18n";
 import en from "view-design/dist/locale/en-US";
 import zh from "view-design/dist/locale/zh-CN";
 // 导入组件库
-import ProComponents from "./../lib/pro-iview.common";
+import ProComponents from "./../packages/index";
 import "./../lib/pro-iview.css";
 import pro_en from "./../packages/locale/lang/en-US";
 import pro_zh from "./../packages/locale/lang/zh-CN";
+import "./libs/http";
+
 Vue.use(VueI18n);
 Vue.use(ViewUI, {
   i18n: function(path, options) {

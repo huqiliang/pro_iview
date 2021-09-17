@@ -181,19 +181,33 @@ export default {
           ]
         }
       ],
-      request: "http://192.168.0.38:3000/mock/106/api/table",
-      // request(options) {
-      //   // console.log(options);
-      //   return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
-      //     params: { ...options }
-      //   });
-      // },
+      // request: "http://192.168.0.38:3000/mock/106/api/table",
+      request(options) {
+        // console.log(options);
+        return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
+          headers: {
+            nomsg: true
+          },
+          params: { ...options }
+        });
+      },
       map: {
         dataPath: "data",
         totalPath: "totalRows"
       },
       submitForm: "http://192.168.0.38:3000/mock/106/api/table"
     };
+  },
+  async mounted() {
+    const res = await this.$http.get(
+      "http://192.168.0.38:3000/mock/106/api/table",
+      {
+        headers: {
+          nomsg: true
+        }
+      }
+    );
+    // this.$success(res);
   },
   methods: {
     tableAction() {

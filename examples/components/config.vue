@@ -255,9 +255,7 @@ export default {
         return a;
       },
       set(value) {
-        console.log(value);
         const newValue = _.assign({}, this.value, { attrs: value });
-        console.log(newValue);
         this.$emit("input", newValue);
       }
     },

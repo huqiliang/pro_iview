@@ -505,19 +505,23 @@ export default {
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
-              if (res.data) {
-                this.$Message.success({
-                  content: _.get(res, this.map.message || "data.message")
-                });
-                this.formDialog.show = false;
-                this.$refs["proForm"].reset();
-                this.fetch();
-              }
+
+              this.$success(
+                res,
+                _.get(res, this.map.message || "data.message"),
+                () => {
+                  this.formDialog.show = false;
+                  this.$refs["proForm"].reset();
+                  this.fetch();
+                }
+              );
+              // if (res.data) {
+              //   this.$Message.success({
+              //     content: _.get(res, this.map.message || "data.message")
+              //   });
+              // }
               this.formDialog.formLoading = true;
             } catch (error) {
-              this.$Message.success({
-                content: error
-              });
               this.formDialog.formLoading = true;
             }
           } else {
