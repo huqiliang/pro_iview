@@ -141,6 +141,11 @@ export default {
       default: "GET"
     },
     request: {},
+    autoFetch: {
+      default() {
+        return true;
+      }
+    },
     map: {
       default() {
         return {
@@ -303,7 +308,9 @@ export default {
     if (this.data) {
       this.proData = this.data;
     } else {
-      this.fetch();
+      if (this.autoFetch) {
+        this.fetch();
+      }
     }
   },
   methods: {
@@ -393,7 +400,7 @@ export default {
       }
     },
     async searchAction() {
-      console.log("search");
+      this.hide.table = false;
       this.page = {
         ...this.page,
         current: 1

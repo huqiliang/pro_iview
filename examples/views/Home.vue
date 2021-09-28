@@ -14,6 +14,8 @@
       :format="format"
       @on-row-click="tableAction"
       :form="form"
+      :autoFetch="false"
+      :hide="{ table: true }"
       :toolBarActions="toolBarActions"
     >
     </pro-table>
@@ -150,6 +152,14 @@ export default {
           title: "操作",
           key: "action",
           actions: [
+            {
+              title: "测试",
+              action(params) {
+                console.log("====================================");
+                console.log(params);
+                console.log("====================================");
+              }
+            },
             {
               title: "编辑",
               method: "POST",
