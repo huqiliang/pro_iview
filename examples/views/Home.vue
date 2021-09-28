@@ -2,7 +2,6 @@
   <div class="home">
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">aaa</Button>
-    {{ search }}
     <pro-table
       ref="table"
       :request="request"
@@ -15,7 +14,7 @@
       @on-row-click="tableAction"
       :form="form"
       :autoFetch="false"
-      :hide="{ table: true }"
+      :hide="hide"
       :toolBarActions="toolBarActions"
     >
     </pro-table>
@@ -32,6 +31,7 @@ export default {
   name: "Home",
   data() {
     return {
+      hide: { table: true },
       toolBarActions: [
         "new",
         {
