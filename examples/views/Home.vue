@@ -13,7 +13,7 @@
       :format="format"
       @on-row-click="tableAction"
       :form="form"
-      :autoFetch="false"
+      :autoFetch="true"
       :hide="hide"
       :toolBarActions="toolBarActions"
     >
@@ -31,7 +31,7 @@ export default {
   name: "Home",
   data() {
     return {
-      hide: { table: true },
+      hide: { table: false },
       toolBarActions: [
         "new",
         {
@@ -124,7 +124,19 @@ export default {
         },
         {
           title: "form",
-          key: "form"
+          key: "form",
+          renderForm({ input }) {
+            return (
+              <Button
+                onclick={() => {
+                  const myData = "mu";
+                  input(myData);
+                }}
+              >
+                aaa
+              </Button>
+            );
+          }
         },
         {
           title: "createUser3",
