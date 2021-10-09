@@ -3,6 +3,11 @@ import _ from "lodash";
 export default {
   props: {
     item: null,
+    outData: {
+      default() {
+        return null;
+      }
+    },
     value: {
       default() {
         return null;
@@ -47,7 +52,8 @@ export default {
         h,
         input: this.input,
         value: this.value,
-        row: this.item
+        row: this.item,
+        outData: this.outData
       });
     }
     return null;

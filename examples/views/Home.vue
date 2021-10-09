@@ -86,6 +86,7 @@ export default {
           title: "cataLog",
           group: "B",
           key: "cataLog",
+          disabled: true,
           renderSearch: {
             type: "Radio"
           },
@@ -125,7 +126,10 @@ export default {
         {
           title: "form",
           key: "form",
-          renderForm({ input }) {
+          renderForm(a) {
+            console.log("====================================");
+            console.log(a);
+            console.log("====================================");
             return (
               <Button
                 onclick={() => {
@@ -140,6 +144,7 @@ export default {
         },
         {
           title: "createUser3",
+          disabled: true,
           key: "createUser2"
         },
         {
@@ -164,6 +169,10 @@ export default {
           title: "操作",
           key: "action",
           actions: [
+            {
+              title: "新增",
+              type: "new"
+            },
             {
               title: "测试",
               action(params) {

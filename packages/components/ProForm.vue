@@ -28,6 +28,7 @@
             <ProTypeItem
               v-if="item.renderForm"
               :item="item"
+              :outData="outData"
               :renderItem="item.renderForm"
               :value="getValue(value, item)"
               @input="change(item, $event)"
@@ -89,6 +90,9 @@ export default {
     }
   },
   computed: {
+    outData() {
+      return { dialogType: this.type, dialogForm: this.value };
+    },
     groupColunms() {
       return _.groupBy(this.columns, "group");
     }
