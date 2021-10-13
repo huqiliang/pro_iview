@@ -145,14 +145,26 @@ export default {
         {
           title: "createUser3",
           disabled: true,
+          renderForm: {
+            type: "DatePicker",
+            style: {
+              width: "100%"
+            }
+          },
           key: "createUser2"
         },
         {
           title: "createUser3",
+          renderForm: {
+            type: "i-switch"
+          },
           key: "createUser3"
         },
         {
           title: "createUser4",
+          renderForm: {
+            type: "Select"
+          },
           key: "createUser4"
         },
         {
