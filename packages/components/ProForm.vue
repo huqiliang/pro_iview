@@ -20,6 +20,7 @@
             :prop="propItem(item)"
             :rules="ruleChange(item)"
             v-for="item in columns"
+            @click.native="itemClick(item)"
           >
             <span slot="label">
               <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
@@ -98,6 +99,9 @@ export default {
     }
   },
   methods: {
+    itemClick(item) {
+      this.$emit("itemClick", item);
+    },
     ruleChange(item) {
       const rules = item.rules || item.validate;
       _.map(rules, val => {
