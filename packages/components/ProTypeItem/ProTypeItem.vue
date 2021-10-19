@@ -30,25 +30,35 @@ export default {
   },
   render(h) {
     if (_.isObjectLike(this.renderItem)) {
+      let children = [];
+      if (this.renderItem.children) {
+        _.map(this.renderItem.children, val => {
+          children.push(h(val.type, { props: val.props }));
+        });
+      }
       return (
         <span>
-          {h(this.renderItem.type, {
-            props: {
-              value: this.value,
-              clearable: true,
-              ...this.renderItem.props
-            },
-            style: {
-              ...this.renderItem.style
-            },
-            on: {
-              input: value => {
-                //删除是否为空的判断 不确定是否会产生bug
-                this.input(value);
+          {h(
+            this.renderItem.type,
+            {
+              props: {
+                value: this.value,
+                clearable: true,
+                ...this.renderItem.props
               },
-              ...this.renderItem.on
-            }
-          })}
+              style: {
+                ...this.renderItem.style
+              },
+              on: {
+                input: value => {
+                  //删除是否为空的判断 不确定是否会产生bug
+                  this.input(value);
+                },
+                ...this.renderItem.on
+              }
+            },
+            [children]
+          )}
         </span>
       );
     } else if (_.isFunction(this.renderItem)) {

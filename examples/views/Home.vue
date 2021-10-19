@@ -126,10 +126,7 @@ export default {
         {
           title: "form",
           key: "form",
-          renderForm(a) {
-            console.log("====================================");
-            console.log(a);
-            console.log("====================================");
+          renderForm() {
             return (
               <Button
                 onclick={() => {
@@ -163,7 +160,8 @@ export default {
         {
           title: "createUser4",
           renderForm: {
-            type: "Select"
+            type: "Select",
+            children: []
           },
           key: "createUser4"
         },
@@ -250,6 +248,21 @@ export default {
         }
       }
     );
+    console.log("====================================");
+    console.log(this.columns[5]);
+    console.log("====================================");
+    this.columns[5].renderForm.children = [
+      {
+        type: "i-option",
+        props: {
+          value: "aa",
+          label: "New York"
+        }
+      }
+    ];
+    console.log("====================================");
+    console.log(this.columns);
+    console.log("====================================");
     // this.$success(res);
   },
   methods: {
