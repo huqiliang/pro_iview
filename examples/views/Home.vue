@@ -1,7 +1,8 @@
 <template>
   <div class="home">
+    {{ search }}
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
-    <Button @click="click">aaa</Button>
+    <Button @click="click">修改数据并刷新</Button>
     <pro-table
       ref="table"
       :request="request"
@@ -58,6 +59,26 @@ export default {
         {
           cataLog: "33",
           createUser: "222"
+        }
+      ],
+      cascader_data: [
+        {
+          value: "beijing",
+          label: "北京",
+          children: [
+            {
+              value: "gugong",
+              label: "故宫"
+            },
+            {
+              value: "tiantan",
+              label: "天坛"
+            },
+            {
+              value: "wangfujing",
+              label: "王府井"
+            }
+          ]
         }
       ],
       toolBar: true,
@@ -141,7 +162,9 @@ export default {
         },
         {
           title: "createUser3",
+          key: "createUser3",
           disabled: true,
+
           renderForm: {
             type: "DatePicker",
             style: {
@@ -163,10 +186,49 @@ export default {
             type: "Select",
             children: []
           },
+          renderSearch: ({ value, input }) => {
+            console.log("====================================");
+            console.log(value);
+            console.log("====================================");
+            return (
+              <Cascader
+                value={value || []}
+                onInput={input}
+                data={this.cascader_data}
+                clearable
+              ></Cascader>
+            );
+          },
           key: "createUser4"
         },
         {
           title: "createUs3er4",
+          renderForm: {
+            type: "Cascader",
+            props: {
+              value: [],
+              data: [
+                {
+                  value: "beijing",
+                  label: "北京",
+                  children: [
+                    {
+                      value: "gugong",
+                      label: "故宫"
+                    },
+                    {
+                      value: "tiantan",
+                      label: "天坛"
+                    },
+                    {
+                      value: "wangfujing",
+                      label: "王府井"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
           key: "createUs3er4"
         },
         {
