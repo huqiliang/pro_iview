@@ -4,6 +4,7 @@
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">修改数据并刷新</Button>
     <pro-table
+      @searchReset="searchReset"
       ref="table"
       :request="request"
       :map="map"
@@ -328,6 +329,11 @@ export default {
     // this.$success(res);
   },
   methods: {
+    searchReset(data) {
+      console.log("====================================");
+      console.log("reset", data);
+      console.log("====================================");
+    },
     tableAction() {
       console.log("a");
     },

@@ -406,6 +406,9 @@ export default {
         current: 1
       };
       await this.fetch();
+      this.$nextTick(async () => {
+        this.emitActions("search");
+      });
     },
     searchReset() {
       this.page = {
@@ -417,6 +420,14 @@ export default {
       // this.formDialog.proFormData = {};
       this.$nextTick(async () => {
         await this.fetch();
+        this.emitActions("searchReset");
+      });
+    },
+    emitActions(type) {
+      this.$emit(type, {
+        form: this.form,
+        page: this.page,
+        talbe: this.proData
       });
     },
     cancel() {
