@@ -1,6 +1,7 @@
 <template>
   <div class="protable">
     <slot name="search">
+      {{ immutableSearchValue }}
       <ProSearch
         :columns="searchColumns"
         :loading="loading"
@@ -105,7 +106,8 @@ export default {
       page: {
         current: 1,
         pageSize: 10
-      }
+      },
+      immutableSearchValue: ""
     };
   },
   props: {
@@ -305,6 +307,7 @@ export default {
     // if (this.searchForm) {
     //   this.form = this.searchForm.value;
     // }
+    this.immutableSearchValue = _.cloneDeep(this.$attrs.search.value);
     if (this.data) {
       this.proData = this.data;
     } else {
@@ -415,7 +418,7 @@ export default {
         current: 1,
         pageSize: 10
       };
-      this.form = {};
+      this.form = _.cloneDeep(this.immutableSearchValue);
       this.$refs["proForm"].reset();
       // this.formDialog.proFormData = {};
       this.$nextTick(async () => {
