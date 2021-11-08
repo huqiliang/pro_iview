@@ -1,7 +1,6 @@
 <template>
   <div class="protable">
     <slot name="search">
-      {{ immutableSearchValue }}
       <ProSearch
         :columns="searchColumns"
         :loading="loading"
