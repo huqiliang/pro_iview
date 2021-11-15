@@ -1,55 +1,59 @@
 <template>
   <div class="protable">
     <slot name="search">
-      <ProSearch
-        :columns="searchColumns"
-        :loading="loading"
-        v-if="!hide.search"
-        v-model="form"
-        @search="searchAction"
-        @reset="searchReset"
-        v-bind="$attrs.search"
-        v-on="$listeners"
-      ></ProSearch>
+      <div class="tableSearch">
+        <ProSearch
+          :columns="searchColumns"
+          :loading="loading"
+          v-if="!hide.search"
+          v-model="form"
+          @search="searchAction"
+          @reset="searchReset"
+          v-bind="$attrs.search"
+          v-on="$listeners"
+        ></ProSearch>
+      </div>
     </slot>
     <VueFullscreen :fullscreen.sync="fullscreen">
-      <Table
-        :loading="loading"
-        :columns="tableColumns"
-        :data="proData"
-        v-if="!hide.table"
-        ref="table"
-        border
-        v-bind="$attrs.table"
-        v-on="$listeners"
-      >
-        <div v-show="toolBar" slot="header" class="tableHeader">
-          <div class="title">{{ tableTitle }}</div>
-          <div class="buttons">
-            <template v-for="item in toolBarList">
-              <ProTypeItem
-                class="item_buttons"
-                :key="item.key"
-                :renderItem="item.renderItem"
-              ></ProTypeItem>
-            </template>
-          </div>
-        </div>
-      </Table>
-      <div class="page">
-        <Page
-          v-if="proData && !hide.page"
-          :total="total"
-          :current="page.current"
-          :page-size="page.pageSize"
-          @on-change="pageChange"
-          @on-page-size-change="pageSizeChange"
-          transfer
-          show-total
-          show-sizer
-          v-bind="$attrs.page"
+      <div class="tableTable">
+        <Table
+          :loading="loading"
+          :columns="tableColumns"
+          :data="proData"
+          v-if="!hide.table"
+          ref="table"
+          border
+          v-bind="$attrs.table"
           v-on="$listeners"
-        />
+        >
+          <div v-show="toolBar" slot="header" class="tableHeader">
+            <div class="title">{{ tableTitle }}</div>
+            <div class="buttons">
+              <template v-for="item in toolBarList">
+                <ProTypeItem
+                  class="item_buttons"
+                  :key="item.key"
+                  :renderItem="item.renderItem"
+                ></ProTypeItem>
+              </template>
+            </div>
+          </div>
+        </Table>
+        <div class="page">
+          <Page
+            v-if="proData && !hide.page"
+            :total="total"
+            :current="page.current"
+            :page-size="page.pageSize"
+            @on-change="pageChange"
+            @on-page-size-change="pageSizeChange"
+            transfer
+            show-total
+            show-sizer
+            v-bind="$attrs.page"
+            v-on="$listeners"
+          />
+        </div>
       </div>
     </VueFullscreen>
     <Modal
@@ -568,6 +572,16 @@ export default {
   margin: 0 auto;
 }
 .protable {
+  padding: 10px 0;
+  .tableSearch {
+    background: #fff;
+    padding: 15px 10px 0 5px;
+    margin-bottom: 10px;
+  }
+  .tableTable {
+    background: #fff;
+    padding-bottom: 10px;
+  }
   .fullscreen {
     background: #fff;
   }
