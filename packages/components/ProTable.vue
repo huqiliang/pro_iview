@@ -1,19 +1,16 @@
 <template>
   <div class="protable">
-    <slot name="search">
-      <div class="tableSearch">
-        <ProSearch
-          :columns="searchColumns"
-          :loading="loading"
-          v-if="!hide.search"
-          v-model="form"
-          @search="searchAction"
-          @reset="searchReset"
-          v-bind="$attrs.search"
-          v-on="$listeners"
-        ></ProSearch>
-      </div>
-    </slot>
+    <div class="tableSearch" v-if="!hide.search">
+      <ProSearch
+        :columns="searchColumns"
+        :loading="loading"
+        v-model="form"
+        @search="searchAction"
+        @reset="searchReset"
+        v-bind="$attrs.search"
+        v-on="$listeners"
+      ></ProSearch>
+    </div>
     <VueFullscreen :fullscreen.sync="fullscreen">
       <div class="tableTable">
         <Table
