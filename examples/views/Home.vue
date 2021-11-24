@@ -10,8 +10,8 @@
       :map="map"
       :toolBar="toolBar"
       :columns="columns"
-      :submitForm="submitForm"
       :search="search"
+      :submitForm="submitForm"
       :format="format"
       @on-row-click="tableAction"
       :form="form"
@@ -88,8 +88,10 @@ export default {
           {
             title: "标题",
             key: "toolBar",
-
-            type: "radio"
+            type: "radio",
+            props: {
+              value: true
+            }
           }
         ],
         value: {
@@ -311,7 +313,6 @@ export default {
         }
       }
     );
-    console.log("====================================");
     console.log(this.columns[5]);
     console.log("====================================");
     this.columns[5].renderForm.children = [
@@ -323,17 +324,10 @@ export default {
         }
       }
     ];
-    console.log("====================================");
-    console.log(this.columns);
-    console.log("====================================");
     // this.$success(res);
   },
   methods: {
-    searchReset(data) {
-      console.log("====================================");
-      console.log("reset", data);
-      console.log("====================================");
-    },
+    searchReset(data) {},
     tableAction() {
       console.log("a");
     },

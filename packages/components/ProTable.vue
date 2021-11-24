@@ -307,7 +307,10 @@ export default {
     // if (this.searchForm) {
     //   this.form = this.searchForm.value;
     // }
-    this.immutableSearchValue = _.cloneDeep(this.$attrs?.search?.value);
+    console.log("====================================");
+    console.log(this.$attrs?.search?.value);
+    console.log("====================================");
+    this.immutableSearchValue = _.cloneDeep(this.$attrs?.search?.value || {});
     if (this.data) {
       this.proData = this.data;
     } else {
