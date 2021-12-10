@@ -6,7 +6,7 @@
         v-for="(item, i) in columns"
         v-show="itemShow(i)"
         :class="position"
-        :style="[offset(i), widthCalc()]"
+        :style="[offset(i), widthCalc(searchLineNum)]"
         :key="item.key"
         :label="item.title + ' :'"
       >
@@ -30,7 +30,7 @@
         ></ProTypeItem>
         <Input clearable v-model="value[item.key]" v-else />
       </div>
-      <div :style="widthCalc()" class="item" style="flex:auto">
+      <div :style="widthCalc(searchLineNum)" class="item" style="flex:auto">
         <label
           v-show="
             position === 'top' &&
@@ -107,15 +107,6 @@ export default {
           marginLeft: "15px"
         };
       }
-    },
-    widthCalc(isFull) {
-      return {
-        width: isFull
-          ? "100%"
-          : `calc((100% - ${15 * (this.searchLineNum - 1)}px) / ${
-              this.searchLineNum
-            })`
-      };
     },
     itemShow(i) {
       if (this.isDown) {

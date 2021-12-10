@@ -9,13 +9,20 @@
       v-on="$listeners"
     >
       <div v-for="(columns, index) in groupColunms" :key="index">
-        <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
+        <span class="groupTitle">{{
+          index != "undefined" ? index : "其他"
+        }}</span>
+
         <div
           class="formContain"
-          :class="{ p10: groupColunms && Object.keys(groupColunms).length > 1 }"
+          :class="{
+            p10: groupColunms && Object.keys(groupColunms).length > 1
+          }"
         >
           <!-- <Icon type="md-bookmark" /> -->
           <FormItem
+            :style="widthCalc(formLineNum)"
+            class="item"
             :key="item.key"
             :prop="propItem(item)"
             :rules="ruleChange(item)"
@@ -56,9 +63,11 @@
 
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
+import Locale from "../mixin/locale";
 import _ from "lodash";
 export default {
   name: "ProForm",
+  mixins: [Locale],
   props: {
     type: {
       type: String,
@@ -70,6 +79,12 @@ export default {
       type: Number,
       default() {
         return 110;
+      }
+    },
+    formLineNum: {
+      type: Number,
+      default() {
+        return 1;
       }
     },
     labelPosition: {
@@ -123,7 +138,7 @@ export default {
     },
     change(item, value) {
       const copyValue = _.cloneDeep(this.value);
-      _.set(copyValue, item.key, value);
+      _.set(copyValue, item.key, _.trim(value));
       this.$emit("input", copyValue);
       // this.$set(this.value, copyValue);
     },
@@ -140,15 +155,24 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.groupTitle {
-  font-size: 20px;
-  font-weight: bold;
-}
-.p10 {
-  padding: 20px 0 0 20px;
-}
-/deep/ .ivu-input[disabled],
-fieldset[disabled] {
-  color: #666 !important;
+.proform {
+  .formContain {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .groupTitle {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .item {
+    margin-right: 5px;
+  }
+  .p10 {
+    padding: 20px 0 0 0;
+  }
+  /deep/ .ivu-input[disabled],
+  fieldset[disabled] {
+    color: #666 !important;
+  }
 }
 </style>

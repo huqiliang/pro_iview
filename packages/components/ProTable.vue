@@ -58,6 +58,7 @@
       @on-ok="submit"
       @on-cancel="cancel"
       v-model="formDialog.show"
+      :width="$attrs.form.modalWidth"
       :title="modalTitle"
     >
       <div class="content">
@@ -565,7 +566,7 @@ export default {
   border-bottom: 0;
 }
 .content {
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
 }
 .protable {
