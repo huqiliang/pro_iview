@@ -58,7 +58,7 @@
       @on-ok="submit"
       @on-cancel="cancel"
       v-model="formDialog.show"
-      :width="$attrs.form.modalWidth"
+      :width="$attrs.form ? $attrs.form.modalWidth : '70'"
       :title="modalTitle"
     >
       <div class="content">
