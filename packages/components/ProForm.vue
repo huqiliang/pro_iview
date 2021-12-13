@@ -12,13 +12,20 @@
         <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
         <div
           class="formContain"
+          :style="{
+            'grid-template-columns': `repeat(${formLineNum}, ${100 /
+              formLineNum +
+              '%'})`
+          }"
           :class="{
             p10: groupColunms && Object.keys(groupColunms).length > 1
           }"
         >
           <!-- <Icon type="md-bookmark" /> -->
           <FormItem
-            :style="widthCalc(formLineNum)"
+            :style="{
+              'grid-column-start': `span ${item.formLineNum}`
+            }"
             class="item"
             :key="item.key"
             :prop="propItem(item)"
@@ -154,15 +161,13 @@ export default {
 <style lang="less" scoped>
 .proform {
   .formContain {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+
+    grid-column-gap: 10px;
   }
   .groupTitle {
     font-size: 20px;
     font-weight: bold;
-  }
-  .item {
-    margin-right: 5px;
   }
   .p10 {
     padding: 20px 0 0 0;

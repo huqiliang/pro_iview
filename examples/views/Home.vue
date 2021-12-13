@@ -54,7 +54,7 @@ export default {
         "refresh",
         "rowSetting"
       ],
-      search: { searchLineNum: 2, value: { createUser3: "gg" } },
+      search: { searchLineNum: 3, value: { createUser3: "gg" } },
       form: { labelPosition: "right", formLineNum: 3, modalWidth: 70 },
       data: [
         {
@@ -238,7 +238,19 @@ export default {
           title: "descript",
           tooltip: true,
           tooltipMaxWidth: 700,
-          key: "descript"
+          key: "descript",
+          renderForm() {
+            return (
+              <Input
+                maxlength="100"
+                show-word-limit
+                type="textarea"
+                placeholder="Enter something..."
+                rows={4}
+              />
+            );
+          },
+          formLineNum: 2
         },
         {
           title: "操作",
