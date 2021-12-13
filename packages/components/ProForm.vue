@@ -9,10 +9,7 @@
       v-on="$listeners"
     >
       <div v-for="(columns, index) in groupColunms" :key="index">
-        <span class="groupTitle">{{
-          index != "undefined" ? index : "其他"
-        }}</span>
-
+        <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
         <div
           class="formContain"
           :class="{
