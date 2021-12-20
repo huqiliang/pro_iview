@@ -257,6 +257,12 @@ export default {
           key: "action",
           actions: [
             {
+              type: "edit",
+              title: "编辑2",
+              request: "/api/users/${cataLog}",
+              method: "PUT"
+            },
+            {
               title: "新增",
               type: "new"
             },
@@ -286,7 +292,7 @@ export default {
             {
               type: "delete",
               title: "删除",
-              request: "http://127.0.0.1:7068/api/v1/users/1",
+              request: "http://127.0.0.1:7068/api/v1/users/${id}",
               method: "DELETE"
             }
             // {
