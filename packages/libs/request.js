@@ -20,22 +20,21 @@ const pick = ({ method, datas, keys }) => {
     console.log(error);
   }
 };
-
 const replactUrl = (url, data) => {
   try {
-    return url.replace(/\${(.*)}/, (match, key) => {
+    return _.replace(url, /\${(.*)}/, (match, key) => {
       return data[key];
     });
   } catch (error) {
     return url;
   }
 };
-const request = ({ request, method, keys, datas }) => {
+export default ({ request, method, keys, datas }) => {
   const axios = Vue.$axios || global.$http || Axios;
   if (_.isString(request)) {
     // 字符串 是request:"/url"
     return axios({
-      url: replactUrl(request),
+      url: replactUrl(request, datas),
       method,
       ...pick({ method, keys, datas })
     });
@@ -43,15 +42,15 @@ const request = ({ request, method, keys, datas }) => {
   // 对象 是request:{url:"/url"}
   else if (_.isObjectLike(request)) {
     const keyOption = _.has(request, "keys") ? request.keys : keys;
-    if (_.has(request, "request") && !_.has(request, "url")) {
+    if (_.has(request, "request") || _.has(request, "url")) {
       if (_.isFunction(request.request)) {
         return request.request(datas);
       }
-      request.url = replactUrl(request.request, datas);
+      request.url = replactUrl(request.request || request.url, datas);
     }
 
     const myMethod = method ? method : request.method;
-    return axios({
+    return new axios({
       ...request,
       ...pick({ method: myMethod, keys: keyOption, datas })
     });
@@ -75,5 +74,3 @@ export const success = (res, msg, fn) => {
       Message.error({ content: msg || res.data.message || "未知错误" });
   }
 };
-
-export default request;
