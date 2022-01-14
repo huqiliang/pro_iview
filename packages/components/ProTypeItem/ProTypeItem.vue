@@ -1,5 +1,9 @@
 <script>
 import _ from "lodash";
+import componetsFillAll from "./comFillArr";
+console.log("====================================");
+console.log(componetsFillAll);
+console.log("====================================");
 export default {
   props: {
     item: null,
@@ -33,7 +37,14 @@ export default {
       let children = [];
       if (this.renderItem.children) {
         _.map(this.renderItem.children, val => {
-          children.push(h(val.type, { props: val.props }));
+          children.push(
+            h(val.type, {
+              props: val.props,
+              class: {
+                w100: !_.includes(componetsFillAll, this.renderItem.type)
+              }
+            })
+          );
         });
       }
       return (
@@ -45,6 +56,9 @@ export default {
                 value: this.value,
                 clearable: true,
                 ...this.renderItem.props
+              },
+              class: {
+                w100: !_.includes(componetsFillAll, this.renderItem.type)
               },
               style: {
                 ...this.renderItem.style
@@ -74,3 +88,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.w100 {
+  width: 100%;
+}
+</style>

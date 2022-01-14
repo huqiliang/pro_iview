@@ -26,9 +26,15 @@
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
+          @keypress.native.enter="search"
           class="input"
         ></ProTypeItem>
-        <Input clearable v-model="value[item.key]" v-else />
+        <Input
+          clearable
+          v-model="value[item.key]"
+          @keypress.native.enter="search"
+          v-else
+        />
       </div>
       <div :style="widthCalc(searchLineNum)" class="item" style="flex:auto">
         <label
@@ -135,9 +141,10 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .prosearch {
   margin: 0 10px;
+
   .item {
     margin-bottom: 20px;
     .itemLabel {

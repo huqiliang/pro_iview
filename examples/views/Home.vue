@@ -164,10 +164,11 @@ export default {
           }
         },
         {
-          title: "createUser3",
-          key: "createUser3",
+          title: "createUser2",
           disabled: true,
-
+          renderSearch: {
+            type: "Slider"
+          },
           renderForm: {
             type: "DatePicker",
             style: {
@@ -178,11 +179,15 @@ export default {
         },
         {
           title: "createUser3",
+          renderSearch: {
+            type: "InputNumber"
+          },
           renderForm: {
             type: "i-switch"
           },
           key: "createUser3"
         },
+
         {
           title: "createUser4",
           renderForm: {
@@ -251,6 +256,13 @@ export default {
             );
           },
           formLineNum: 2
+        },
+        {
+          title: "createUser10",
+          renderSearch: {
+            type: "input"
+          },
+          key: "createUser10"
         },
         {
           title: "操作",
