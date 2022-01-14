@@ -1,9 +1,6 @@
 <script>
 import _ from "lodash";
 import componetsFillAll from "./comFillArr";
-console.log("====================================");
-console.log(componetsFillAll);
-console.log("====================================");
 export default {
   props: {
     item: null,

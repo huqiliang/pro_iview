@@ -179,15 +179,21 @@ export default {
         },
         {
           title: "createUser3",
+          renderForm: {
+            type: "i-switch"
+          },
+          key: "createUser3"
+        },
+        {
+          title: "createUser8",
           renderSearch: {
             type: "InputNumber"
           },
           renderForm: {
             type: "i-switch"
           },
-          key: "createUser3"
+          key: "createUser8"
         },
-
         {
           title: "createUser4",
           renderForm: {
@@ -195,9 +201,6 @@ export default {
             children: []
           },
           renderSearch: ({ value, input }) => {
-            console.log("====================================");
-            console.log(value);
-            console.log("====================================");
             return (
               <Cascader
                 value={value || []}
