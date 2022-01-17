@@ -23,7 +23,8 @@
           v-bind="$attrs.table"
           v-on="$listeners"
         >
-          <div v-show="toolBar" slot="header" class="tableHeader">
+          <span v-if="!toolBar" slot="header"></span>
+          <div v-else slot="header" class="tableHeader">
             <div class="title">{{ tableTitle }}</div>
             <div class="buttons">
               <template v-for="item in toolBarList">
@@ -128,7 +129,10 @@ export default {
       }
     },
     toolBar: {
-      default: true
+      type: Boolean,
+      default() {
+        return true;
+      }
     },
     title: {
       default() {

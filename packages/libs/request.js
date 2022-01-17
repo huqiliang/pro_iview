@@ -36,12 +36,12 @@ export default ({ request, method, keys, datas }) => {
     // 字符串 是request:"/url"
     const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return axios({
+      headers: {
+        Authorization: token ? token : ""
+      },
       url: replactUrl(request, datas),
       method,
-      ...pick({ method, keys, datas }),
-      headers: {
-        Authorization: token
-      }
+      ...pick({ method, keys, datas })
     });
   }
   // 对象 是request:{url:"/url"}
@@ -58,7 +58,7 @@ export default ({ request, method, keys, datas }) => {
     const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return new axios({
       headers: {
-        Authorization: token
+        Authorization: token ? token : ""
       },
       ...request,
       ...pick({ method: myMethod, keys: keyOption, datas })

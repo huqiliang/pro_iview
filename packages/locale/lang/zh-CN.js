@@ -18,7 +18,7 @@ export default {
       fullscreen: "全屏"
     },
     table: {
-      title: "表格标题",
+      title: "查询列表",
       deleteTip: "是否删除该行?",
       rowSetting: "列设置"
     }
