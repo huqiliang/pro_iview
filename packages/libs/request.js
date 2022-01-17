@@ -2,6 +2,7 @@ import Axios from "axios";
 import _ from "lodash";
 import Vue from "vue";
 import { Message } from "view-design";
+import qs from "qs";
 
 const pick = ({ method, datas, keys }) => {
   try {
@@ -33,10 +34,14 @@ export default ({ request, method, keys, datas }) => {
   const axios = Vue.$axios || global.$http || Axios;
   if (_.isString(request)) {
     // 字符串 是request:"/url"
+    const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return axios({
       url: replactUrl(request, datas),
       method,
-      ...pick({ method, keys, datas })
+      ...pick({ method, keys, datas }),
+      headers: {
+        Authorization: token
+      }
     });
   }
   // 对象 是request:{url:"/url"}
@@ -50,7 +55,11 @@ export default ({ request, method, keys, datas }) => {
     }
 
     const myMethod = method ? method : request.method;
+    const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return new axios({
+      headers: {
+        Authorization: token
+      },
       ...request,
       ...pick({ method: myMethod, keys: keyOption, datas })
     });

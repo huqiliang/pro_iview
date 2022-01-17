@@ -320,16 +320,16 @@ export default {
           ]
         }
       ],
-      // request: "http://192.168.0.38:3000/mock/106/api/table",
-      request(options) {
-        // console.log(options);
-        return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
-          headers: {
-            nomsg: true
-          },
-          params: { ...options }
-        });
-      },
+      request: "http://192.168.0.38:3000/mock/106/api/table",
+      // request(options) {
+      //   // console.log(options);
+      //   return axios.get("http://192.168.0.38:3000/mock/106/api/table", {
+      //     headers: {
+      //       nomsg: true
+      //     },
+      //     params: { ...options }
+      //   });
+      // },
       map: {
         dataPath: "data",
         totalPath: "totalRows"
