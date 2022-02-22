@@ -1,5 +1,5 @@
 <template>
-  <Form v-on="$listeners" class="prosearch">
+  <Form v-on="$listeners" class="prosearch" @submit.native.prevent>
     <div class="search">
       <div
         class="item"
