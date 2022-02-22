@@ -31,6 +31,7 @@
         ></ProTypeItem>
         <Input
           clearable
+          :placeholder="`${t('pro.common.enter')}${item.title}`"
           v-model="value[item.key]"
           @keypress.native.enter="search"
           v-else

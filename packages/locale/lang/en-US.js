@@ -15,7 +15,8 @@ export default {
       yes: "Yes",
       no: "No",
       refresh: "Refresh",
-      fullscreen: "Fullscreen"
+      fullscreen: "Fullscreen",
+      enter: "Please Enter "
     },
     table: {
       title: "Table Title",
