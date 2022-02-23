@@ -293,7 +293,7 @@ export default {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request: "http://192.168.0.38:3000/mock/67/sys/sysOptionList"
+              request: "http://192.168.0.38:3000/mock/106/api/test"
               // request(options) {
               //   console.log(options);
               //   return axios.post(
@@ -332,31 +332,32 @@ export default {
       // },
       map: {
         dataPath: "data",
-        totalPath: "totalRows"
+        totalPath: "totalRows",
+        message: "message"
       },
-      submitForm: "http://192.168.0.38:3000/mock/106/api/table"
+      submitForm: "http://192.168.0.38:3000/mock/106/api/test"
     };
   },
   async mounted() {
-    const res = await this.$http.get(
-      "http://192.168.0.38:3000/mock/106/api/table",
-      {
-        headers: {
-          nomsg: true
-        }
-      }
-    );
-    console.log(this.columns[5]);
-    console.log("====================================");
-    this.columns[5].renderForm.children = [
-      {
-        type: "i-option",
-        props: {
-          value: "aa",
-          label: "New York"
-        }
-      }
-    ];
+    // const res = await this.$http.get(
+    //   "http://192.168.0.38:3000/mock/106/api/table",
+    //   {
+    //     headers: {
+    //       nomsg: true
+    //     }
+    //   }
+    // );
+    // console.log(this.columns[5]);
+    // console.log("====================================");
+    // this.columns[5].renderForm.children = [
+    //   {
+    //     type: "i-option",
+    //     props: {
+    //       value: "aa",
+    //       label: "New York"
+    //     }
+    //   }
+    // ];
     // this.$success(res);
   },
   methods: {

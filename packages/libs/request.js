@@ -1,7 +1,6 @@
 import Axios from "axios";
 import _ from "lodash";
 import Vue from "vue";
-import { Message } from "view-design";
 import qs from "qs";
 
 const pick = ({ method, datas, keys }) => {
@@ -71,15 +70,4 @@ export default ({ request, method, keys, datas }) => {
   return new Promise(resolve => {
     resolve({ data: { type: "error", msg: "something is wrong" } });
   });
-};
-
-export const success = (res, msg, fn) => {
-  if (res.status && (res.status === 200 || res.data.result === 0)) {
-    !res.config.headers["nomsg"] &&
-      Message.success({ content: msg || res.data.message });
-    fn && fn();
-  } else {
-    !res.config.headers["nomsg"] &&
-      Message.error({ content: msg || res.data.message || "未知错误" });
-  }
 };

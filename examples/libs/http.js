@@ -29,9 +29,11 @@ axios.interceptors.request.use(
   }
 );
 axios.interceptors.response.use(
-  data => {
-    success(data);
-    return data;
+  res => {
+    if (res.data.code === 0) {
+      res.success = true;
+    }
+    return res;
   },
   err => {
     if (err.response) {

@@ -515,6 +515,11 @@ export default {
     getSelection() {
       return this.$refs.table.getSelection();
     },
+    finish() {
+      this.formDialog.show = false;
+      this.$refs["proForm"].reset();
+      this.fetch();
+    },
     submit() {
       this.formDialog.formLoading = false;
       if (this.formDialog.type !== "view") {
@@ -531,21 +536,10 @@ export default {
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
-
-              this.$success(
-                res,
-                _.get(res, this.map.message || "data.message"),
-                () => {
-                  this.formDialog.show = false;
-                  this.$refs["proForm"].reset();
-                  this.fetch();
-                }
-              );
-              // if (res.data) {
-              //   this.$Message.success({
-              //     content: _.get(res, this.map.message || "data.message")
-              //   });
-              // }
+              if (res && res.success) {
+                this.$Message.success(_.get(res.data, this.map.message));
+                this.finish();
+              }
               this.formDialog.formLoading = true;
             } catch (error) {
               this.formDialog.formLoading = true;
