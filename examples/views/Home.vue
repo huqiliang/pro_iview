@@ -55,7 +55,12 @@ export default {
         "rowSetting"
       ],
       search: { searchLineNum: 3, value: { createUser3: "gg" } },
-      form: { labelPosition: "right", formLineNum: 3, modalWidth: 70 },
+      form: {
+        labelPosition: "right",
+        formLineNum: 3,
+        modalWidth: 70,
+        value: { createUser10: "gg" }
+      },
       data: [
         {
           cataLog: "33",

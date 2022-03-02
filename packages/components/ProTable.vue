@@ -398,8 +398,12 @@ export default {
         });
         await this.fetch();
       } else {
-        this.formDialog.proFormData =
-          val.type === "new" ? {} : _.cloneDeep(params.row);
+        const value = val.type === "new" ? {} : _.cloneDeep(params.row);
+        this.formDialog.proFormData = _.merge(
+          {},
+          this.$attrs.form.value,
+          value
+        );
         this.formDialog.type = val.type;
         this.formDialog.show = true;
       }

@@ -2,7 +2,6 @@ import Vue from "vue";
 import axios from "axios";
 import { Message } from "view-design";
 import _ from "lodash";
-import { success } from "../../packages/libs/request";
 Vue.prototype.$http = axios;
 
 Message.config({
@@ -60,4 +59,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default { axios, success };
+export default { axios };
