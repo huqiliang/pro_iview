@@ -29,15 +29,19 @@ const replactUrl = (url, data) => {
     return url;
   }
 };
-export default ({ request, method, keys, datas }) => {
+const getHeaders = headers => {
+  const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
+  return {
+    Authorization: token ? token : "",
+    ...headers
+  };
+};
+export default ({ request, method, keys, datas, headers }) => {
   const axios = Vue.$axios || global.$http || Axios;
   if (_.isString(request)) {
     // 字符串 是request:"/url"
-    const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return axios({
-      headers: {
-        Authorization: token ? token : ""
-      },
+      headers: getHeaders(headers),
       url: replactUrl(request, datas),
       method,
       ...pick({ method, keys, datas })
@@ -54,11 +58,8 @@ export default ({ request, method, keys, datas }) => {
     }
 
     const myMethod = method ? method : request.method;
-    const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
     return new axios({
-      headers: {
-        Authorization: token ? token : ""
-      },
+      headers: getHeaders(headers),
       ...request,
       ...pick({ method: myMethod, keys: keyOption, datas })
     });

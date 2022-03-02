@@ -147,6 +147,9 @@ export default {
     method: {
       default: "GET"
     },
+    headers: {
+      type: Object
+    },
     request: {},
     autoFetch: {
       default() {
@@ -388,7 +391,11 @@ export default {
     async tableAction(val, params) {
       this.usedRow = { val, params };
       if (val.type === "delete") {
-        await customRequest({ request: val, datas: params.row });
+        await customRequest({
+          request: val,
+          datas: params.row,
+          headers: this.headers
+        });
         await this.fetch();
       } else {
         this.formDialog.proFormData =
@@ -463,6 +470,7 @@ export default {
         const res = await customRequest({
           request: this.request,
           method: this.method,
+          headers: this.headers,
           datas: {
             ...pageValue,
             ...this.form
@@ -533,16 +541,19 @@ export default {
             try {
               res = await customRequest({
                 request,
+                headers: this.headers,
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
-              if (res && res.success) {
-                this.$Message.success(
-                  _.get(res.data, this.map.message) || "成功"
-                );
-                this.finish();
+              if (res) {
+                if (res.success) {
+                  this.$Message.success(
+                    _.get(res.data, this.map.message) || "成功"
+                  );
+                  this.finish();
+                }
+                this.formDialog.formLoading = true;
               }
-              this.formDialog.formLoading = true;
             } catch (error) {
               this.formDialog.formLoading = true;
             }
