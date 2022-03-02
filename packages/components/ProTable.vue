@@ -537,7 +537,9 @@ export default {
                 datas: this.formDialog.proFormData
               });
               if (res && res.success) {
-                this.$Message.success(_.get(res.data, this.map.message));
+                this.$Message.success(
+                  _.get(res.data, this.map.message) || "成功"
+                );
                 this.finish();
               }
               this.formDialog.formLoading = true;
