@@ -401,7 +401,7 @@ export default {
         const value = val.type === "new" ? {} : _.cloneDeep(params.row);
         this.formDialog.proFormData = _.merge(
           {},
-          this.$attrs.form.value,
+          this.$attrs?.form?.value,
           value
         );
         this.formDialog.type = val.type;
