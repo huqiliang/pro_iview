@@ -1,7 +1,7 @@
 {
   "name": "pro_iview",
-  "version": "1.4.4",
-  "main": "packages/index.js",
+  "version": "1.4.5",
+  "main": "packages/libs/pro-iview.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "lib": "vue-cli-service build --target lib --name pro-iview --dest lib packages/index.js",
