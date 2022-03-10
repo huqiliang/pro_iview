@@ -21,6 +21,13 @@ export default {
     }
   },
   methods: {
+    evalUse(obj) {
+      _.map(obj, (val, key) => {
+        console.log(this.value);
+        obj[key] = new Function("value", "return " + val)(this.value);
+      });
+      return obj;
+    },
     input(value) {
       if (_.has(this.renderItem, "format")) {
         this.$emit("input", this.renderItem.format(value));
@@ -31,44 +38,55 @@ export default {
   },
   render(h) {
     if (_.isObjectLike(this.renderItem)) {
-      let children = [];
-      if (this.renderItem.children) {
-        _.map(this.renderItem.children, val => {
-          children.push(
-            h(val.type, {
-              props: val.props,
-              class: {
-                w100: !_.includes(componetsFillAll, this.renderItem.type)
-              }
-            })
-          );
-        });
-      }
+      // let children = [];
+      // if (this.renderItem.children) {
+      //   _.map(this.renderItem.children, val => {
+      //     if (_.isString(val)) {
+      //       children.push(val);
+      //     } else {
+      //       console.log(val.text);
+      //       children.push(
+      //         h(val.type, {
+      //           props: val.props,
+      //           class: {
+      //             w100: !_.includes(componetsFillAll, this.renderItem.type)
+      //           }
+      //         }),
+      //         val.text
+      //       );
+      //     }
+      //   });
+      // } else {
+      //   children.push([this.value]);
+      // }
+      const { useExp, text, type, style, props, on } = this.renderItem;
+      const myStyle = useExp && style ? this.evalUse(style) : style;
       return (
         <span>
           {h(
-            this.renderItem.type,
+            type,
             {
               props: {
                 value: this.value,
                 clearable: true,
-                ...this.renderItem.props
+                ...props
               },
               class: {
-                w100: !_.includes(componetsFillAll, this.renderItem.type)
+                w100: !_.includes(componetsFillAll, type)
               },
               style: {
-                ...this.renderItem.style
+                ...myStyle
               },
               on: {
                 input: value => {
                   //删除是否为空的判断 不确定是否会产生bug
                   this.input(value);
                 },
-                ...this.renderItem.on
+                ...on
               }
             },
-            [children]
+
+            useExp ? new Function("value", "return " + text)(this.value) : text
           )}
         </span>
       );

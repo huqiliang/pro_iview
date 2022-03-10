@@ -1,1 +1,1 @@
-export default ["Radio", "radio", "i-switch"];
+export default ["Radio", "radio", "i-switch", "i-button"];

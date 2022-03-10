@@ -219,6 +219,7 @@ export default {
         },
         {
           title: "createUs3er4",
+
           renderForm: {
             type: "Cascader",
             props: {
@@ -252,18 +253,43 @@ export default {
           tooltip: true,
           tooltipMaxWidth: 700,
           key: "descript",
-          renderForm() {
-            return (
-              <Input
-                maxlength="100"
-                show-word-limit
-                type="textarea"
-                placeholder="Enter something..."
-                rows={4}
-              />
-            );
+          renderTable: {
+            type: "span",
+            useExp: true,
+            text: "value===200?'成功':'失败'",
+            style: {
+              color: "value==200?'#19be6b':'#ed4014'"
+            }
           },
+          renderForm: {
+            type: "i-input",
+            props: {
+              type: "textarea",
+              rows: 4
+            }
+          },
+          // renderForm() {
+          //   return (
+          //     <Input
+          //       maxlength="100"
+          //       show-word-limit
+          //       type="textarea"
+          //       placeholder="Enter something..."
+          //       rows={4}
+          //     />
+          //   );
+          // },
           formLineNum: 2
+        },
+        {
+          title: "defValue",
+          key: "defValue",
+          renderTable: {
+            type: "i-button",
+            props: {
+              type: "primary"
+            }
+          }
         },
         {
           title: "createUser10",
@@ -368,7 +394,7 @@ export default {
   methods: {
     searchReset(data) {},
     tableAction() {
-      console.log("a");
+      console.log("table click");
     },
     click() {
       this.$set(this.search.value, "createUser3", "123");
