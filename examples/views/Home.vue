@@ -180,6 +180,11 @@ export default {
               width: "100%"
             }
           },
+          renderTable: (h, params) => {
+            return (
+              <span>{params.row.isAllow === "F" ? "黑名单" : "白名单"}</span>
+            );
+          },
           key: "createUser2"
         },
         {

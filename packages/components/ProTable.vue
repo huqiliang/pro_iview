@@ -335,14 +335,18 @@ export default {
         if (!value[showType]) {
           if (has(value, renderType)) {
             // value.render = value[renderType];
-            value.render = (h, params) => {
-              return (
-                <ProTypeItem
-                  v-model={params.row[value.key]}
-                  renderItem={value[renderType]}
-                ></ProTypeItem>
-              );
-            };
+            if (_.isFunction(value[renderType])) {
+              value.render = value[renderType];
+            } else {
+              value.render = (h, params) => {
+                return (
+                  <ProTypeItem
+                    v-model={params.row[value.key]}
+                    renderItem={value[renderType]}
+                  ></ProTypeItem>
+                );
+              };
+            }
           } else if (value.key === "action" && showType === "notShowTable") {
             value.render = (h, params) => {
               return (
