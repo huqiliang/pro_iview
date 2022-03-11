@@ -21,12 +21,15 @@ export default {
     }
   },
   methods: {
-    evalUse(obj) {
+    evalUse(obj, innerValue) {
+      let myObj = {};
       _.map(obj, (val, key) => {
-        console.log(this.value);
-        obj[key] = new Function("value", "return " + val)(this.value);
+        let temp = val
+          ? new Function("value", "return " + val)(innerValue)
+          : val;
+        myObj[key] = temp;
       });
-      return obj;
+      return myObj;
     },
     input(value) {
       if (_.has(this.renderItem, "format")) {
@@ -60,7 +63,8 @@ export default {
       //   children.push([this.value]);
       // }
       const { useExp, text, type, style, props, on } = this.renderItem;
-      const myStyle = useExp && style ? this.evalUse(style) : style;
+      console.log("text", text);
+      const myStyle = useExp && style ? this.evalUse(style, this.value) : style;
       return (
         <span>
           {h(
@@ -85,7 +89,6 @@ export default {
                 ...on
               }
             },
-
             useExp ? new Function("value", "return " + text)(this.value) : text
           )}
         </span>

@@ -256,7 +256,7 @@ export default {
           renderTable: {
             type: "span",
             useExp: true,
-            text: "value===200?'成功':'失败'",
+            text: "value===200?'成功':'失败';console.log(value);",
             style: {
               color: "value==200?'#19be6b':'#ed4014'"
             }
