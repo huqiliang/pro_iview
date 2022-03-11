@@ -63,7 +63,6 @@ export default {
       //   children.push([this.value]);
       // }
       const { useExp, text, type, style, props, on } = this.renderItem;
-      console.log("text", text);
       const myStyle = useExp && style ? this.evalUse(style, this.value) : style;
       return (
         <span>
