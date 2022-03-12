@@ -107,12 +107,17 @@ export default {
       usedRow: null,
       page: {
         current: 1,
-        pageSize: 10
+        pageSize: this.pageSize
       },
       immutableSearchValue: ""
     };
   },
   props: {
+    pageSize: {
+      default() {
+        return 10;
+      }
+    },
     toolBarActions: {
       default() {
         return ["new", "refresh", "fullscreen", "rowSetting"];
@@ -444,7 +449,7 @@ export default {
     searchReset() {
       this.page = {
         current: 1,
-        pageSize: 10
+        pageSize: this.pageSize
       };
       this.form = _.cloneDeep(this.immutableSearchValue);
       this.$refs["proForm"].reset();

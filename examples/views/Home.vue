@@ -18,6 +18,7 @@
       :autoFetch="true"
       :hide="hide"
       :toolBarActions="toolBarActions"
+      :pageSize="pageSize"
     >
     </pro-table>
 
@@ -33,6 +34,7 @@ export default {
   name: "Home",
   data() {
     return {
+      pageSize: 30,
       hide: { table: false },
       toolBarActions: [
         "new",
