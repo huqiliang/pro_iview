@@ -151,6 +151,9 @@ export default {
     },
     validate(fn) {
       this.$refs["form"].validate(fn);
+    },
+    validateField(prop, fn) {
+      this.$refs["form"].validateField(prop, fn);
     }
   },
   components: {
