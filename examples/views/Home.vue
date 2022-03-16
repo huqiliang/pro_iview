@@ -191,10 +191,37 @@ export default {
         },
         {
           title: "createUser3",
-          renderForm: {
-            type: "i-switch"
-          },
-          key: "createUser3"
+          key: "createUser3",
+          rules: [
+            {
+              required: true,
+              message: "createUser3不能为空"
+            }
+          ],
+          renderForm: ({ value, input }) => {
+            console.log("value", value);
+            const arr = _.isEmpty(value)
+              ? []
+              : _.isString(value)
+              ? value.split(",")
+              : value;
+            console.log("arr", arr);
+            return (
+              <i-select
+                clearable
+                multiple
+                value={arr}
+                onInput={val => {
+                  console.log("val", val);
+                  input(val);
+                  this.$refs.addForm.validateField("unitScene");
+                }}
+              >
+                <i-option value="a">a</i-option>;
+                <i-option value="b">b</i-option>;
+              </i-select>
+            );
+          }
         },
         {
           title: "createUser8",
@@ -225,8 +252,13 @@ export default {
           key: "createUser4"
         },
         {
-          title: "createUs3er4",
-
+          title: "creat4",
+          rules: [
+            {
+              required: true,
+              message: "creat4不能为空"
+            }
+          ],
           renderForm: {
             type: "Cascader",
             props: {
