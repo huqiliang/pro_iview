@@ -503,18 +503,18 @@ export default {
           status: "success",
           msg: "请求成功!"
         };
-        if (res && res.data) {
-          const data = get(res.data, this.map.dataPath);
+        if (res) {
+          const data = get(res, this.map.dataPath);
           if (data) {
             this.proData = data;
-            this.total = get(res.data, this.map.totalPath);
+            this.total = get(res, this.map.totalPath);
           } else {
             this.proData = [];
             this.total = 0;
             msg = {
               code: -1,
               status: "fail",
-              data: res.data,
+              data: res,
               msg: "请检查数据路径和分页配置"
             };
           }
@@ -568,9 +568,7 @@ export default {
               });
               if (res) {
                 if (res.success) {
-                  this.$Message.success(
-                    _.get(res.data, this.map.message) || "成功"
-                  );
+                  this.$Message.success(_.get(res, this.map.message) || "成功");
                   this.finish();
                 }
                 this.formDialog.formLoading = true;

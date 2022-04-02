@@ -29,10 +29,17 @@ axios.interceptors.request.use(
 );
 axios.interceptors.response.use(
   res => {
-    if (res.data.code === 0) {
-      res.success = true;
+    const { nomsg } = res.config.headers;
+    if (res.status && (res.status != 200 || res.data.code != 0)) {
+      if (!nomsg) {
+        Message.error({
+          content: res.data.message || "未知错误"
+        });
+      }
+    } else {
+      res.data.success = true;
     }
-    return res;
+    return res.data;
   },
   err => {
     if (err.response) {

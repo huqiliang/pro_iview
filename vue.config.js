@@ -21,16 +21,19 @@ module.exports = {
     }
   },
   configureWebpack: {
-    // externals: {
-    //   vue: "vue",
-    //   vuex: "vuex",
-    //   axios: "axios",
-    //   lodash: "lodash",
-    //   "view-design": "iview",
-    //   iview: "ViewUI",
-    //   "iview.css": "iview.css",
-    //   "vue-router": "vue-router"
-    // }
+    externals:
+      process.env.NODE_ENV === "production"
+        ? {
+            vue: "vue",
+            vuex: "vuex",
+            axios: "axios",
+            lodash: "lodash",
+            "view-design": "iview",
+            iview: "ViewUI",
+            "iview.css": "iview.css",
+            "vue-router": "vue-router"
+          }
+        : {}
   },
   // 扩展 webpack 配置，使 packages 加入编译
   chainWebpack: config => {
