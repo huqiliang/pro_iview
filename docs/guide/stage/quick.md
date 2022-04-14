@@ -30,7 +30,7 @@ yarn serve
 2. 当然,如果需要完全的自定义路由,可以打开 router/routes.js 文件([目录说明](http://localhost:8081/pro_iview/guide/stage/start.html))自行添加
 
 3. 如果第一次添加文件后不显示在菜单栏,因文件没被监听,请保存下其他已监听过的文件即可
-4. 不想监听的文件请在文件前后加 __ 例: \_\_error\_\_.vue
+4. 不想监听的文件请在文件前后加 __ 。例如: \_\_error\_\_.vue
 
 #### 请求拦截器
 

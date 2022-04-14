@@ -31,7 +31,7 @@ module.exports = {
             },
 
             {
-              title: "项目规范",
+              title: "最佳实践",
               path: "/guide/all/project"
             }
           ]
@@ -63,8 +63,8 @@ module.exports = {
           collapsable: false,
           children: [
             {
-              title: "认识columns",
-              path: "/guide/pro_iview/columns"
+              title: "架构简介",
+              path: "/guide/pro_iview/intro"
             },
             {
               title: "自动表格",
