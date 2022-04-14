@@ -10,7 +10,7 @@ module.exports = {
     nav: [
       { text: "主页", link: "/" },
       { text: "指南", link: "/guide/all/base.html" },
-      { text: "脚手架", link: "/guide/stage/start" },
+      { text: "快速开始", link: "/guide/stage/quick.html" },
       { text: "天工更新日志", link: "/logs/" },
       { text: "pro_iview更新日志", link: "/logs/" },
       {
@@ -22,17 +22,14 @@ module.exports = {
       sidebarDepth: 3,
       "/guide/": [
         {
-          title: "快速开始", // 必要的
+          title: "前期准备", // 必要的
           collapsable: false,
           children: [
             {
               title: "基本知识",
               path: "/guide/all/base"
             },
-            {
-              title: "快速开始",
-              path: "/guide/all/quick"
-            },
+
             {
               title: "项目规范",
               path: "/guide/all/project"
@@ -44,7 +41,11 @@ module.exports = {
           collapsable: false,
           children: [
             {
-              title: "创建项目",
+              title: "快速开始",
+              path: "/guide/stage/quick"
+            },
+            {
+              title: "目录说明",
               path: "/guide/stage/start"
             }
           ]
