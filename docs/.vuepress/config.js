@@ -44,13 +44,17 @@ module.exports = {
               title: "快速开始",
               path: "/guide/stage/quick"
             },
-             {
+            {
               title: "环境说明",
               path: "/guide/stage/env"
             },
             {
               title: "目录说明",
               path: "/guide/stage/start"
+            },
+            {
+              title: "package.json",
+              path: "/guide/stage/npm"
             }
           ]
         },

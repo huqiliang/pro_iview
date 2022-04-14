@@ -2,7 +2,13 @@
 
 ```
 vue create --preset huqiliang/tpl my_project
+
+cd my_project 
+
+yarn serve
 ```
+
+
 ### 特性说明
 
 #### 自动路由

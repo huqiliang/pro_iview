@@ -2,6 +2,9 @@
 
 ```
 project
+├── .env.analyze                    // 生产环境 ANALYZ_ENV=true
+├── .env.development                // 测试环境
+├── .env.production                 // 生产环境
 ├── babel.config.js
 ├── commitlint.config.js            // git commit规范
 ├── package.json
