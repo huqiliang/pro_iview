@@ -30,6 +30,6 @@ project
 │       ├── example.vue             // pro_iview示例文件
 │       ├── index.vue
 │       └── system                  // 系统页面目录,包含报错等
-│           └── __error__.vue       
+│           └── __error__.vue          // 404 错误页面
 └── vue.config.js                   // vue 配置文件 内置前端打包分析、代理配置、自动路由配置
 ```
