@@ -1,6 +1,6 @@
 module.exports = {
-  title: "iview高阶组件库", // 设置网站标题
-  description: "iview高阶组件库",
+  title: "前端开发指南", // 设置网站标题
+  description: "前端开发指南",
   displayAllHeaders: true, //显示所有页面的标题链接
   base: "/pro_iview/",
   head: [],
@@ -9,8 +9,10 @@ module.exports = {
     // 添加导航栏
     nav: [
       { text: "主页", link: "/" },
-      { text: "指南", link: "/guide/" },
-      { text: "更新日志", link: "/logs/" },
+      { text: "指南", link: "/guide/all/base.html" },
+      { text: "脚手架", link: "/guide/stage/start" },
+      { text: "天工更新日志", link: "/logs/" },
+      { text: "pro_iview更新日志", link: "/logs/" },
       {
         text: "github",
         link: "https://github.com/huqiliang/pro_iview"
@@ -20,22 +22,52 @@ module.exports = {
       sidebarDepth: 3,
       "/guide/": [
         {
-          title: "架构设计", // 必要的
+          title: "快速开始", // 必要的
           collapsable: false,
           children: [
             {
-              title: "组件总览",
-              path: "/guide/all/preview"
+              title: "基本知识",
+              path: "/guide/all/base"
+            },
+            {
+              title: "快速开始",
+              path: "/guide/all/quick"
+            },
+            {
+              title: "项目规范",
+              path: "/guide/all/project"
             }
           ]
         },
         {
-          title: "数据展示",
+          title: "脚手架",
           collapsable: false,
           children: [
             {
-              title: "表格生成",
-              path: "/guide/data/config"
+              title: "创建项目",
+              path: "/guide/stage/start"
+            }
+          ]
+        },
+        {
+          title: "pro_iview手册",
+          collapsable: false,
+          children: [
+            {
+              title: "认识columns",
+              path: "/guide/pro_iview/columns"
+            },
+            {
+              title: "自动表格",
+              path: "/guide/pro_iview/table"
+            },
+            {
+              title: "自动表单",
+              path: "/guide/pro_iview/form"
+            },
+            {
+              title: "自动搜索",
+              path: "/guide/pro_iview/search"
             }
           ]
         },
