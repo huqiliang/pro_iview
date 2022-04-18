@@ -85,7 +85,7 @@ module.exports = {
           collapsable: false,
           children: [
             {
-              title: "简介",
+              title: "系统简介",
               path: "/guide/server/intro"
             },
             {
