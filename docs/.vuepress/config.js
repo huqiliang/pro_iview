@@ -67,15 +67,15 @@ module.exports = {
               path: "/guide/pro_iview/intro"
             },
             {
-              title: "自动表格",
+              title: "高级表格",
               path: "/guide/pro_iview/table"
             },
             {
-              title: "自动表单",
+              title: "高级表单",
               path: "/guide/pro_iview/form"
             },
             {
-              title: "自动搜索",
+              title: "高级搜索",
               path: "/guide/pro_iview/search"
             }
           ]

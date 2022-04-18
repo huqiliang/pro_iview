@@ -17,7 +17,7 @@ ProIview 是基于 iview 而开发的高阶组件，提供了更高级别的抽�
     "key": "cataLog",       // 当前项的 key ,自动同步到外层v-model中
     "disabled": true,       // 禁用启用当前项
     "renderSearch": {       // 对象方式快捷 -- 简易模式
-        "type": "Radio"         //配置单项渲染,自动支持v-model,生成器生成的即为此类代码
+        "type": "Radio"         // 配置单项渲染,自动支持v-model,生成器生成的即为此类代码
     },
     "renderForm": {         // 对象方式快捷 -- 复杂模式
         "type": "DatePicker",
