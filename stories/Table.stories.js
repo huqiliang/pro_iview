@@ -185,7 +185,15 @@ const Template = (args, { argTypes }) => ({
   template: '<pro-table v-bind="$props"/>'
 });
 
-export const Base = Template.bind({});
+export const 基本配置 = Template.bind({});
+
+export const 表单穿透 = Template.bind({});
+
+表单穿透.args = {
+  form: {
+    labelPosition: "right"
+  }
+};
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 // Primary.args = {
 //   primary: true,
