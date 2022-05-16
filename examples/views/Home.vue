@@ -22,7 +22,7 @@
     >
     </pro-table>
 
-    <!-- <pro-table :columns="columns" :searchLineNum="5"> </pro-table> -->
+    <pro-table :request="request"> </pro-table>
   </div>
 </template>
 
