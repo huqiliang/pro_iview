@@ -7,7 +7,7 @@
 2. 操作区域，可对页面进行配置,保存、复制代码等操作
 3. 单页页面配置区域，可查看页面,操作配置出来的页面等操作
 
-## 操作说明
+## 配置说明
 配置说明:本例使用到的 [api示例](http://192.168.0.38:3000/mock/106/api/table)
 
 ###  1.URL基本配置
@@ -22,3 +22,10 @@
 ---
 
 ![Aaron Swartz](https://app-1251575231.cos.ap-shanghai.myqcloud.com/tiangong/4.png)
+
+## 单页生成
+点点点
+
+![Aaron Swartz](https://app-1251575231.cos.ap-shanghai.myqcloud.com/tiangong/5.png)
+
+点击生成静态页面可直接生成到cdn

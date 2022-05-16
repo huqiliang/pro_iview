@@ -67,17 +67,9 @@ module.exports = {
               path: "/guide/pro_iview/intro"
             },
             {
-              title: "高级表格",
+              title: "story文档",
               path: "/guide/pro_iview/table"
             },
-            {
-              title: "高级表单",
-              path: "/guide/pro_iview/form"
-            },
-            {
-              title: "高级搜索",
-              path: "/guide/pro_iview/search"
-            }
           ]
         },
         {
@@ -111,7 +103,7 @@ module.exports = {
         }
       ]
     },
-    sidebarDepth: 1, //左侧导航显示的层级
+    sidebarDepth: 3, //左侧导航显示的层级
     lastUpdated: "Last Updated"
   }
 };

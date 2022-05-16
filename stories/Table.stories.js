@@ -19,11 +19,27 @@ export default {
           summary: "API接口请求地址"
         }
       },
-      defaultValue: "http://192.168.0.38:3000/mock/106/api/table"
+      defaultValue: "https://yapi.ihotel.cn:8443/mock/106/api/table"
+    },
+    columns: {
+      table: {
+        type: {
+          summary: "列表配置项"
+        },
+        defaultValue: { summary: "[]" }
+      },
+      defaultValue: [
+        {
+          title: "cataLog",
+          group: "B",
+          key: "cataLog",
+          disabled: true
+        }
+      ],
+      control: { type: "array" }
     },
     method: {
       name: "method",
-      title: "列表请求方式",
       table: {
         type: {
           summary: "列表请求方式"
@@ -114,7 +130,6 @@ export default {
             '格式化分页请求,支持string和fn,例如: formatCurrent: "(page.current - 1) * page.pageSize"'
         }
       },
-      defaultValue: "",
       control: { type: "text" }
     },
     data: {
@@ -123,8 +138,15 @@ export default {
           summary: "列表主数据,可通过 @dataChange 获取"
         }
       },
-      defaultValue: "",
       control: { type: "object" }
+    },
+    submitForm: {
+      table: {
+        type: {
+          summary: "新增按钮提交表单"
+        }
+      },
+      control: { type: "text" }
     },
     hide: {
       table: {
