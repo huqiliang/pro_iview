@@ -23,7 +23,7 @@
           v-bind="$attrs.table"
           v-on="$listeners"
         >
-          <span v-if="!toolBar" slot="header"></span>
+          <span v-if="hide.toolBar" slot="header"></span>
           <div v-else slot="header" class="tableHeader">
             <div class="title">{{ tableTitle }}</div>
             <div class="buttons">
@@ -133,12 +133,6 @@ export default {
         return {};
       }
     },
-    toolBar: {
-      type: Boolean,
-      default() {
-        return true;
-      }
-    },
     title: {
       default() {
         return "";
@@ -177,7 +171,7 @@ export default {
     },
     hide: {
       default() {
-        return { search: false, table: false, pages: false };
+        return { search: false, table: false, pages: false, toolBar: false };
       }
     },
     submitForm: {}

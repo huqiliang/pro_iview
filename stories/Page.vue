@@ -77,12 +77,12 @@
 
 <script>
 import "./page.css";
-import MyHeader from "./Header.vue";
+// import MyHeader from "./Header.vue";
 
 export default {
   name: "my-page",
 
-  components: { MyHeader },
+  components: {},
 
   props: {
     user: {

@@ -8,7 +8,6 @@
       ref="table"
       :request="request"
       :map="map"
-      :toolBar="toolBar"
       :columns="columns"
       :search="search"
       :submitForm="submitForm"
@@ -21,8 +20,6 @@
       :pageSize="pageSize"
     >
     </pro-table>
-
-    <pro-table :request="request"> </pro-table>
   </div>
 </template>
 
@@ -89,7 +86,6 @@ export default {
           ]
         }
       ],
-      toolBar: true,
       autoData: {
         columns: [
           {
