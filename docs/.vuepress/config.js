@@ -67,7 +67,7 @@ module.exports = {
               path: "/guide/pro_iview/intro"
             },
             {
-              title: "story文档",
+              title: "开发手册",
               path: "/guide/pro_iview/table"
             },
           ]
