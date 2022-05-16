@@ -1,7 +1,7 @@
 ### 快速开始
 
 ```
-vue create --preset huqiliang/tpl my_project
+vue create -p huqiliang/tpl my_project
 
 cd my_project 
 
