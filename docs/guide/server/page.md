@@ -24,7 +24,6 @@
 ![Aaron Swartz](https://app-1251575231.cos.ap-shanghai.myqcloud.com/tiangong/4.png)
 
 ## 单页生成
-点点点
 
 ![Aaron Swartz](https://app-1251575231.cos.ap-shanghai.myqcloud.com/tiangong/5.png)
 

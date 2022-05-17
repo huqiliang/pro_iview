@@ -1,5 +1,7 @@
 ### 快速开始
 
+快速生成一个 名为 my_project 项目
+
 ```
 vue create -p huqiliang/tpl my_project
 
