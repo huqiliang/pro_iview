@@ -11,12 +11,8 @@ module.exports = {
       { text: "主页", link: "/" },
       { text: "指南", link: "/guide/all/base.html" },
       { text: "快速开始", link: "/guide/stage/quick.html" },
-      { text: "天工更新日志", link: "/logs/" },
-      { text: "pro_iview更新日志", link: "/logs/" },
-      {
-        text: "github",
-        link: "https://github.com/huqiliang/pro_iview"
-      }
+      { text: "天工更新日志", link: "/logs/tg.md" },
+      { text: "pro_iview更新日志", link: "/logs/pi.md" },
     ],
     sidebar: {
       sidebarDepth: 3,
