@@ -1,31 +1,63 @@
 import Vue from "vue";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
-import ProComponents from "../packages/index";
+import ProForm from "../packages/components/ProForm.vue";
 
 import "../examples/libs/http";
 Vue.use(ViewUI);
-Vue.use(ProComponents);
+// Vue.use(ProComponents);
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: "Example/ProForm",
-  // component: ProComponents,
+  component: ProForm,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     value: {
+      description: "表单的值 支持v-model",
       table: {
-        type: {
-          summary: "表单的值 支持v-model"
-        }
+        defaultValue: { summary: "{}" }
       },
       control: { type: "object" }
     },
-    columns: {
+    type: {
+      description: "表单类型",
       table: {
-        type: {
-          summary: "列表配置项"
-        },
+        defaultValue: { summary: "edit" }
+      },
+      defaultValue: "edit",
+      control: { type: "text" }
+    },
+    labelWidth: {
+      description: "表单类型",
+      table: {
+        defaultValue: { summary: 110 }
+      },
+      defaultValue: 90,
+      control: { type: "number" }
+    },
+    formLineNum: {
+      description: "一行的个数",
+      table: {
+        defaultValue: { summary: 1 }
+      },
+      defaultValue: 1,
+      control: { type: "number" }
+    },
+    labelPosition: {
+      description: "label的方向",
+      table: {
+        defaultValue: { summary: "left" }
+      },
+      defaultValue: "left",
+      control: {
+        type: "select",
+        options: ["left", "right"]
+      }
+    },
+    columns: {
+      description: "列表配置项",
+      table: {
         defaultValue: { summary: "[]" }
       },
       defaultValue: [
@@ -35,49 +67,6 @@ export default {
         }
       ],
       control: { type: "array" }
-    },
-    type: {
-      table: {
-        type: {
-          summary: "表单类型"
-        },
-        defaultValue: { summary: "edit" }
-      },
-      defaultValue: "edit",
-      control: { type: "text" }
-    },
-    labelWidth: {
-      table: {
-        type: {
-          summary: "label的宽度"
-        },
-        defaultValue: { summary: 110 }
-      },
-      defaultValue: 110,
-      control: { type: "number" }
-    },
-    formLineNum: {
-      table: {
-        type: {
-          summary: "一行的个数"
-        },
-        defaultValue: { summary: 1 }
-      },
-      defaultValue: 1,
-      control: { type: "number" }
-    },
-    labelPosition: {
-      table: {
-        type: {
-          summary: "left"
-        },
-        defaultValue: { summary: "left" }
-      },
-      defaultValue: "left",
-      control: {
-        type: "select",
-        options: ["left", "right"]
-      }
     }
   }
 };
@@ -85,7 +74,7 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  // components: { ProComponents },
+  components: { ProForm },
   template: '<pro-form v-bind="$props"/>'
 });
 
@@ -111,7 +100,7 @@ export const 一行多个 = Template.bind({});
 export const 分组 = Template.bind({});
 
 分组.args = {
-  formLineNum: 3,
+  formLineNum: 2,
   columns: [
     {
       title: "基础配置1",
@@ -124,6 +113,37 @@ export const 分组 = Template.bind({});
       formLineNum: 2,
       group: "分组1",
       key: "second"
+    },
+    {
+      title: "基础配置3",
+      group: "分组2",
+      key: "third"
+    }
+  ]
+};
+
+export const 自定义渲染 = Template.bind({});
+
+自定义渲染.args = {
+  formLineNum: 2,
+  columns: [
+    {
+      title: "基础配置1",
+      group: "分组1",
+      formLineNum: 1,
+      key: "first",
+      renderForm: {
+        type: "DatePicker"
+      }
+    },
+    {
+      title: "基础配置2",
+      formLineNum: 1,
+      group: "分组1",
+      key: "second",
+      renderForm() {
+        return <div>自定义渲染</div>;
+      }
     },
     {
       title: "基础配置3",
