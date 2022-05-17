@@ -1,16 +1,17 @@
 import Vue from "vue";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
-import ProComponents from "../packages/index";
+import ProTable from "../packages/components/ProTable";
 
 import "../examples/libs/http";
 Vue.use(ViewUI);
-Vue.use(ProComponents);
+// Vue.use(ProComponents);
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
   title: "Example/ProTable",
-  // component: ProComponents,
+  component: ProTable,
+  parameters: { actions: { argTypesRegex: "^on.*" } },
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
     request: {
@@ -59,18 +60,6 @@ export default {
       },
       control: { type: "object" }
     },
-    // toolBar: {
-    //   name: "toolBar",
-    //   title: "是否显示标题栏",
-    //   table: {
-    //     type: {
-    //       summary: "控制toolBar的显示与隐藏"
-    //     },
-    //     defaultValue: { summary: "true" }
-    //   },
-    //   defaultValue: true,
-    //   control: { type: "boolean" }
-    // },
     autoFetch: {
       name: "autoFetch",
       title: "是否一进入就请求",
@@ -133,12 +122,14 @@ export default {
       control: { type: "text" }
     },
     data: {
+      name: "data",
       table: {
         type: {
           summary: "列表主数据,可通过 @dataChange 获取"
         }
       },
-      control: { type: "object" }
+      defaultValue: [],
+      control: { type: "array" }
     },
     submitForm: {
       table: {
@@ -167,6 +158,12 @@ export default {
       // default() {
       //   return { search: false, table: false, pages: false };
       // }
+    },
+    search: {
+      action: "search"
+    },
+    searchReset: {
+      action: "searchReset"
     }
     // method: {
     //   default: "GET"
@@ -181,19 +178,22 @@ export default {
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  // components: { ProComponents },
-  template: '<pro-table v-bind="$props"/>'
+  components: { ProTable },
+  template:
+    '<pro-table v-bind="$props" @search="search" @searchReset="searchReset"/>'
 });
 
 export const 基本配置 = Template.bind({});
 
 export const 表单穿透 = Template.bind({});
+export const 事件回调 = Template.bind({});
 
 表单穿透.args = {
   form: {
     labelPosition: "right"
   }
 };
+事件回调.args = {};
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 // Primary.args = {
 //   primary: true,

@@ -1,6 +1,6 @@
 {
   "name": "pro_iview",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "main": "lib/pro-iview.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -20,7 +20,7 @@
     "lodash": "^4.17.20",
     "qs": "^6.10.3",
     "view-design": "^4.7.0",
-    "vue": "^2.6.11",
+    "vue": "2.6.12",
     "vue-fullscreen": "^2.5.2",
     "vue-i18n": "^8.22.3"
   },
@@ -58,8 +58,7 @@
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
     "qs": "^6.10.3",
-    "view-design": "^4.5.0",
-    "vue": "^2.6.11"
+    "view-design": "^4.5.0"
   },
   "eslintConfig": {
     "root": true,

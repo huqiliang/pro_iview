@@ -97,13 +97,38 @@ export const 一行多个 = Template.bind({});
   columns: [
     {
       title: "基础配置1",
-      num: 2,
+      formLineNum: 1,
       key: "first"
     },
     {
       title: "基础配置2",
-      num: 2,
+      formLineNum: 1,
       key: "second"
+    }
+  ]
+};
+
+export const 分组 = Template.bind({});
+
+分组.args = {
+  formLineNum: 3,
+  columns: [
+    {
+      title: "基础配置1",
+      group: "分组1",
+      formLineNum: 1,
+      key: "first"
+    },
+    {
+      title: "基础配置2",
+      formLineNum: 2,
+      group: "分组1",
+      key: "second"
+    },
+    {
+      title: "基础配置3",
+      group: "分组2",
+      key: "third"
     }
   ]
 };
