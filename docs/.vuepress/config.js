@@ -12,7 +12,7 @@ module.exports = {
       { text: "指南", link: "/guide/all/base.html" },
       { text: "快速开始", link: "/guide/stage/quick.html" },
       { text: "天工更新日志", link: "/logs/tg.md" },
-      { text: "pro_iview更新日志", link: "/logs/pi.md" },
+      { text: "pro_iview更新日志", link: "/logs/pi.md" }
     ],
     sidebar: {
       sidebarDepth: 3,
@@ -63,9 +63,13 @@ module.exports = {
               path: "/guide/pro_iview/intro"
             },
             {
+              title: "安装使用",
+              path: "/guide/pro_iview/use"
+            },
+            {
               title: "开发手册",
               path: "/guide/pro_iview/table"
-            },
+            }
           ]
         },
         {
