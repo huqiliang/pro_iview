@@ -4,6 +4,8 @@ import "view-design/dist/styles/iview.css";
 import ProTable from "../packages/components/ProTable";
 
 import "../examples/libs/http";
+
+import dayjs from "dayjs";
 Vue.use(ViewUI);
 // Vue.use(ProComponents);
 
@@ -22,7 +24,7 @@ export default {
         }
       },
       control: { type: null },
-      defaultValue: "https://yapi.ihotel.cn:8443/mock/106/api/table"
+      defaultValue: "http://192.168.0.38:3000/mock/106/api/table"
     },
     columns: {
       description: "列表配置项",
@@ -191,9 +193,34 @@ const Template = (args, { argTypes }) => {
 };
 
 export const 基本配置 = Template.bind({});
-
+export const 界面显隐 = Template.bind({});
+export const 字段显隐 = Template.bind({});
 export const 表单穿透 = Template.bind({});
+export const 多种自定义 = Template.bind({});
+export const 格式化 = Template.bind({});
 export const 事件回调 = Template.bind({});
+
+界面显隐.args = {
+  hide: {
+    search: true,
+    table: false,
+    toolBar: false
+  }
+};
+字段显隐.args = {
+  columns: [
+    {
+      title: "second",
+      notShowTable: true,
+      key: "cataLog"
+    },
+    {
+      title: "second2",
+      notShowSearch: true,
+      key: "cataLog"
+    }
+  ]
+};
 
 表单穿透.args = {
   form: {
@@ -204,6 +231,48 @@ export const 事件回调 = Template.bind({});
   }
 };
 事件回调.args = {};
+
+多种自定义.args = {
+  columns: [
+    {
+      title: "first",
+      key: "first",
+      renderSearch: {
+        type: "DatePicker"
+      },
+      renderTable(h, params) {
+        console.log(params);
+        return <Button type="primary">按钮</Button>;
+      },
+      renderForm: {
+        type: "Radio"
+      }
+    },
+    {
+      title: "second",
+      key: "cataLog"
+    }
+  ]
+};
+
+格式化.args = {
+  columns: [
+    {
+      title: "createUser",
+      key: "createUser",
+      renderSearch: {
+        type: "DatePicker",
+        format(value) {
+          return dayjs(value).format("YYYY-MM-DD");
+        }
+      }
+    },
+    {
+      title: "second",
+      key: "cataLog"
+    }
+  ]
+};
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 // Primary.args = {
 //   primary: true,

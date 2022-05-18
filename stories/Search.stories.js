@@ -25,11 +25,11 @@ export default {
       description: "显示项配置集合",
       defaultValue: [
         {
-          title: "基础配置",
+          title: "first",
           key: "first"
         },
         {
-          title: "基础配置",
+          title: "second",
           key: "second"
         }
       ]
@@ -52,7 +52,7 @@ export const 自定义渲染 = Template.bind({});
   formLineNum: 2,
   columns: [
     {
-      title: "基础配置1",
+      title: "first",
       formLineNum: 1,
       key: "first",
       renderForm: {
@@ -60,7 +60,7 @@ export const 自定义渲染 = Template.bind({});
       }
     },
     {
-      title: "基础配置2",
+      title: "second",
       formLineNum: 1,
       key: "second",
       renderForm() {
@@ -68,14 +68,14 @@ export const 自定义渲染 = Template.bind({});
       }
     },
     {
-      title: "基础配置3",
+      title: "third",
       key: "third",
       renderSearch() {
         return <span>自定义组件</span>;
       }
     },
     {
-      title: "基础配置4",
+      title: "four",
       key: "four",
       renderSearch: {
         type: "i-switch"
