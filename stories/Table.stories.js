@@ -24,7 +24,7 @@ export default {
         }
       },
       control: { type: null },
-      defaultValue: "http://192.168.0.38:3000/mock/106/api/table"
+      defaultValue: "https://yapi.ihotel.cn:8443/mock/106/api/table"
     },
     columns: {
       description: "列表配置项",
@@ -142,6 +142,15 @@ export default {
         }
       },
       control: { type: "text" }
+    },
+    toolBarActions: {
+      description: "toolBar栏按钮控制",
+      table: {
+        type: {
+          summary: "array"
+        }
+      },
+      control: { type: "array" }
     },
     hide: {
       table: {
