@@ -15,7 +15,7 @@ yarn serve
 
 #### 自动路由
 
-1. views文件夹([目录说明](http://localhost:8081/pro_iview/guide/stage/start.html))为自动路由文件夹,在此文件夹下创建vue文件会自动创建路由,无需再次修改路由文件
+1. views文件夹([目录说明](/guide/stage/start.html))为自动路由文件夹,在此文件夹下创建vue文件会自动创建路由,无需再次修改路由文件
 
 自定义路由如果需要调整,可以再页面中定义路由相关的信息
 ```
@@ -29,14 +29,14 @@ yarn serve
 </route>
 
 ```
-2. 当然,如果需要完全的自定义路由,可以打开 router/routes.js 文件([目录说明](http://localhost:8081/pro_iview/guide/stage/start.html))自行添加
+1. 当然,如果需要完全的自定义路由,可以打开 router/routes.js 文件([目录说明](/guide/stage/start.html))自行添加
 
-3. 如果第一次添加文件后不显示在菜单栏,因文件没被监听,请保存下其他已监听过的文件即可
-4. 不想监听的文件请在文件前后加 __ 。例如: \_\_error\_\_.vue
+2. 如果第一次添加文件后不显示在菜单栏,因文件没被监听,请保存下其他已监听过的文件即可
+3. 不想监听的文件请在文件前后加 __ 。例如: \_\_error\_\_.vue
 
 #### 请求拦截器
 
-文件位置:  src/libz/http.js  ([目录说明](http://localhost:8081/pro_iview/guide/stage/start.html))
+文件位置:  src/libs/http.js  ([目录说明](/guide/stage/start.html))
 
 1.请求失败报错统一
 
