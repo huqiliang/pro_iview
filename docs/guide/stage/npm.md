@@ -26,7 +26,7 @@ git push --set-upstream origin master // 将本地的分支和远程分支建立
 
 否则会报提交错误
 ```
-fatal: The current branch wangxiao has no upstream branch.
+fatal: The current branch xxx has no upstream branch.
 To push the current branch and set the remote as upstream
 ```
 
