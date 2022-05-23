@@ -19,12 +19,12 @@ yarn analyze
 yarn commit
 ```
 
-注意：因为是自动提交,第一次请先 
+注意：因为是自动提交,第一次请先
 ```
 git push --set-upstream origin master // 将本地的分支和远程分支建立联系,也可以使用可视化工具操作
 ```
 
-否则会报错提交错误
+否则会报提交错误
 ```
 fatal: The current branch wangxiao has no upstream branch.
 To push the current branch and set the remote as upstream
