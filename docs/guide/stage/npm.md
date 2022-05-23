@@ -1,7 +1,6 @@
-# 安装包说明
+# 常用命令和package.json
 
-### 常用命令
-vue-cli命令不再赘述
+vue-cli相关命令不再赘述
 
 1.内置 publicPath 为本项目name
 
@@ -14,10 +13,23 @@ yarn analyze
 
 项目会对每一次提交进行 eslint 和 [git commit规范](https://zhuanlan.zhihu.com/p/90281637)校验，校验成功方可提交。
 
-可自行按规范提交，也可用下列命令提交,该命令会同事生成对应的 git commit 规范的提交。
+可自行按规范提交，也可用下列命令提交,该命令会同时生成对应的 git commit 规范的提交。
+
 ```
 yarn commit
 ```
+
+注意：因为是自动提交,第一次请先 
+```
+git push --set-upstream origin master // 将本地的分支和远程分支建立联系,也可以使用可视化工具操作
+```
+
+否则会报错提交错误
+```
+fatal: The current branch wangxiao has no upstream branch.
+To push the current branch and set the remote as upstream
+```
+
 
 4.版本生成
 

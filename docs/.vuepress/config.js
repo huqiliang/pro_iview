@@ -49,7 +49,7 @@ module.exports = {
               path: "/guide/stage/start"
             },
             {
-              title: "package.json",
+              title: "常用命令",
               path: "/guide/stage/npm"
             }
           ]
