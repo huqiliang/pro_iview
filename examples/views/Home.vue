@@ -110,7 +110,7 @@ export default {
       },
       columns: [
         {
-          title: "cataLog",
+          title: "中文中文中文中文中文",
           group: "B",
           key: "cataLog",
           disabled: true,
@@ -140,7 +140,7 @@ export default {
           }
         },
         {
-          title: "createUser",
+          title: "中文公共中文",
           key: "createUser",
           renderSearch: ({ value, input }) => {
             return (

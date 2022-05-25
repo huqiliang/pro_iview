@@ -149,6 +149,7 @@ export default {
   .item {
     margin-bottom: 20px;
     .itemLabel {
+      white-space: nowrap;
       text-align: left;
       padding: 10px 10px 10px 0;
     }
