@@ -142,7 +142,7 @@ export default {
     },
     change(item, value) {
       const copyValue = _.cloneDeep(this.value);
-      _.set(copyValue, item.key, _.trim(value));
+      _.set(copyValue, item.key, _.isString(value) ? _.trim(value) : value);
       this.$emit("input", copyValue);
       // this.$set(this.value, copyValue);
     },

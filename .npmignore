@@ -1,5 +1,10 @@
 docs/*
-packages/*
+packages/components/*
+packages/mixin/*
+packages/libs/*
+packages/index.js
+packages/locale/format.js
+packages/locale/index.js
 stories/*
 .storybook/*
 doc_deploy.sh
