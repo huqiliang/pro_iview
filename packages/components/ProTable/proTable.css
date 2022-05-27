@@ -1,0 +1,19 @@
+.pro-modal-enter-active,
+.pro-modal-leave-active {
+  transition: opacity 0.5s;
+}
+
+.pro-modal-enter,
+.pro-modal-leave-to {
+  opacity: 0;
+}
+
+.pro-modal-content-enter-active,
+.pro-modal-content-leave-active {
+  transition: opacity 0.5s;
+}
+
+.pro-modal-content-enter,
+.pro-modal-content-leave-to {
+  opacity: 0;
+}

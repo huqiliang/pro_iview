@@ -59,19 +59,22 @@
       @on-ok="submit"
       @on-cancel="cancel"
       v-model="formDialog.show"
+      :transition-names="['pro-modal']"
       :width="$attrs.form ? $attrs.form.modalWidth : '400'"
       :title="modalTitle"
     >
-      <div class="content">
-        <ProForm
-          ref="proForm"
-          :columns="formColumns"
-          :type="formDialog.type"
-          v-model="formDialog.proFormData"
-          v-bind="$attrs.form"
-          v-on="$listeners.form"
-        ></ProForm>
-      </div>
+      <transition name="pro-modal-content">
+        <div class="content" v-if="formDialog.show">
+          <ProForm
+            ref="proForm"
+            :columns="formColumns"
+            :type="formDialog.type"
+            v-model="formDialog.proFormData"
+            v-bind="$attrs.form"
+            v-on="$listeners.form"
+          ></ProForm>
+        </div>
+      </transition>
     </Modal>
   </div>
 </template>
@@ -585,6 +588,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("./ProTable/proTable.css");
+
 /deep/ .ivu-table-title {
   height: auto;
   border-bottom: 0;
