@@ -449,12 +449,17 @@ export default {
         pageSize: this.pageSize
       };
       this.form = _.cloneDeep(this.immutableSearchValue);
-      this.$refs["proForm"].reset();
+      this.resetForm();
       // this.formDialog.proFormData = {};
       this.$nextTick(async () => {
         await this.fetch();
         this.emitActions("searchReset");
       });
+    },
+    resetForm() {
+      if (this.$refs["proForm"]) {
+        this.$refs["proForm"].reset();
+      }
     },
     emitActions(type) {
       this.$emit(type, {
@@ -464,7 +469,7 @@ export default {
       });
     },
     cancel() {
-      this.$refs["proForm"].reset();
+      this.resetForm();
     },
     async fetch(fn) {
       if (!_.isUndefined(this.request)) {
@@ -545,7 +550,7 @@ export default {
     },
     finish() {
       this.formDialog.show = false;
-      this.$refs["proForm"].reset();
+      this.resetForm();
       this.fetch();
     },
     submit() {
