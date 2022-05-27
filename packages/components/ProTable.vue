@@ -535,7 +535,9 @@ export default {
       return {
         search: this.form,
         table: this.proData,
-        page: { ...this.page, total: this.total }
+        page: { ...this.page, total: this.total },
+        form: this.formDialog.proFormData,
+        attr: this.$attrs
       };
     },
     getSelection() {

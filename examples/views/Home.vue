@@ -3,6 +3,7 @@
     {{ search }}
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">修改数据并刷新</Button>
+    <Button @click="getDatas">获取所有数据</Button>
     <pro-table
       @searchReset="searchReset"
       ref="table"
@@ -428,6 +429,9 @@ export default {
   },
   methods: {
     searchReset(data) {},
+    getDatas(){
+      console.log(this.$refs.table.getDatas());
+    },
     tableAction() {
       console.log("table click");
     },
