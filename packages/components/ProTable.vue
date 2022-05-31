@@ -95,6 +95,7 @@ export default {
   mixins: [Locale],
   data() {
     return {
+      resData: {}, //后端返回的所有数据
       formDialog: {
         show: false,
         type: "view",
@@ -506,6 +507,7 @@ export default {
           msg: "请求成功!"
         };
         if (res) {
+          this.resData = res;
           const data = get(res, this.map.dataPath);
           if (data) {
             this.proData = data;
@@ -542,7 +544,8 @@ export default {
         table: this.proData,
         page: { ...this.page, total: this.total },
         form: this.formDialog.proFormData,
-        attr: this.$attrs
+        attr: this.$attrs,
+        resData: this.resData
       };
     },
     getSelection() {
