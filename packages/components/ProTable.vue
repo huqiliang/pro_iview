@@ -12,6 +12,21 @@
       ></ProSearch>
     </div>
     <VueFullscreen :fullscreen.sync="fullscreen">
+      <slot name="header" class="borderHeader">
+        <span v-if="hide.toolBar"></span>
+        <div v-else class="tableHeader">
+          <div class="title">{{ tableTitle }}</div>
+          <div class="buttons">
+            <template v-for="item in toolBarList">
+              <ProTypeItem
+                class="item_buttons"
+                :key="item.key"
+                :renderItem="item.renderItem"
+              ></ProTypeItem>
+            </template>
+          </div>
+        </div>
+      </slot>
       <div class="tableTable">
         <Table
           :loading="loading"
@@ -23,19 +38,6 @@
           v-bind="$attrs.table"
           v-on="$listeners"
         >
-          <span v-if="hide.toolBar" slot="header"></span>
-          <div v-else slot="header" class="tableHeader">
-            <div class="title">{{ tableTitle }}</div>
-            <div class="buttons">
-              <template v-for="item in toolBarList">
-                <ProTypeItem
-                  class="item_buttons"
-                  :key="item.key"
-                  :renderItem="item.renderItem"
-                ></ProTypeItem>
-              </template>
-            </div>
-          </div>
         </Table>
         <div class="page">
           <Page
@@ -248,23 +250,23 @@ export default {
         {
           key: "rowSetting",
           renderItem: () => {
+            console.log(this.tableColumns);
             return (
-              !_.isEmpty(this.tableColumns) && (
-                <RowSetting
-                  rowContent={this.t("pro.table.rowSetting")}
-                  resetContent={this.t("pro.common.reset")}
-                  columns={this.tableColumns}
-                  onChange={keys => {
-                    _.map(this.columns, item => {
-                      this.$set(
-                        item,
-                        "notShowTable",
-                        _.includes(keys, item.key) ? false : true
-                      );
-                    });
-                  }}
-                ></RowSetting>
-              )
+              <RowSetting
+                rowContent={this.t("pro.table.rowSetting")}
+                resetContent={this.t("pro.common.reset")}
+                columns={this.tableColumns}
+                onChange={keys => {
+                  console.log(keys);
+                  _.map(this.columns, item => {
+                    this.$set(
+                      item,
+                      "notShowTable",
+                      _.includes(keys, item.key) ? false : true
+                    );
+                  });
+                }}
+              ></RowSetting>
             );
           }
         }
@@ -626,7 +628,9 @@ export default {
     display: flex;
     height: 48px;
     line-height: 48px;
-    border-bottom: 1px solid #e8eaec;
+    border: 1px solid #dcdee2;
+    background: #fff;
+    border-bottom: none;
     justify-content: space-between;
     padding: 0 10px 0 20px;
     .title {

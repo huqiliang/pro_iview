@@ -52,12 +52,16 @@ export default {
       visible: false,
       firstColumns: [],
       checkAll: true,
-      checkAllGroup: []
+      checkAllGroup: [],
+      first: true
     };
   },
   mounted() {
-    this.firstColumns = _.cloneDeep(this.columns);
-    this.checkAllGroup = _.map(this.firstColumns, "key");
+    if (this.columns && this.columns.length > 0 && this.first) {
+      this.firstColumns = _.cloneDeep(this.columns);
+      this.checkAllGroup = _.map(this.firstColumns, "key");
+      this.first = false;
+    }
   },
   methods: {
     reset(e) {
@@ -98,6 +102,15 @@ export default {
       }
       console.log(this.columns);
       this.$emit("change", data);
+    }
+  },
+  watch: {
+    columns(value) {
+      if (value && value.length > 0 && this.first) {
+        this.firstColumns = _.cloneDeep(value);
+        this.checkAllGroup = _.map(this.firstColumns, "key");
+        this.first = false;
+      }
     }
   }
 };

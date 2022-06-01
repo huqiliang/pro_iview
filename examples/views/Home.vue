@@ -61,6 +61,7 @@ export default {
         modalWidth: 70,
         value: { createUser10: "gg" }
       },
+
       data: [
         {
           cataLog: "33",
@@ -115,6 +116,7 @@ export default {
           group: "B",
           key: "cataLog",
           disabled: true,
+          width: 100,
           renderSearch: {
             type: "Radio"
           },
@@ -143,6 +145,7 @@ export default {
         {
           title: "中文公共中文",
           key: "createUser",
+          width: 100,
           renderSearch: ({ value, input }) => {
             return (
               <Select value={value} oninput={input} clearable>
@@ -154,6 +157,7 @@ export default {
         {
           title: "form",
           key: "form",
+          width: 100,
           renderForm() {
             return (
               <Button
@@ -169,6 +173,7 @@ export default {
         },
         {
           title: "createUser2",
+          width: 100,
           disabled: true,
           renderSearch: {
             type: "Slider"
@@ -189,6 +194,7 @@ export default {
         {
           title: "createUser3",
           key: "createUser3",
+          width: 100,
           rules: [
             {
               required: true,
@@ -222,6 +228,7 @@ export default {
         },
         {
           title: "createUser8",
+          width: 100,
           renderSearch: {
             type: "InputNumber"
           },
@@ -232,6 +239,7 @@ export default {
         },
         {
           title: "createUser4",
+          width: 100,
           renderForm: {
             type: "Select",
             children: []
@@ -250,6 +258,7 @@ export default {
         },
         {
           title: "creat4",
+          width: 100,
           rules: [
             {
               required: true,
@@ -287,6 +296,7 @@ export default {
         {
           title: "descript",
           tooltip: true,
+          width: 100,
           tooltipMaxWidth: 700,
           key: "descript",
           renderTable: {
@@ -319,6 +329,7 @@ export default {
         },
         {
           title: "defValue",
+          width: 100,
           key: "defValue",
           renderTable: {
             type: "i-button",
@@ -329,6 +340,7 @@ export default {
         },
         {
           title: "createUser10",
+          width: 100,
           renderSearch: {
             type: "input"
           },
@@ -336,6 +348,8 @@ export default {
         },
         {
           title: "操作",
+          fixed: "right",
+          width: 100,
           key: "action",
           actions: [
             {
@@ -429,7 +443,7 @@ export default {
   },
   methods: {
     searchReset(data) {},
-    getDatas(){
+    getDatas() {
       console.log(this.$refs.table.getDatas());
     },
     tableAction() {
