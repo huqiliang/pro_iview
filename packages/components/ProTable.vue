@@ -187,6 +187,11 @@ export default {
     event: "dataChange"
   },
   computed: {
+    custmerHeader() {
+      return _.get(this.map, "success")
+        ? { ...this.headers, nomsg: true }
+        : this.headers;
+    },
     toolBarList() {
       const array = [
         {
@@ -558,6 +563,10 @@ export default {
       this.resetForm();
       this.fetch();
     },
+    success(res) {
+      this.$Message.success(_.get(res, this.map.message) || "成功");
+      this.finish();
+    },
     submit() {
       this.formDialog.formLoading = false;
       if (this.formDialog.type !== "view") {
@@ -571,14 +580,26 @@ export default {
             try {
               res = await customRequest({
                 request,
-                headers: this.headers,
+                headers: this.custmerHeader,
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
               if (res) {
-                if (res.success) {
-                  this.$Message.success(_.get(res, this.map.message) || "成功");
-                  this.finish();
+                const mapSuccess =
+                  _.get(this.$attrs?.form, "success") ||
+                  _.get(this.map, "success");
+                if (mapSuccess) {
+                  const arr = mapSuccess.split(/=+/);
+                  const succData = _.get(res, _.trim(arr[0]));
+                  if (succData == _.trim(arr[1])) {
+                    this.success(res);
+                  } else {
+                    this.$Message.error(
+                      _.get(res, this.map?.message) || "未知错误"
+                    );
+                  }
+                } else if (res.success) {
+                  this.success(res);
                 }
                 this.formDialog.formLoading = true;
               }

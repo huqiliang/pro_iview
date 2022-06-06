@@ -59,7 +59,7 @@ export default {
         labelPosition: "right",
         formLineNum: 3,
         modalWidth: 70,
-        value: { createUser10: "gg" }
+        value: { createUser10: "gg" },
       },
 
       data: [
@@ -195,12 +195,6 @@ export default {
           title: "createUser3",
           key: "createUser3",
           width: 100,
-          rules: [
-            {
-              required: true,
-              message: "createUser3不能为空"
-            }
-          ],
           renderForm: ({ value, input }) => {
             console.log("value", value);
             const arr = _.isEmpty(value)
@@ -259,12 +253,7 @@ export default {
         {
           title: "creat4",
           width: 100,
-          rules: [
-            {
-              required: true,
-              message: "creat4不能为空"
-            }
-          ],
+         
           renderForm: {
             type: "Cascader",
             props: {
@@ -374,7 +363,7 @@ export default {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request: "http://192.168.0.38:3000/mock/106/api/test"
+              request: "https://yapi.ihotel.cn:8443/mock/106/api/save"
               // request(options) {
               //   console.log(options);
               //   return axios.post(
@@ -414,7 +403,8 @@ export default {
       map: {
         dataPath: "data",
         totalPath: "totalRows",
-        message: "message"
+        message: "message",
+        success:"code===3004"
       },
       submitForm: "http://192.168.0.38:3000/mock/106/api/test"
     };
