@@ -62,7 +62,7 @@ export default {
           const res = await customRequest({
             request: this.request
           });
-          if (res.success) {
+          if (res) {
             this.innerList = _.get(res, this.map.dataPath);
           }
         }
