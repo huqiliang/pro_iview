@@ -54,12 +54,15 @@ export default {
         "refresh",
         "rowSetting"
       ],
-      search: { searchLineNum: 3, value: { createUser3: "gg" } },
+      search: {
+        searchLineNum: 3,
+        value: { createUser3: "gg", createUser: "ggg" }
+      },
       form: {
         labelPosition: "right",
         formLineNum: 3,
         modalWidth: 70,
-        value: { createUser10: "gg" },
+        value: { createUser10: "gg" }
       },
 
       data: [
@@ -148,9 +151,17 @@ export default {
           width: 100,
           renderSearch: ({ value, input }) => {
             return (
-              <Select value={value} oninput={input} clearable>
-                <Option value="1">1</Option>
-              </Select>
+              <pro-select
+                request="http://192.168.0.38:3000/mock/106/api/table"
+                map={{
+                  dataPath: "data",
+                  titlePath: "defValue",
+                  valuePath: "defValue"
+                }}
+                value={value}
+                oninput={input}
+                clearable
+              ></pro-select>
             );
           }
         },
@@ -253,7 +264,7 @@ export default {
         {
           title: "creat4",
           width: 100,
-         
+
           renderForm: {
             type: "Cascader",
             props: {
@@ -404,7 +415,7 @@ export default {
         dataPath: "data",
         totalPath: "totalRows",
         message: "message",
-        success:"code===3004"
+        success: "code===3004"
       },
       submitForm: "http://192.168.0.38:3000/mock/106/api/test"
     };
