@@ -2,8 +2,8 @@
   <Select v-model="innerValue" clearable v-bind="$attrs" v-on="$listeners">
     <Option
       :value="item[map.valuePath]"
-      v-for="(item, index) in innerList"
-      :key="index"
+      v-for="item in innerList"
+      :key="item[map.valuePath]"
       >{{ getExpText(item) }}</Option
     >
   </Select>
@@ -83,13 +83,18 @@ export default {
     innerValue: {
       get() {
         const { multiple } = this.$attrs;
-        return multiple ? this.propValue.split(",") : this.propValue;
+        return multiple ? this.propValue?.split(",") : this.propValue;
       },
       set(val) {
         const { multiple } = this.$attrs;
         const value = multiple ? val.toString() : val;
         this.$emit("change", value);
       }
+    }
+  },
+  watch: {
+    list(value) {
+      this.innerList = value;
     }
   }
 };
