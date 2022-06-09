@@ -22,43 +22,47 @@
           }"
         >
           <!-- <Icon type="md-bookmark" /> -->
-          <FormItem
-            :style="{
-              'grid-column-start': `span ${item.formLineNum}`
-            }"
-            class="item"
-            :key="item.key"
-            :prop="propItem(item)"
-            :rules="ruleChange(item)"
-            v-for="item in columns"
-            @click.native="itemClick(item)"
-          >
-            <span slot="label">
-              <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
-              {{ item.title ? item.title + " :" : "" }}
-            </span>
-            <ProTypeItem
-              v-if="item.renderForm"
-              :item="item"
-              :outData="outData"
-              :renderItem="item.renderForm"
-              :value="getValue(value, item)"
-              @input="change(item, $event)"
-              class="input ivu-input-wrapper"
-            ></ProTypeItem>
-            <div v-else-if="type === 'view'">{{ getValue(value, item) }}</div>
-            <Input
-              v-else
-              type="text"
-              clearable
-              :disabled="item.disabled"
-              :readonly="item.readonly"
-              :value="getValue(value, item)"
-              :placeholder="item.title"
-              @input="change(item, $event)"
+          <template v-for="item in columns">
+            <FormItem
+              :style="{
+                'grid-column-start': `span ${item.formLineNum}`
+              }"
+              class="item"
+              :key="item.key"
+              :prop="propItem(item)"
+              :rules="ruleChange(item)"
+              v-if="showColumns(item)"
+              @click.native="itemClick(item)"
             >
-            </Input>
-          </FormItem>
+              <span slot="label">
+                <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
+                {{ item.title ? item.title + " :" : "" }}
+              </span>
+              <ProTypeItem
+                v-if="item.renderForm"
+                :item="item"
+                :outData="outData"
+                :renderItem="item.renderForm"
+                :value="getValue(value, item)"
+                @input="change(item, $event)"
+                class="input ivu-input-wrapper"
+              ></ProTypeItem>
+              <div v-else-if="type === 'view'">
+                {{ getValue(value, item) }}
+              </div>
+              <Input
+                v-else
+                type="text"
+                clearable
+                :disabled="item.disabled"
+                :readonly="item.readonly"
+                :value="getValue(value, item)"
+                :placeholder="item.title"
+                @input="change(item, $event)"
+              >
+              </Input>
+            </FormItem>
+          </template>
         </div>
       </div>
     </Form>
@@ -118,6 +122,12 @@ export default {
     }
   },
   methods: {
+    showColumns(item) {
+      if (!item.formTypesShow) {
+        return true;
+      }
+      return item.formTypesShow && _.includes(item.formTypesShow, this.type);
+    },
     itemClick(item) {
       this.$emit("itemClick", item);
     },
