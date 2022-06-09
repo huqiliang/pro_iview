@@ -35,7 +35,7 @@
           >
             <span slot="label">
               <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
-              {{ item.title + " :" }}
+              {{ item.title ? item.title + " :" : "" }}
             </span>
             <ProTypeItem
               v-if="item.renderForm"

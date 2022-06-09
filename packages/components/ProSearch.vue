@@ -8,9 +8,10 @@
         :class="position"
         :style="[offset(i), widthCalc(searchLineNum)]"
         :key="item.key"
-        :label="item.title + ' :'"
+        :label="item.title ? item.title + ' :' : ''"
       >
         <label
+          v-if="item.title"
           class="ivu-form-item-label itemLabel"
           :style="{
             width:
@@ -31,7 +32,9 @@
         ></ProTypeItem>
         <Input
           clearable
-          :placeholder="`${t('pro.common.enter')}${item.title}`"
+          :placeholder="
+            `${t('pro.common.enter')}${item.title ? item.title : ''}`
+          "
           v-model="value[item.key]"
           @keypress.native.enter="search"
           v-else

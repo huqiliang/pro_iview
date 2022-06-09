@@ -255,7 +255,6 @@ export default {
         {
           key: "rowSetting",
           renderItem: () => {
-            console.log(this.tableColumns);
             return (
               <RowSetting
                 rowContent={this.t("pro.table.rowSetting")}
@@ -401,9 +400,12 @@ export default {
       });
       return arr;
     },
-    typeAction(val, params) {
+    async typeAction(val, params) {
       if (val.action) {
-        val.action(params);
+        await val.action(params);
+        if (!val.prevent) {
+          this.tableAction(val, params);
+        }
       } else if (val.type) {
         this.tableAction(val, params);
       } else {

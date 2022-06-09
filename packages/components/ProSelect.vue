@@ -1,5 +1,11 @@
 <template>
-  <Select v-model="innerValue" clearable v-bind="$attrs" v-on="$listeners">
+  <Select
+    transfer
+    v-model="innerValue"
+    clearable
+    v-bind="$attrs"
+    v-on="$listeners"
+  >
     <Option
       :value="item[map.valuePath]"
       v-for="item in innerList"
