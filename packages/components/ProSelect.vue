@@ -92,7 +92,9 @@ export default {
             request: this.request
           });
           if (res) {
-            this.innerList = _.get(res, this.map.dataPath);
+            this.innerList = this.map.dataPath
+              ? _.get(res, this.map.dataPath)
+              : res;
           }
         }
       }
