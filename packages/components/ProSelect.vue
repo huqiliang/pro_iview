@@ -12,6 +12,7 @@ export default {
         <i-select
           transfer
           clearable
+          filterable
           value={this.innerValue}
           {...{
             props: this.$attrs,
@@ -19,7 +20,11 @@ export default {
               ...this.$listeners,
               input: val => {
                 const { multiple } = this.$attrs;
-                const value = multiple ? val.toString() : val;
+                const value = multiple
+                  ? this.isStringType
+                    ? val.toString()
+                    : val
+                  : val;
                 this.$emit("input", value);
               }
             }
@@ -41,7 +46,8 @@ export default {
   },
   data() {
     return {
-      innerList: []
+      innerList: [],
+      isStringType: true
     };
   },
   props: {
@@ -67,7 +73,10 @@ export default {
     list: {
       type: Array
     },
-    value: {}
+    value: {},
+    valueType: {
+      type: String
+    }
   },
   methods: {
     getExpText(item) {
@@ -97,13 +106,18 @@ export default {
     }
   },
   mounted() {
+    this.isStringType = this.valueType === "string" || _.isString(this.value);
     this.fetchList();
   },
   computed: {
     innerValue: {
       get() {
         const { multiple } = this.$attrs;
-        return multiple ? this.value?.split(",") : this.value;
+        return multiple
+          ? _.isArray(this.value)
+            ? this.value
+            : this.value?.split(",")
+          : this.value;
       },
       set() {}
     }
