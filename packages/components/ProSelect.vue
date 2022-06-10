@@ -7,41 +7,38 @@ export default {
   name: "ProSelect",
   render() {
     return (
-      <div>
-        {this.innerValue}
-        <i-select
-          transfer
-          clearable
-          filterable
-          value={this.innerValue}
-          {...{
-            props: this.$attrs,
-            on: {
-              ...this.$listeners,
-              input: val => {
-                const { multiple } = this.$attrs;
-                const value = multiple
-                  ? this.isStringType
-                    ? val.toString()
-                    : val
-                  : val;
-                this.$emit("input", value);
-              }
+      <i-select
+        transfer
+        clearable
+        filterable
+        value={this.innerValue}
+        {...{
+          props: this.$attrs,
+          on: {
+            ...this.$listeners,
+            input: val => {
+              const { multiple } = this.$attrs;
+              const value = multiple
+                ? this.isStringType
+                  ? val.toString()
+                  : val
+                : val;
+              this.$emit("input", value);
             }
-          }}
-        >
-          {_.map(this.innerList, item => {
-            return (
-              <i-option
-                value={item[this.map.valuePath]}
-                key={item[this.map.valuePath]}
-              >
-                {this.getExpText(item)}
-              </i-option>
-            );
-          })}
-        </i-select>
-      </div>
+          }
+        }}
+      >
+        {_.map(this.innerList, item => {
+          return (
+            <i-option
+              value={item[this.map.valuePath]}
+              key={item[this.map.valuePath]}
+            >
+              {this.getExpText(item)}
+            </i-option>
+          );
+        })}
+      </i-select>
     );
   },
   data() {
