@@ -1,20 +1,3 @@
-<template>
-  <Select
-    transfer
-    v-model="innerValue"
-    clearable
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
-    <Option
-      :value="item[map.valuePath]"
-      v-for="item in innerList"
-      :key="item[map.valuePath]"
-      >{{ getExpText(item) }}</Option
-    >
-  </Select>
-</template>
-
 <script>
 import _ from "lodash";
 import customRequest from "../libs/request";
@@ -22,6 +5,40 @@ import { template } from "../libs/util";
 
 export default {
   name: "ProSelect",
+  render() {
+    return (
+      <div>
+        {this.innerValue}
+        <i-select
+          transfer
+          clearable
+          value={this.innerValue}
+          {...{
+            props: this.$attrs,
+            on: {
+              ...this.$listeners,
+              input: val => {
+                const { multiple } = this.$attrs;
+                const value = multiple ? val.toString() : val;
+                this.$emit("input", value);
+              }
+            }
+          }}
+        >
+          {_.map(this.innerList, item => {
+            return (
+              <i-option
+                value={item[this.map.valuePath]}
+                key={item[this.map.valuePath]}
+              >
+                {this.getExpText(item)}
+              </i-option>
+            );
+          })}
+        </i-select>
+      </div>
+    );
+  },
   data() {
     return {
       innerList: []
@@ -50,7 +67,7 @@ export default {
     list: {
       type: Array
     },
-    propValue: {}
+    value: {}
   },
   methods: {
     getExpText(item) {
@@ -73,14 +90,11 @@ export default {
           }
         }
       }
-      if (this.first) {
-        this.innerValue = _.get(_.first(this.innerList), this.map.valuePath);
+      if (this.first && (_.isEmpty(this.value) || !this.value)) {
+        const value = _.get(_.first(this.innerList), this.map.valuePath);
+        this.$emit("input", value);
       }
     }
-  },
-  model: {
-    prop: "propValue",
-    event: "change"
   },
   mounted() {
     this.fetchList();
@@ -89,13 +103,9 @@ export default {
     innerValue: {
       get() {
         const { multiple } = this.$attrs;
-        return multiple ? this.propValue?.split(",") : this.propValue;
+        return multiple ? this.value?.split(",") : this.value;
       },
-      set(val) {
-        const { multiple } = this.$attrs;
-        const value = multiple ? val.toString() : val;
-        this.$emit("change", value);
-      }
+      set() {}
     }
   },
   watch: {
@@ -106,4 +116,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.ivu-select {
+  text-align: left;
+}
+</style>
