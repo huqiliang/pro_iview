@@ -365,7 +365,12 @@ export default {
                 <div class="actions">
                   {map(value.actions, val => {
                     return val.render ? (
-                      val.render(params, this.typeAction)
+                      val.render(params, (myVal, myParams) => {
+                        this.typeAction(
+                          myVal ? myVal : val,
+                          myParams ? myParams : params
+                        );
+                      })
                     ) : val.type === "delete" ? (
                       <Poptip
                         transfer={true}
