@@ -55,13 +55,12 @@ export default {
         "rowSetting",
       ],
       search: {
-        searchLineNum: 3,
+        searchLineNum:2,
         value: { createUser3: "gg", createUser: "ggg" },
       },
       form: {
         labelPosition: "right",
-        formLineNum: 3,
-        modalWidth: 70,
+        formLineNum: 2,
         value: { createUser10: "gg" },
       },
 
@@ -185,6 +184,7 @@ export default {
         {
           title: "createUser2",
           width: 100,
+          searchLineNum:1,
           disabled: true,
           renderSearch: {
             type: "Slider",
@@ -206,6 +206,7 @@ export default {
           title: "createUser3",
           key: "createUser3",
           width: 100,
+          searchLineNum:1,
           renderForm: ({ value, input }) => {
             console.log("value", value);
             const arr = _.isEmpty(value)
@@ -233,6 +234,7 @@ export default {
         },
         {
           title: "createUser8",
+          searchLineNum:1,
           width: 100,
           renderSearch: {
             type: "InputNumber",
@@ -339,7 +341,7 @@ export default {
           },
         },
         {
-          title: "createUser10",
+          title: "createUser10f",
           width: 100,
           renderSearch: {
             type: "input",

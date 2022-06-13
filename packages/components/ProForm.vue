@@ -13,9 +13,9 @@
         <div
           class="formContain"
           :style="{
-            'grid-template-columns': `repeat(${formLineNum}, ${100 /
+            'grid-template-columns': `repeat(${formLineNum},minmax(auto,${100 /
               formLineNum +
-              '%'})`
+              '%'}))`
           }"
           :class="{
             p10: groupColunms && Object.keys(groupColunms).length > 1

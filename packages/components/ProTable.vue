@@ -646,7 +646,7 @@ export default {
   padding: 10px 0;
   .tableSearch {
     background: #fff;
-    padding: 15px 10px 0 5px;
+    padding: 20px 10px 0 10px;
     margin-bottom: 10px;
   }
   .tableTable {

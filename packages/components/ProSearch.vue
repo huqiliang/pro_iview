@@ -1,12 +1,23 @@
 <template>
   <Form v-on="$listeners" class="prosearch" @submit.native.prevent>
-    <div class="search">
+    <div
+      class="search"
+      :style="{
+        'grid-template-columns': `repeat(${searchLineNum}, minmax(auto,${100 /
+          searchLineNum +
+          '%'}))`
+      }"
+    >
       <div
         class="item"
         v-for="(item, i) in columns"
         v-show="itemShow(i)"
+        :style="{
+          'grid-column-start': `span ${
+            item.searchLineNum ? item.searchLineNum : 1
+          }`
+        }"
         :class="position"
-        :style="[offset(i), widthCalc(searchLineNum)]"
         :key="item.key"
         :label="item.title ? item.title + ' :' : ''"
       >
@@ -40,16 +51,12 @@
           v-else
         />
       </div>
-      <div :style="widthCalc(searchLineNum)" class="item" style="flex:auto">
-        <label
-          v-show="
-            position === 'top' &&
-              (!isDown || (columns && columns.length % searchLineNum !== 0))
-          "
-          class="ivu-form-item-label"
-        >
-          <pre></pre>
-        </label>
+      <div
+        class="item"
+        :style="{
+          'grid-column-start': `span ${downItemSapn}`
+        }"
+      >
         <div class="input" style="clear:both;text-align:right">
           <Button @click="reset" class="ml10">
             <Icon type="md-refresh" class="buttonIcon" />
@@ -81,7 +88,7 @@
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
 import Locale from "../mixin/locale";
-
+import _ from "lodash";
 export default {
   name: "ProSearch",
   mixins: [Locale],
@@ -111,18 +118,11 @@ export default {
     }
   },
   methods: {
-    offset(index) {
-      if (index % this.searchLineNum !== 0) {
-        return {
-          marginLeft: "15px"
-        };
-      }
-    },
     itemShow(i) {
       if (this.isDown) {
         return true;
       } else {
-        if (i + 2 > this.searchLineNum) {
+        if (i + 2 > this.searchLineNum && i != 0) {
           return false;
         }
         return true;
@@ -141,6 +141,29 @@ export default {
   },
   components: {
     ProTypeItem
+  },
+  computed: {
+    downItemSapn() {
+      let x = 0;
+      const list = this.isDown
+        ? this.columns
+        : _.slice(this.columns, 0, this.searchLineNum - 1);
+      for (let index = 0; index < list.length; index++) {
+        const element = list[index];
+        if (element.searchLineNum) {
+          if (element.searchLineNum >= this.searchLineNum) {
+            x = 0;
+          } else {
+            x += element.searchLineNum;
+          }
+        } else {
+          x += 1;
+        }
+      }
+      const yu = x % this.searchLineNum;
+      const num = yu == 0 ? this.searchLineNum : this.searchLineNum - yu;
+      return num;
+    }
   }
 };
 </script>
@@ -171,9 +194,8 @@ export default {
     text-align: right;
   }
   .search {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
+    display: grid;
+    grid-column-gap: 10px;
   }
   .ml10 {
     margin-left: 10px;
