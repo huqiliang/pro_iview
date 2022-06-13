@@ -286,9 +286,12 @@ export default {
       return arr;
     },
     modalTitle() {
-      return this.formDialog.type
-        ? this.t("pro.common." + this.formDialog.type)
-        : "标题";
+      return (
+        this.formDialog.title ||
+        (this.formDialog.type
+          ? this.t("pro.common." + this.formDialog.type)
+          : "标题")
+      );
     },
     tableTitle() {
       return this.title || this.t("pro.table.title");
@@ -361,7 +364,9 @@ export default {
               return (
                 <div class="actions">
                   {map(value.actions, val => {
-                    return val.type === "delete" ? (
+                    return val.render ? (
+                      val.render(params, this.typeAction)
+                    ) : val.type === "delete" ? (
                       <Poptip
                         transfer={true}
                         confirm
@@ -401,6 +406,7 @@ export default {
       return arr;
     },
     async typeAction(val, params) {
+      console.log(params);
       if (val.action) {
         await val.action(params);
         if (!val.prevent) {
@@ -409,7 +415,9 @@ export default {
       } else if (val.type) {
         this.tableAction(val, params);
       } else {
-        window.console.warn("未定义的类型");
+        if (!val.prevent) {
+          this.tableAction(val, params);
+        }
       }
     },
     async tableAction(val, params) {
@@ -429,6 +437,7 @@ export default {
           value
         );
         this.formDialog.type = val.type;
+        this.formDialog.title = val.title;
         this.formDialog.show = true;
       }
     },

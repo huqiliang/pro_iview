@@ -123,10 +123,20 @@ export default {
   },
   methods: {
     showColumns(item) {
-      if (!item.formTypesShow) {
+      if (!item.showForm) {
+        return true;
+      } else {
+        if (_.isArray(item.showForm)) {
+          return _.includes(item.showForm, this.type);
+        } else if (_.isFunction(item.showForm)) {
+          return item.showForm({
+            value: this.value,
+            type: this.type,
+            config: item
+          });
+        }
         return true;
       }
-      return item.formTypesShow && _.includes(item.formTypesShow, this.type);
     },
     itemClick(item) {
       this.$emit("itemClick", item);
