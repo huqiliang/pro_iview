@@ -164,7 +164,10 @@ export default {
       const copyValue = _.cloneDeep(this.value);
       _.set(copyValue, item.key, _.isString(value) ? _.trim(value) : value);
       this.$emit("input", copyValue);
-      // this.$set(this.value, copyValue);
+      //单项验证 避免验证问题
+      this.$nextTick(() => {
+        this.validateField(this.propItem(item));
+      });
     },
     reset(fn) {
       this.$refs["form"].resetFields(fn);
