@@ -39,7 +39,7 @@
           v-if="item.renderSearch"
           v-model="value[item.key]"
           @keypress.native.enter="search"
-          class="input"
+          class="renderInput"
         ></ProTypeItem>
         <Input
           clearable
@@ -204,6 +204,11 @@ export default {
     vertical-align: middle;
     position: relative;
     left: 12px;
+  }
+  .renderInput {
+    width: 100%;
+    line-height: 34px;
+    text-align: left;
   }
   .input {
     width: 100%;
