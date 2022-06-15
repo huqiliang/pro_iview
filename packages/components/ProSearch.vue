@@ -170,8 +170,6 @@ export default {
 
 <style lang="less" scoped>
 .prosearch {
-  margin: 0 10px;
-
   .item {
     margin-bottom: 20px;
     .itemLabel {
