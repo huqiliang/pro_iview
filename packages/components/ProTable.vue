@@ -632,6 +632,14 @@ export default {
         this.formDialog.show = false;
       }
     }
+  },
+  watch: {
+    data: {
+      handler() {
+        this.$emit("dataChange", this.proData);
+      },
+      deep: true
+    }
   }
 };
 </script>
