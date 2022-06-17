@@ -29,14 +29,14 @@ export default {
         }}
       >
         {_.map(this.innerList, item => {
-          return (
+          return item[this.map.valuePath] ? (
             <i-option
               value={item[this.map.valuePath]}
               key={item[this.map.valuePath]}
             >
               {this.getExpText(item)}
             </i-option>
-          );
+          ) : null;
         })}
       </i-select>
     );
@@ -76,6 +76,10 @@ export default {
     }
   },
   methods: {
+    init() {
+      this.isStringType = this.valueType === "string" || _.isString(this.value);
+      this.fetchList();
+    },
     getExpText(item) {
       if (!_.includes(this.map.titlePath, "{")) {
         return _.get(item, this.map.titlePath);
@@ -105,8 +109,7 @@ export default {
     }
   },
   mounted() {
-    this.isStringType = this.valueType === "string" || _.isString(this.value);
-    this.fetchList();
+    this.init();
   },
   computed: {
     innerValue: {
@@ -122,6 +125,9 @@ export default {
     }
   },
   watch: {
+    request() {
+      this.init();
+    },
     list(value) {
       this.innerList = value;
     }
