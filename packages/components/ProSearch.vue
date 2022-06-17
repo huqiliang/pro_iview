@@ -201,7 +201,7 @@ export default {
   .text {
     vertical-align: middle;
     position: relative;
-    left: 12px;
+    left: 5px;
   }
   .renderInput {
     width: 100%;
