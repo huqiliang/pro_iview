@@ -29,7 +29,7 @@ export default {
         }}
       >
         {_.map(this.innerList, item => {
-          return item[this.map.valuePath] ? (
+          return !_.isUndefined(item[this.map.valuePath]) ? (
             <i-option
               value={item[this.map.valuePath]}
               key={item[this.map.valuePath]}

@@ -26,8 +26,8 @@ export default {
             descript: "cccc"
           },
           {
-            descriptEn: "sg",
-            descript: "eeee"
+            descriptEn: "aaa",
+            descript: 0
           }
         ],
         // 数据请求
