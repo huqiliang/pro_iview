@@ -63,7 +63,7 @@
       v-model="formDialog.show"
       :transition-names="['pro-modal']"
       :width="$attrs.form ? $attrs.form.modalWidth : '400'"
-      :title="modalTitle"
+      :title="formDialog.title"
     >
       <transition name="pro-modal-content">
         <div class="content" v-if="formDialog.show">
@@ -285,14 +285,6 @@ export default {
       });
       return arr;
     },
-    modalTitle() {
-      return (
-        this.formDialog.title ||
-        (this.formDialog.type
-          ? this.t("pro.common." + this.formDialog.type)
-          : "标题")
-      );
-    },
     tableTitle() {
       return this.title || this.t("pro.table.title");
     },
@@ -442,7 +434,11 @@ export default {
           value
         );
         this.formDialog.type = val.type;
-        this.formDialog.title = val.title;
+        this.formDialog.title =
+          val.title ||
+          (this.formDialog.type
+            ? this.t("pro.common." + this.formDialog.type)
+            : "标题");
         this.formDialog.show = true;
       }
     },
