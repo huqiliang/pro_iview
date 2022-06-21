@@ -10,3 +10,7 @@ stories/*
 storybook-static/*
 doc_deploy.sh
 public/*
+dist/*
+node_modules/*
+.github
+.vscode
