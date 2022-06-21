@@ -7,4 +7,6 @@ packages/locale/format.js
 packages/locale/index.js
 stories/*
 .storybook/*
+storybook-static/*
 doc_deploy.sh
+public/*
