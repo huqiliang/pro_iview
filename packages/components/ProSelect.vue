@@ -33,7 +33,12 @@ export default {
             <i-option
               value={item[this.map.valuePath]}
               key={item[this.map.valuePath]}
+              style={{
+                display: "flex",
+                alignItems: "center"
+              }}
             >
+              {item.icon ? <Icon type={item.icon} /> : null}
               {this.getExpText(item)}
             </i-option>
           ) : null;
