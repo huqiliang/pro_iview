@@ -23,6 +23,7 @@ export default {
         list: [
           {
             descriptEn: "bbb",
+            icon: "ios-ice-cream-outline",
             descript: "cccc"
           },
           {

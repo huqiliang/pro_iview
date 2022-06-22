@@ -38,7 +38,9 @@ export default {
                 alignItems: "center"
               }}
             >
-              {item.icon ? <Icon type={item.icon} /> : null}
+              {item.icon ? (
+                <Icon type={item.icon} style={{ marginRight: "3px" }} />
+              ) : null}
               {this.getExpText(item)}
             </i-option>
           ) : null;
