@@ -616,6 +616,7 @@ export default {
                 this.formDialog.formLoading = true;
               }
             } catch (error) {
+              console.log("致命错误:", error);
               this.formDialog.formLoading = true;
             }
           } else {

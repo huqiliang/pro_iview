@@ -49,26 +49,26 @@ export default {
                 编辑
               </Button>
             );
-          },
+          }
         },
         "refresh",
-        "rowSetting",
+        "rowSetting"
       ],
       search: {
-        searchLineNum:2,
-        value: { createUser3: "gg", createUser: "ggg" },
+        searchLineNum: 2,
+        value: { createUser3: "gg", createUser: "ggg" }
       },
       form: {
         labelPosition: "right",
         formLineNum: 2,
-        value: { createUser10: "gg" },
+        value: { createUser10: "gg" }
       },
 
       data: [
         {
           cataLog: "33",
-          createUser: "222",
-        },
+          createUser: "222"
+        }
       ],
       cascader_data: [
         {
@@ -77,18 +77,18 @@ export default {
           children: [
             {
               value: "gugong",
-              label: "故宫",
+              label: "故宫"
             },
             {
               value: "tiantan",
-              label: "天坛",
+              label: "天坛"
             },
             {
               value: "wangfujing",
-              label: "王府井",
-            },
-          ],
-        },
+              label: "王府井"
+            }
+          ]
+        }
       ],
       autoData: {
         columns: [
@@ -97,13 +97,13 @@ export default {
             key: "toolBar",
             type: "radio",
             props: {
-              value: true,
-            },
-          },
+              value: true
+            }
+          }
         ],
         value: {
-          toolBar: false,
-        },
+          toolBar: false
+        }
       },
       format: {
         // formatCurrent({ page }) {
@@ -114,23 +114,25 @@ export default {
       },
       columns: [
         {
-          title: "中文中文中文中文中文",
+          rules: [{ required: true, message: "手机号信息必填" }],
+          title: "中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文gggggg手机号信息必填手机号信息必填手机号信息必填",
           group: "B",
           key: "cataLog",
           disabled: true,
           width: 100,
+          toolTips: { form: true },
           renderSearch: {
-            type: "Radio",
+            type: "Radio"
           },
           renderForm: {
             type: "DatePicker",
             props: {
               placeholder: "lastDate",
-              format: "yyyy-MM-dd hh:mm:ss",
+              format: "yyyy-MM-dd hh:mm:ss"
             },
             format(value) {
               return value ? dayjs(value).format("YYYY-MM-DD hh:mm:ss") : "";
-            },
+            }
           },
           renderTable: () => {
             return (
@@ -142,10 +144,11 @@ export default {
                 aaa
               </Button>
             );
-          },
+          }
         },
         {
           title: "中文公共中文",
+
           key: "createUser",
           width: 100,
           renderForm: ({ value, input }) => {
@@ -154,15 +157,18 @@ export default {
                 // request="http://192.168.0.38:3000/mock/106/api/table"
                 map={{
                   titlePath: "userName",
-                  valuePath: "userId",
+                  valuePath: "userId"
                 }}
                 value={value}
                 onInput={input}
-                list={[{ userId: "114600704458493952", userName: "sss" },{ userId: "222", userName: "sss" }]}
+                list={[
+                  { userId: "114600704458493952", userName: "sss" },
+                  { userId: "222", userName: "sss" }
+                ]}
                 clearable
               ></pro-select>
             );
-          },
+          }
         },
         {
           title: "form",
@@ -179,34 +185,34 @@ export default {
                 aaa
               </Button>
             );
-          },
+          }
         },
         {
           title: "createUser2",
           width: 100,
-          searchLineNum:1,
+          searchLineNum: 1,
           disabled: true,
           renderSearch: {
-            type: "Slider",
+            type: "Slider"
           },
           renderForm: {
             type: "DatePicker",
             style: {
-              width: "100%",
-            },
+              width: "100%"
+            }
           },
           renderTable: (h, params) => {
             return (
               <span>{params.row.isAllow === "F" ? "黑名单" : "白名单"}</span>
             );
           },
-          key: "createUser2",
+          key: "createUser2"
         },
         {
           title: "createUser3",
           key: "createUser3",
           width: 100,
-          searchLineNum:1,
+          searchLineNum: 1,
           renderForm: ({ value, input }) => {
             console.log("value", value);
             const arr = _.isEmpty(value)
@@ -220,7 +226,7 @@ export default {
                 clearable
                 multiple
                 value={arr}
-                onInput={(val) => {
+                onInput={val => {
                   console.log("val", val);
                   input(val);
                   this.$refs.addForm.validateField("unitScene");
@@ -230,26 +236,26 @@ export default {
                 <i-option value="b">b</i-option>;
               </i-select>
             );
-          },
+          }
         },
         {
           title: "createUser8",
-          searchLineNum:1,
+          searchLineNum: 1,
           width: 100,
           renderSearch: {
-            type: "InputNumber",
+            type: "InputNumber"
           },
           renderForm: {
-            type: "i-switch",
+            type: "i-switch"
           },
-          key: "createUser8",
+          key: "createUser8"
         },
         {
           title: "createUser4",
           width: 100,
           renderForm: {
             type: "Select",
-            children: [],
+            children: []
           },
           renderSearch: ({ value, input }) => {
             return (
@@ -261,10 +267,10 @@ export default {
               ></Cascader>
             );
           },
-          key: "createUser4",
+          key: "createUser4"
         },
         {
-          title: "creat4",
+          title: "creat4", rules: [{ required: true, message: "手机号信息必填" }],
           width: 100,
 
           renderForm: {
@@ -278,43 +284,41 @@ export default {
                   children: [
                     {
                       value: "gugong",
-                      label: "故宫",
+                      label: "故宫"
                     },
                     {
                       value: "tiantan",
-                      label: "天坛",
+                      label: "天坛"
                     },
                     {
                       value: "wangfujing",
-                      label: "王府井",
-                    },
-                  ],
-                },
-              ],
-            },
+                      label: "王府井"
+                    }
+                  ]
+                }
+              ]
+            }
           },
-          key: "createUs3er4",
+          key: "createUs3er4"
         },
         {
-          title: "descript",
-          tooltip: true,
           width: 100,
-          tooltipMaxWidth: 700,
           key: "descript",
+          rules: [{ required: true, message: "手机号信息必填" }],
           renderTable: {
             type: "span",
             useExp: true,
             text: "value===200?'成功':'失败';console.log(value);",
             style: {
-              color: "value==200?'#19be6b':'#ed4014'",
-            },
+              color: "value==200?'#19be6b':'#ed4014'"
+            }
           },
           renderForm: {
             type: "i-input",
             props: {
               type: "textarea",
               rows: 4,
-            },
+            }
           },
           // renderForm() {
           //   return (
@@ -327,7 +331,7 @@ export default {
           //     />
           //   );
           // },
-          formLineNum: 2,
+          formLineNum: 2
         },
         {
           title: "defValue",
@@ -336,17 +340,17 @@ export default {
           renderTable: {
             type: "i-button",
             props: {
-              type: "primary",
-            },
-          },
+              type: "primary"
+            }
+          }
         },
         {
           title: "createUser10f",
           width: 100,
           renderSearch: {
-            type: "input",
+            type: "input"
           },
-          key: "createUser10",
+          key: "createUser10"
         },
         {
           title: "操作",
@@ -358,11 +362,11 @@ export default {
               type: "edit",
               title: "编辑2",
               request: "/api/users/${cataLog}",
-              method: "PUT",
+              method: "PUT"
             },
             {
               title: "新增",
-              type: "new",
+              type: "new"
             },
             {
               title: "测试",
@@ -370,13 +374,13 @@ export default {
                 console.log("====================================");
                 console.log(params);
                 console.log("====================================");
-              },
+              }
             },
             {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request: "https://yapi.ihotel.cn:8443/mock/106/api/save",
+              request: "https://yapi.ihotel.cn:8443/mock/106/api/save"
               // request(options) {
               //   console.log(options);
               //   return axios.post(
@@ -391,8 +395,8 @@ export default {
               type: "delete",
               title: "删除",
               request: "http://127.0.0.1:7068/api/v1/users/${id}",
-              method: "DELETE",
-            },
+              method: "DELETE"
+            }
             // {
             //   title: "删除",
             //   type: "delete",
@@ -400,8 +404,8 @@ export default {
             //   // request: "/id",
             //   keys: ["id"]
             // }
-          ],
-        },
+          ]
+        }
       ],
       request: "http://192.168.0.38:3000/mock/106/api/table",
       // request(options) {
@@ -417,9 +421,9 @@ export default {
         dataPath: "data",
         totalPath: "totalRows",
         message: "message",
-        success: "code===3004",
+        success: "code===3004"
       },
-      submitForm: "http://192.168.0.38:3000/mock/106/api/test",
+      submitForm: "http://192.168.0.38:3000/mock/106/api/test"
     };
   },
   async mounted() {
@@ -457,14 +461,14 @@ export default {
       this.$refs["table"].fetch();
       // this.toolBar = false;
       this.$set(this.data, 0, {
-        createUser: "aa",
+        createUser: "aa"
       });
     },
     table() {
       const ref = this.$refs.proSearch;
       console.log(ref.value);
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
