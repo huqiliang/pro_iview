@@ -7,6 +7,7 @@
     <pro-table
       @search:searchReset="searchReset"
       @modal:on-visible-change="change"
+      @on-row-click="tableAction"
       ref="table"
       :request="request"
       :map="map"
@@ -14,7 +15,6 @@
       :search="search"
       :submitForm="submitForm"
       :format="format"
-      @on-row-click="tableAction"
       :form="form"
       :autoFetch="true"
       :hide="hide"
