@@ -8,7 +8,7 @@
         @search="searchAction"
         @reset="searchReset"
         v-bind="$attrs.search"
-        v-on="$listeners"
+        v-on="searchListeners"
       ></ProSearch>
     </div>
     <VueFullscreen :fullscreen.sync="fullscreen">
@@ -36,7 +36,7 @@
           ref="table"
           border
           v-bind="$attrs.table"
-          v-on="$listeners"
+          v-on="tableListeners"
         >
         </Table>
         <div class="page">
@@ -51,7 +51,7 @@
             show-total
             show-sizer
             v-bind="$attrs.page"
-            v-on="$listeners"
+            v-on="pageListeners"
           />
         </div>
       </div>
@@ -64,6 +64,8 @@
       :transition-names="['pro-modal']"
       :width="$attrs.form ? $attrs.form.modalWidth : '400'"
       :title="formDialog.title"
+      v-bind="$attrs.modal"
+      v-on="modalListeners"
     >
       <transition name="pro-modal-content">
         <div class="content" v-if="formDialog.show">
@@ -71,9 +73,10 @@
             ref="proForm"
             :columns="formColumns"
             :type="formDialog.type"
+            :dialog="formDialog"
             v-model="formDialog.proFormData"
             v-bind="$attrs.form"
-            v-on="$listeners.form"
+            v-on="formListeners"
           ></ProForm>
         </div>
       </transition>
@@ -134,11 +137,6 @@ export default {
         return {};
       }
     },
-    listeners: {
-      default() {
-        return {};
-      }
-    },
     title: {
       default() {
         return "";
@@ -187,6 +185,21 @@ export default {
     event: "dataChange"
   },
   computed: {
+    modalListeners() {
+      return this.buildListeners("modal");
+    },
+    searchListeners() {
+      return this.buildListeners("search");
+    },
+    formListeners() {
+      return this.buildListeners("form");
+    },
+    pageListeners() {
+      return this.buildListeners("page");
+    },
+    tableListeners() {
+      return Object.assign({}, this.buildListeners("table"), this.$listeners);
+    },
     custmerHeader() {
       return _.get(this.map, "success")
         ? { ...this.headers, nomsg: true }
@@ -329,6 +342,15 @@ export default {
     }
   },
   methods: {
+    buildListeners(type) {
+      let obj = {};
+      _.map(this.$listeners, (val, key) => {
+        if (key.indexOf(type) > -1) {
+          obj[key.replace(`${type}:`, "")] = val;
+        }
+      });
+      return obj;
+    },
     dataChange() {
       this.$emit("dataChange", this.proData);
     },
@@ -564,7 +586,8 @@ export default {
         page: { ...this.page, total: this.total },
         form: this.formDialog.proFormData,
         attr: this.$attrs,
-        resData: this.resData
+        resData: this.resData,
+        dialog: this.formDialog
       };
     },
     getSelection() {

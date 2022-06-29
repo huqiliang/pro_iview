@@ -115,7 +115,11 @@ export default {
   },
   computed: {
     outData() {
-      return { dialogType: this.type, dialogForm: this.value };
+      return {
+        ...this.$attrs,
+        dialogType: this.type,
+        dialogForm: this.value
+      };
     },
     groupColunms() {
       return _.groupBy(this.columns, "group");

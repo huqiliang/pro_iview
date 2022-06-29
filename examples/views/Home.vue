@@ -5,7 +5,8 @@
     <Button @click="click">修改数据并刷新</Button>
     <Button @click="getDatas">获取所有数据</Button>
     <pro-table
-      @searchReset="searchReset"
+      @search:searchReset="searchReset"
+      @modal:on-visible-change="change"
       ref="table"
       :request="request"
       :map="map"
@@ -110,12 +111,13 @@ export default {
         //   const { current, pageSize } = page;
         //   return { ...page, current: (current - 1) * pageSize };
         // }
-        formatCurrent: "(page.current - 1) * page.pageSize",
+        formatCurrent: "(page.current - 1) * page.pageSize"
       },
       columns: [
         {
           rules: [{ required: true, message: "手机号信息必填" }],
-          title: "中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文gggggg手机号信息必填手机号信息必填手机号信息必填",
+          title:
+            "中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文gggggg手机号信息必填手机号信息必填手机号信息必填",
           group: "B",
           key: "cataLog",
           disabled: true,
@@ -270,7 +272,8 @@ export default {
           key: "createUser4"
         },
         {
-          title: "creat4", rules: [{ required: true, message: "手机号信息必填" }],
+          title: "creat4",
+          rules: [{ required: true, message: "手机号信息必填" }],
           width: 100,
 
           renderForm: {
@@ -317,7 +320,7 @@ export default {
             type: "i-input",
             props: {
               type: "textarea",
-              rows: 4,
+              rows: 4
             }
           },
           // renderForm() {
@@ -449,6 +452,9 @@ export default {
     // this.$success(res);
   },
   methods: {
+    change(a) {
+      console.log(a);
+    },
     searchReset(data) {},
     getDatas() {
       console.log(this.$refs.table.getDatas());
