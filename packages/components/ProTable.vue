@@ -293,7 +293,10 @@ export default {
         if (_.isString(val)) {
           arr.push(_.find(array, { key: val }));
         } else if (_.isObject(val)) {
-          arr.push(val);
+          arr.push({
+            key: val.key,
+            renderItem: val.renderItem.bind(this)
+          });
         }
       });
       return arr;

@@ -39,15 +39,16 @@ export default {
         "new",
         {
           key: "test",
-          renderItem() {
+          renderItem(a) {
             return (
               <Button
                 type="primary"
                 onclick={() => {
-                  console.log("自定义按钮");
+                  console.log(a);
+                  this.tableAction({ type: "new" });
                 }}
               >
-                编辑
+                自定义按钮2
               </Button>
             );
           }
