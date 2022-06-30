@@ -44,7 +44,6 @@ export default {
               <Button
                 type="primary"
                 onclick={() => {
-                  console.log(a);
                   this.tableAction({ type: "new" });
                 }}
               >
