@@ -150,7 +150,9 @@ export default {
         },
         {
           title: "中文公共中文",
-
+          showForm(form) {
+            return form.type == "new";
+          },
           key: "createUser",
           width: 100,
           renderForm: ({ value, input }) => {

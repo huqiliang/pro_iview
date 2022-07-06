@@ -24,6 +24,10 @@ export default {
                   : val
                 : val;
               this.$emit("input", value);
+              this.$emit(
+                "change",
+                _.find(this.innerList, { [this.map.valuePath]: value })
+              );
             }
           }
         }}
@@ -110,8 +114,10 @@ export default {
         }
       }
       if (this.first && (_.isEmpty(this.value) || !this.value)) {
-        const value = _.get(_.first(this.innerList), this.map.valuePath);
+        const first = _.first(this.innerList);
+        const value = _.get(first, this.map.valuePath);
         this.$emit("input", value);
+        this.$emit("change", first);
       }
     }
   },

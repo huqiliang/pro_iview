@@ -504,6 +504,7 @@ export default {
     resetForm() {
       if (this.$refs["proForm"]) {
         this.$refs["proForm"].reset();
+        this.emitActions("formReset");
       }
     },
     emitActions(type) {
