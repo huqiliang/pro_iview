@@ -1,0 +1,76 @@
+<template>
+  <div>
+    <div
+      v-if="uiEdit"
+      class="UIEditFrame"
+      @mouseenter="mouseenter"
+      @mouseleave="mouseleave"
+    >
+      <div
+        class="bg"
+        :style="{ background: type !== 'all' && active ? '#93C5FD' : '' }"
+      ></div>
+      <div class="edit">
+        <Button
+          @click="config"
+          size="small"
+          :type="active ? 'primary' : 'default'"
+          >{{ type === "all" ? "全局" : "配置" }}</Button
+        >
+      </div>
+      <slot></slot>
+    </div>
+    <slot v-else></slot>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    uiEdit: Boolean,
+    type: String
+  },
+  data() {
+    return {
+      active: false
+    };
+  },
+  methods: {
+    config() {
+      this.$emit("config", {
+        type: this.type
+      });
+    },
+    mouseenter() {
+      this.active = true;
+    },
+    mouseleave() {
+      this.active = false;
+    }
+  }
+};
+</script>
+
+<style lang="less">
+.UIEditFrame {
+  border: 1px dashed #d97706;
+  position: relative;
+  .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    opacity: 0.2;
+  }
+  .edit {
+    z-index: 998;
+    position: absolute;
+    text-align: center;
+    background: #fff;
+    right: 10px;
+    top: -10px;
+  }
+}
+</style>

@@ -1,86 +1,94 @@
 <template>
   <div class="protable">
-    <div class="tableSearch" v-if="!hide.search">
-      <ProSearch
-        :columns="searchColumns"
-        :loading="loading"
-        v-model="form"
-        @search="searchAction"
-        @reset="searchReset"
-        v-bind="$attrs.search"
-        v-on="searchListeners"
-      ></ProSearch>
-    </div>
-    <VueFullscreen :fullscreen.sync="fullscreen">
-      <slot name="header" class="borderHeader">
-        <span v-if="hide.toolBar"></span>
-        <div v-else class="tableHeader">
-          <div class="title">{{ tableTitle }}</div>
-          <div class="buttons">
-            <template v-for="item in toolBarList">
-              <ProTypeItem
-                class="item_buttons"
-                :key="item.key"
-                :renderItem="item.renderItem"
-              ></ProTypeItem>
-            </template>
+    <UIEditFrame type="all" :uiEdit="uiEdit" @config="uiConfig">
+      <div class="tableSearch" v-if="!hide.search">
+        <UIEditFrame type="search" :uiEdit="uiEdit" @config="uiConfig">
+          <ProSearch
+            :columns="searchColumns"
+            :loading="loading"
+            v-model="form"
+            @search="searchAction"
+            @reset="searchReset"
+            v-bind="$attrs.search"
+            v-on="searchListeners"
+          ></ProSearch>
+        </UIEditFrame>
+      </div>
+      <VueFullscreen :fullscreen.sync="fullscreen">
+        <UIEditFrame type="toolBar" :uiEdit="uiEdit" @config="uiConfig">
+          <slot name="header" class="borderHeader">
+            <span v-if="hide.toolBar"></span>
+            <div v-else class="tableHeader">
+              <div class="title">{{ tableTitle }}</div>
+              <div class="buttons">
+                <template v-for="item in toolBarList">
+                  <ProTypeItem
+                    class="item_buttons"
+                    :key="item.key"
+                    :renderItem="item.renderItem"
+                  ></ProTypeItem>
+                </template>
+              </div>
+            </div> </slot
+        ></UIEditFrame>
+        <div class="tableTable">
+          <UIEditFrame type="table" :uiEdit="uiEdit" @config="uiConfig">
+            <Table
+              :loading="loading"
+              :columns="tableColumns"
+              :data="proData"
+              v-if="!hide.table"
+              ref="table"
+              border
+              v-bind="$attrs.table"
+              v-on="tableListeners"
+            >
+            </Table
+          ></UIEditFrame>
+          <div class="page">
+            <UIEditFrame type="page" :uiEdit="uiEdit" @config="uiConfig">
+              <Page
+                v-if="proData && !hide.page"
+                :total="total"
+                :current="page.current"
+                :page-size="page.pageSize"
+                @on-change="pageChange"
+                @on-page-size-change="pageSizeChange"
+                transfer
+                show-total
+                show-sizer
+                v-bind="$attrs.page"
+                v-on="pageListeners"
+            /></UIEditFrame>
           </div>
         </div>
-      </slot>
-      <div class="tableTable">
-        <Table
-          :loading="loading"
-          :columns="tableColumns"
-          :data="proData"
-          v-if="!hide.table"
-          ref="table"
-          border
-          v-bind="$attrs.table"
-          v-on="tableListeners"
-        >
-        </Table>
-        <div class="page">
-          <Page
-            v-if="proData && !hide.page"
-            :total="total"
-            :current="page.current"
-            :page-size="page.pageSize"
-            @on-change="pageChange"
-            @on-page-size-change="pageSizeChange"
-            transfer
-            show-total
-            show-sizer
-            v-bind="$attrs.page"
-            v-on="pageListeners"
-          />
-        </div>
-      </div>
-    </VueFullscreen>
-    <Modal
-      :loading="formDialog.formLoading"
-      @on-ok="submit"
-      @on-cancel="cancel"
-      v-model="formDialog.show"
-      :transition-names="['pro-modal']"
-      :width="$attrs.form ? $attrs.form.modalWidth : '400'"
-      :title="formDialog.title"
-      v-bind="$attrs.modal"
-      v-on="modalListeners"
-    >
-      <transition name="pro-modal-content">
-        <div class="content" v-if="formDialog.show">
-          <ProForm
-            ref="proForm"
-            :columns="formColumns"
-            :type="formDialog.type"
-            :dialog="formDialog"
-            v-model="formDialog.proFormData"
-            v-bind="$attrs.form"
-            v-on="formListeners"
-          ></ProForm>
-        </div>
-      </transition>
-    </Modal>
+      </VueFullscreen>
+      <Modal
+        :loading="formDialog.formLoading"
+        @on-ok="submit"
+        @on-cancel="cancel"
+        v-model="formDialog.show"
+        :transition-names="['pro-modal']"
+        :width="$attrs.form ? $attrs.form.modalWidth : '400'"
+        :title="formDialog.title"
+        v-bind="$attrs.modal"
+        v-on="modalListeners"
+      >
+        <transition name="pro-modal-content">
+          <div class="content" v-if="formDialog.show">
+            <ProForm
+              ref="proForm"
+              :columns="formColumns"
+              :type="formDialog.type"
+              :dialog="formDialog"
+              v-model="formDialog.proFormData"
+              v-bind="$attrs.form"
+              v-on="formListeners"
+            ></ProForm>
+          </div>
+        </transition>
+      </Modal>
+    </UIEditFrame>
   </div>
 </template>
 
@@ -94,6 +102,7 @@ import ProForm from "./ProForm";
 import Locale from "../mixin/locale";
 import ProTypeItem from "../components/ProTypeItem/ProTypeItem.vue";
 import RowSetting from "../components/ProTable/RowSetting.vue";
+import UIEditFrame from "../components/LayOut/UIEditFrame.vue";
 
 export default {
   name: "ProTable",
@@ -122,6 +131,7 @@ export default {
     };
   },
   props: {
+    uiEdit: Boolean,
     pageSize: {
       default() {
         return 10;
@@ -329,6 +339,7 @@ export default {
     ProSearch,
     ProForm,
     ProTypeItem,
+    UIEditFrame,
     VueFullscreen: component
   },
   mounted() {
@@ -345,6 +356,9 @@ export default {
     }
   },
   methods: {
+    uiConfig(options) {
+      this.$emit("uiConfig", options);
+    },
     buildListeners(type) {
       let obj = {};
       _.map(this.$listeners, (val, key) => {

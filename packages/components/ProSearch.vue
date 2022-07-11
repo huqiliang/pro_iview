@@ -57,6 +57,11 @@
           'grid-column-start': `span ${downItemSapn}`
         }"
       >
+        <label
+          v-if="position !== 'left'"
+          class="ivu-form-item-label itemLabel"
+          style="height:34px"
+        ></label>
         <div class="input" style="clear:both;text-align:right">
           <Button @click="reset" class="ml10">
             <Icon type="md-refresh" class="buttonIcon" />
