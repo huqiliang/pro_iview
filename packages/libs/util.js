@@ -2,7 +2,7 @@ import _ from "lodash";
 
 export const template = (string, item) => {
   let reg = /\${([^{}]*)}/g;
-  return string.replace(reg, function(match, p1) {
+  return string.replace(reg, (match, p1) => {
     let variable = p1.trim();
     if (variable === "") {
       //空白字符

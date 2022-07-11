@@ -677,6 +677,9 @@ export default {
         this.$emit("dataChange", this.proData);
       },
       deep: true
+    },
+    pageSize(value) {
+      this.page.pageSize = value;
     }
   }
 };

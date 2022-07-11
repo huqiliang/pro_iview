@@ -12,10 +12,11 @@
       ></div>
       <div class="edit">
         <Button
+          v-if="type != 'all'"
           @click="config"
           size="small"
           :type="active ? 'primary' : 'default'"
-          >{{ type === "all" ? "全局" : "配置" }}</Button
+          >配置</Button
         >
       </div>
       <slot></slot>

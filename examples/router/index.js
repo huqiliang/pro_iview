@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Select from "../views/Select.vue";
 import ProSelect from "../views/ProSelect.vue";
+import Checkbox from "../views/Checkbox.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/pro_select",
     name: "proSelect",
     component: ProSelect
+  },
+  {
+    path: "/checkbox",
+    name: "checkbox",
+    component: Checkbox
   }
 ];
 
