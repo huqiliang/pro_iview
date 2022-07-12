@@ -8,15 +8,16 @@
     >
       <div
         class="bg"
-        :style="{ background: type !== 'all' && active ? '#93C5FD' : '' }"
+        :style="{
+          background: type !== 'all' && active ? '#93C5FD' : ''
+        }"
       ></div>
-      <div class="edit">
+      <div class="edit" :style="{ left: type === 'all' ? '10px' : 'auto' }">
         <Button
-          v-if="type != 'all'"
           @click="config"
           size="small"
           :type="active ? 'primary' : 'default'"
-          >配置</Button
+          >{{ type != "all" ? "配置" : "全局配置" }}</Button
         >
       </div>
       <slot></slot>
@@ -70,6 +71,7 @@ export default {
     position: absolute;
     text-align: center;
     background: #fff;
+    width: 40px;
     right: 10px;
     top: -10px;
   }
