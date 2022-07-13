@@ -3,7 +3,7 @@
     <Form
       ref="form"
       :model="value"
-      :label-width="labelWidth"
+      :label-width="labelPosition == 'left' ? labelWidth : '0'"
       :label-position="labelPosition"
       v-bind="$attrs"
       v-on="$listeners"
@@ -34,7 +34,10 @@
               v-if="showColumns(item)"
               @click.native="itemClick(item)"
             >
-              <span slot="label">
+              <span
+                slot="label"
+                :style="labelPosition == 'left' ? '' : 'white-space: nowrap;'"
+              >
                 <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
                 {{ item.title ? item.title + " :" : "" }}
               </span>

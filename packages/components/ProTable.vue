@@ -305,7 +305,9 @@ export default {
         } else if (_.isObject(val)) {
           arr.push({
             key: val.key,
-            renderItem: val.renderItem.bind(this)
+            renderItem: val.render
+              ? val.render.bind(this)
+              : val.renderItem.bind(this)
           });
         }
       });
@@ -442,7 +444,6 @@ export default {
       return arr;
     },
     async typeAction(val, params) {
-      console.log(params);
       if (val.action) {
         await val.action(params);
         if (!val.prevent) {
