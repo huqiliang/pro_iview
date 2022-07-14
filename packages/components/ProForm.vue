@@ -3,7 +3,7 @@
     <Form
       ref="form"
       :model="value"
-      :label-width="labelPosition == 'left' ? labelWidth : '0'"
+      :label-width="labelPosition == 'left' ? labelWidth : 0"
       :label-position="labelPosition"
       v-bind="$attrs"
       v-on="$listeners"
