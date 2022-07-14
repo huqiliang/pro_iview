@@ -23,48 +23,57 @@
         >
           <!-- <Icon type="md-bookmark" /> -->
           <template v-for="item in columns">
-            <FormItem
-              :style="{
-                'grid-column-start': `span ${item.formLineNum}`
-              }"
-              class="item"
+            <UIEditFrame
               :key="item.key"
-              :prop="propItem(item)"
-              :rules="ruleChange(item)"
-              v-if="showColumns(item)"
-              @click.native="itemClick(item)"
+              :uiEdit="uiEdit"
+              uiText="删除"
+              @config="uiConfig(item)"
             >
-              <span
-                slot="label"
-                :style="labelPosition == 'left' ? '' : 'white-space: nowrap;'"
+              <FormItem
+                :style="{
+                  'grid-column-start': `span ${item.formLineNum}`
+                }"
+                class="item"
+                :prop="propItem(item)"
+                :rules="ruleChange(item)"
+                v-if="showColumns(item)"
+                @click.native="itemClick(item)"
               >
-                <Icon type="md-bookmark" v-if="item.icons && item.icons.form" />
-                {{ item.title ? item.title + " :" : "" }}
-              </span>
-              <ProTypeItem
-                v-if="item.renderForm"
-                :item="item"
-                :outData="outData"
-                :renderItem="item.renderForm"
-                :value="getValue(value, item)"
-                @input="change(item, $event)"
-                class="input ivu-input-wrapper"
-              ></ProTypeItem>
-              <div v-else-if="type === 'view'">
-                {{ getValue(value, item) }}
-              </div>
-              <Input
-                v-else
-                type="text"
-                clearable
-                :disabled="item.disabled"
-                :readonly="item.readonly"
-                :value="getValue(value, item)"
-                :placeholder="item.title"
-                @input="change(item, $event)"
-              >
-              </Input>
-            </FormItem>
+                <span
+                  slot="label"
+                  :style="labelPosition == 'left' ? '' : 'white-space: nowrap;'"
+                >
+                  <Icon
+                    type="md-bookmark"
+                    v-if="item.icons && item.icons.form"
+                  />
+                  {{ item.title ? item.title + " :" : "" }}
+                </span>
+                <ProTypeItem
+                  v-if="item.renderForm"
+                  :item="item"
+                  :outData="outData"
+                  :renderItem="item.renderForm"
+                  :value="getValue(value, item)"
+                  @input="change(item, $event)"
+                  class="input ivu-input-wrapper"
+                ></ProTypeItem>
+                <div v-else-if="type === 'view'">
+                  {{ getValue(value, item) }}
+                </div>
+                <Input
+                  v-else
+                  type="text"
+                  clearable
+                  :disabled="item.disabled"
+                  :readonly="item.readonly"
+                  :value="getValue(value, item)"
+                  :placeholder="item.title"
+                  @input="change(item, $event)"
+                >
+                </Input>
+              </FormItem>
+            </UIEditFrame>
           </template>
         </div>
       </div>
@@ -76,10 +85,13 @@
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
 import Locale from "../mixin/locale";
 import _ from "lodash";
+import UIEditFrame from "../components/LayOut/UIEditFrame.vue";
+
 export default {
   name: "ProForm",
   mixins: [Locale],
   props: {
+    uiEdit: Boolean,
     type: {
       type: String,
       default() {
@@ -129,6 +141,9 @@ export default {
     }
   },
   methods: {
+    uiConfig(item) {
+      this.$emit("uiConfig", item);
+    },
     showColumns(item) {
       if (!item.showForm) {
         return true;
@@ -172,9 +187,11 @@ export default {
       _.set(copyValue, item.key, _.isString(value) ? _.trim(value) : value);
       this.$emit("input", copyValue);
       //单项验证 避免验证问题
-      this.$nextTick(() => {
-        this.validateField(this.propItem(item));
-      });
+      if (this.propItem(item)) {
+        this.$nextTick(() => {
+          this.validateField(this.propItem(item));
+        });
+      }
     },
     reset(fn) {
       this.$refs["form"].resetFields(fn);
@@ -187,7 +204,8 @@ export default {
     }
   },
   components: {
-    ProTypeItem
+    ProTypeItem,
+    UIEditFrame
   }
 };
 </script>

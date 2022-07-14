@@ -17,7 +17,7 @@
           @click="config"
           size="small"
           :type="active ? 'primary' : 'default'"
-          >{{ type != "all" ? "配置" : "全局配置" }}</Button
+          >{{ uiText ? uiText : type != "all" ? "配置" : "全局配置" }}</Button
         >
       </div>
       <slot></slot>
@@ -29,6 +29,7 @@
 <script>
 export default {
   props: {
+    uiText: String,
     uiEdit: Boolean,
     type: String
   },
