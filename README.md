@@ -6,8 +6,12 @@ A high-level component library based on iView
 
 - [x] pro_search
   
-- [ ] Edit_table
+- [x] Edit_table
 
 - [x] pro_form
 
-- [ ] 文档完善
+- [x] pro_select
+
+- [x] pro_checkbox
+
+- [x] 文档完善
