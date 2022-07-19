@@ -119,6 +119,14 @@ export default {
         this.$emit("input", value);
         this.$emit("change", first);
       }
+    },
+    getValue() {
+      const { multiple } = this.$attrs;
+      return multiple
+        ? _.isArray(this.value)
+          ? this.value
+          : this.value?.split(",")
+        : this.value;
     }
   },
   mounted() {
@@ -127,19 +135,19 @@ export default {
   computed: {
     innerValue: {
       get() {
-        const { multiple } = this.$attrs;
-        return multiple
-          ? _.isArray(this.value)
-            ? this.value
-            : this.value?.split(",")
-          : this.value;
+        return this.getValue();
       },
-      set() {}
+      set(val) {
+        this.$emit("input", val);
+      }
     }
   },
   watch: {
     list(value) {
       this.innerList = value;
+    },
+    value(value) {
+      this.innerValue = value;
     }
   }
 };

@@ -13,7 +13,7 @@
 export default {
   data() {
     return {
-      value2: "",
+      value2: [],
       config: {
         // 是否多选 会影响返回参数
         multiple: true,
