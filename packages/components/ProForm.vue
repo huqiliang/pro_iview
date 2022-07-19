@@ -57,10 +57,18 @@
                   :value="getValue(value, item)"
                   @input="change(item, $event)"
                   class="input ivu-input-wrapper"
+                  :style="{
+                    width: `${
+                      item.formWidth > 100
+                        ? item.formWidth + 'px'
+                        : item.formWidth + '%'
+                    }`
+                  }"
                 ></ProTypeItem>
                 <div v-else-if="type === 'view'">
                   {{ getValue(value, item) }}
                 </div>
+
                 <Input
                   v-else
                   type="text"
@@ -70,6 +78,13 @@
                   :value="getValue(value, item)"
                   :placeholder="item.title"
                   @input="change(item, $event)"
+                  :style="{
+                    width: `${
+                      item.formWidth > 100
+                        ? item.formWidth + 'px'
+                        : item.formWidth + '%'
+                    }`
+                  }"
                 >
                 </Input>
               </FormItem>
