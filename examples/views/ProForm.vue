@@ -2,7 +2,7 @@
   <div>
     <div>{{ config }}</div>
     <div>{{ form }}</div>
-    <pro-form :columns="config" v-model="form"></pro-form>
+    <pro-form :formLineNum="2" :columns="config" v-model="form"></pro-form>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
             }
           },
           default_value: null,
+          formLineNum: 2,
           uuid: "2",
           component_id: "71f67661c7d34249aa38d263fe7dea97",
           type: "pro-select",

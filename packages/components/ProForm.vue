@@ -39,6 +39,9 @@
                 uiText="删除"
                 @choose="uiChoose(item)"
                 @config="uiConfig(item)"
+                :style="{
+                  'grid-column-start': `span ${item.formLineNum}`
+                }"
               >
                 <FormItem
                   :style="{
