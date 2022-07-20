@@ -36,8 +36,8 @@
                 :key="item.key"
                 :uiEdit="uiEdit"
                 :data="item"
-                @click.native="itemClick(item)"
                 uiText="删除"
+                @choose="uiChoose(item)"
                 @config="uiConfig(item)"
               >
                 <FormItem
@@ -170,6 +170,9 @@ export default {
     }
   },
   methods: {
+    uiChoose(item) {
+      this.$emit("uiChoose", item);
+    },
     uiConfig(item) {
       this.$emit("uiConfig", item);
     },
@@ -189,8 +192,8 @@ export default {
         return true;
       }
     },
-    itemClick(item) {
-      this.$emit("itemClick", item);
+    itemClick(item, type) {
+      this.$emit("itemClick", item, type);
     },
     ruleChange(item) {
       const rules = item.rules || item.validate;

@@ -8,6 +8,7 @@
       :style="{ border: noBorder ? 'none' : '1px dashed #d97706' }"
     >
       <div
+        @click="choose"
         class="bg"
         :style="{
           background: type !== 'all' && active ? '#93C5FD' : ''
@@ -47,6 +48,11 @@ export default {
     };
   },
   methods: {
+    choose() {
+      this.$emit("choose", {
+        type: this.type
+      });
+    },
     config() {
       this.$emit("config", {
         type: this.type
