@@ -1,98 +1,112 @@
 <template>
   <div class="proform">
-    <Form
-      ref="form"
-      :model="value"
-      :label-width="labelPosition == 'left' ? labelWidth : 0"
-      :label-position="labelPosition"
-      v-bind="$attrs"
-      v-on="$listeners"
+    <UIEditFrame
+      type="all"
+      :uiEdit="uiEdit"
+      uiText="全局配置"
+      :noBorder="true"
+      @config="uiConfig('all')"
     >
-      <div v-for="(columns, index) in groupColunms" :key="index">
-        <span class="groupTitle" v-if="index != 'undefined'">{{ index }}</span>
-        <div
-          class="formContain"
-          :style="{
-            'grid-template-columns': `repeat(${formLineNum},minmax(auto,${100 /
-              formLineNum +
-              '%'}))`
-          }"
-          :class="{
-            p10: groupColunms && Object.keys(groupColunms).length > 1
-          }"
-        >
-          <!-- <Icon type="md-bookmark" /> -->
-          <template v-for="item in columns">
-            <UIEditFrame
-              :key="item.key"
-              :uiEdit="uiEdit"
-              uiText="删除"
-              @config="uiConfig(item)"
-            >
-              <FormItem
-                :style="{
-                  'grid-column-start': `span ${item.formLineNum}`
-                }"
-                class="item"
-                :prop="propItem(item)"
-                :rules="ruleChange(item)"
-                v-if="showColumns(item)"
+      <Form
+        ref="form"
+        :model="value"
+        :label-width="labelPosition == 'left' ? labelWidth : 0"
+        :label-position="labelPosition"
+        v-bind="$attrs"
+        v-on="$listeners"
+      >
+        <div v-for="(columns, index) in groupColunms" :key="index">
+          <span class="groupTitle" v-if="index != 'undefined'">{{
+            index
+          }}</span>
+          <div
+            class="formContain"
+            :style="{
+              'grid-template-columns': `repeat(${formLineNum},minmax(auto,${100 /
+                formLineNum +
+                '%'}))`
+            }"
+            :class="{
+              p10: groupColunms && Object.keys(groupColunms).length > 1
+            }"
+          >
+            <!-- <Icon type="md-bookmark" /> -->
+            <template v-for="item in columns">
+              <UIEditFrame
+                :key="item.key"
+                :uiEdit="uiEdit"
+                :data="item"
                 @click.native="itemClick(item)"
+                uiText="删除"
+                @config="uiConfig(item)"
               >
-                <span
-                  slot="label"
-                  :style="labelPosition == 'left' ? '' : 'white-space: nowrap;'"
-                >
-                  <Icon
-                    type="md-bookmark"
-                    v-if="item.icons && item.icons.form"
-                  />
-                  {{ item.title ? item.title + " :" : "" }}
-                </span>
-                <ProTypeItem
-                  v-if="item.renderForm"
-                  :item="item"
-                  :outData="outData"
-                  :renderItem="item.renderForm"
-                  :value="getValue(value, item)"
-                  @input="change(item, $event)"
-                  class="input ivu-input-wrapper"
+                <FormItem
                   :style="{
-                    width: `${
-                      item.formWidth > 100
-                        ? item.formWidth + 'px'
-                        : item.formWidth + '%'
-                    }`
+                    'grid-column-start': `span ${item.formLineNum}`
                   }"
-                ></ProTypeItem>
-                <div v-else-if="type === 'view'">
-                  {{ getValue(value, item) }}
-                </div>
+                  class="item"
+                  :prop="propItem(item)"
+                  :rules="ruleChange(item)"
+                  v-if="showColumns(item)"
+                  @click.native="itemClick(item)"
+                >
+                  <span
+                    slot="label"
+                    :style="
+                      labelPosition == 'left' ? '' : 'white-space: nowrap;'
+                    "
+                  >
+                    <Icon
+                      type="md-bookmark"
+                      v-if="item.icons && item.icons.form"
+                    />
+                    {{ item.title ? item.title + " :" : "" }}
+                  </span>
+                  <ProTypeItem
+                    v-if="item.renderForm"
+                    :item="item"
+                    :outData="outData"
+                    :renderItem="item.renderForm"
+                    :value="getValue(value, item)"
+                    @input="change(item, $event)"
+                    class="input ivu-input-wrapper"
+                    :style="{
+                      width: `${
+                        item.formWidth > 100
+                          ? item.formWidth + 'px'
+                          : item.formWidth + '%'
+                      }`
+                    }"
+                  ></ProTypeItem>
+                  <div v-else-if="type === 'view'">
+                    {{ getValue(value, item) }}
+                  </div>
 
-                <Input
-                  v-else
-                  type="text"
-                  clearable
-                  :disabled="item.disabled"
-                  :readonly="item.readonly"
-                  :value="getValue(value, item)"
-                  :placeholder="item.title"
-                  @input="change(item, $event)"
-                  :style="{
-                    width: `${
-                      item.formWidth > 100
-                        ? item.formWidth + 'px'
-                        : item.formWidth + '%'
-                    }`
-                  }"
-                >
-                </Input>
-              </FormItem>
-            </UIEditFrame>
-          </template>
+                  <Input
+                    v-else
+                    type="text"
+                    clearable
+                    :disabled="item.disabled"
+                    :readonly="item.readonly"
+                    :value="getValue(value, item)"
+                    :placeholder="item.title"
+                    @input="change(item, $event)"
+                    :style="{
+                      width: `${
+                        item.formWidth > 100
+                          ? item.formWidth + 'px'
+                          : item.formWidth + '%'
+                      }`
+                    }"
+                  >
+                  </Input>
+                </FormItem>
+              </UIEditFrame>
+            </template>
+          </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+    </UIEditFrame>
   </div>
 </template>
 

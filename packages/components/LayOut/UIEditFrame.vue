@@ -5,6 +5,7 @@
       class="UIEditFrame"
       @mouseenter="mouseenter"
       @mouseleave="mouseleave"
+      :style="{ border: noBorder ? 'none' : '1px dashed #d97706' }"
     >
       <div
         class="bg"
@@ -12,7 +13,13 @@
           background: type !== 'all' && active ? '#93C5FD' : ''
         }"
       ></div>
-      <div class="edit" :style="{ left: type === 'all' ? '10px' : 'auto' }">
+      <div
+        class="edit"
+        :style="{
+          left: type === 'all' ? '10px' : 'auto',
+          top: type === 'all' ? '-20px' : 'auto'
+        }"
+      >
         <Button
           @click="config"
           size="small"
@@ -31,7 +38,8 @@ export default {
   props: {
     uiText: String,
     uiEdit: Boolean,
-    type: String
+    type: String,
+    noBorder: Boolean
   },
   data() {
     return {
