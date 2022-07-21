@@ -28,7 +28,7 @@ module.exports = {
             vue: "vue",
             vuex: "vuex",
             axios: "axios",
-            lodash: "lodash",
+            lodash: "_",
             "view-design": "iview",
             iview: "ViewUI",
             "iview.css": "iview.css",
