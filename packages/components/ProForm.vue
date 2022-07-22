@@ -108,7 +108,7 @@
             </template>
           </div>
         </div>
-        <slot name="footer" v-if="submitForm">
+        <slot name="footer" v-if="submitForm && !submitForm.hide">
           <FormItem :style="{ textAlign: submitForm.position }">
             <Button type="primary" @click="submit">确定</Button>
             <Button @click="reset" style="margin-left: 8px">重置</Button>
@@ -184,11 +184,9 @@ export default {
     submit() {
       this.$refs["form"].validate(async valid => {
         if (valid) {
-          const { request } = this.submitForm;
           const res = await customRequest({
-            method: "POST",
-            datas: this.value,
-            request
+            ...this.submitForm,
+            datas: this.value
           });
           this.submitForm.complete && this.submitForm.complete(res);
         }
