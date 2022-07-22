@@ -37,7 +37,7 @@ const getHeaders = headers => {
   };
 };
 export default ({ request, method, keys, datas, headers }) => {
-  const axios = Vue.$axios || global.$http || Axios;
+  const axios = Vue?.$axios || global.$http || Axios;
   if (_.isString(request)) {
     // 字符串 是request:"/url"
     return axios({
