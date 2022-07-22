@@ -1,6 +1,6 @@
 {
   "name": "pro_iview",
-  "version": "1.7.4",
+  "version": "1.7.6",
   "main": "lib/pro-iview.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
