@@ -28,7 +28,12 @@ module.exports = {
             vue: "vue",
             vuex: "vuex",
             axios: "axios",
-            lodash: "_",
+            lodash: {
+              commonjs: "lodash",
+              commonjs2: "lodash", //同上
+              amd: "lodash",
+              root: "_" // 排除的模块，作为全局变量使用，通过script tag引入。默认设置
+            },
             "view-design": "iview",
             iview: "ViewUI",
             "iview.css": "iview.css",
