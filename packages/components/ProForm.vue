@@ -108,6 +108,12 @@
             </template>
           </div>
         </div>
+        <slot name="footer" v-if="submitForm">
+          <FormItem :style="{ textAlign: submitForm.position }">
+            <Button type="primary" @click="submit">确定</Button>
+            <Button @click="reset" style="margin-left: 8px">重置</Button>
+          </FormItem>
+        </slot>
       </Form>
     </UIEditFrame>
   </div>
@@ -118,12 +124,14 @@ import ProTypeItem from "./ProTypeItem/ProTypeItem";
 import Locale from "../mixin/locale";
 import _ from "lodash";
 import UIEditFrame from "../components/LayOut/UIEditFrame.vue";
+import customRequest from "../libs/request";
 
 export default {
   name: "ProForm",
   mixins: [Locale],
   props: {
     uiEdit: Boolean,
+    submitForm: Object,
     type: {
       type: String,
       default() {
@@ -173,6 +181,19 @@ export default {
     }
   },
   methods: {
+    submit() {
+      this.$refs["form"].validate(async valid => {
+        if (valid) {
+          const { request } = this.submitForm;
+          const res = await customRequest({
+            method: "POST",
+            datas: this.value,
+            request
+          });
+          this.submitForm.complete && this.submitForm.complete(res);
+        }
+      });
+    },
     uiChoose(item) {
       this.$emit("uiChoose", item);
     },

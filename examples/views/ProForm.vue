@@ -2,7 +2,12 @@
   <div>
     <div>{{ config }}</div>
     <div>{{ form }}</div>
-    <pro-form :formLineNum="2" :columns="config" v-model="form"></pro-form>
+    <pro-form
+      :submitForm="submitForm"
+      :formLineNum="2"
+      :columns="config"
+      v-model="form"
+    ></pro-form>
   </div>
 </template>
 
@@ -11,6 +16,13 @@ export default {
   data() {
     return {
       form: {},
+      submitForm: {
+        position: "left",
+        request: "/api/pages",
+        complete(res) {
+          console.log(res);
+        }
+      },
       config: [
         {
           renderForm: {
