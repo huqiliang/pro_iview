@@ -11,7 +11,7 @@
         @click="choose"
         class="bg"
         :style="{
-          background: type !== 'all' && active ? '#93C5FD' : ''
+          background: type !== 'all' && (uiActive || active) ? '#93C5FD' : ''
         }"
       ></div>
       <div
@@ -39,6 +39,7 @@ export default {
   props: {
     uiText: String,
     uiEdit: Boolean,
+    uiActive: Boolean, //当前选中
     type: String,
     noBorder: Boolean
   },

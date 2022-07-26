@@ -26,7 +26,11 @@ export default {
               this.$emit("input", value);
               this.$emit(
                 "change",
-                _.find(this.innerList, { [this.map.valuePath]: value })
+                !multiple
+                  ? _.find(this.innerList, { [this.map.valuePath]: value })
+                  : _.filter(this.innerList, val => {
+                      return value.includes(val[this.map.valuePath]);
+                    })
               );
             }
           }

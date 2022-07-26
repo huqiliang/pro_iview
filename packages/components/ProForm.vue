@@ -10,7 +10,7 @@
       <Form
         ref="form"
         :model="value"
-        :label-width="labelPosition == 'left' ? labelWidth : 0"
+        :label-width="labelPosition !== 'top' ? labelWidth : 0"
         :label-position="labelPosition"
         v-bind="$attrs"
         v-on="$listeners"
@@ -36,6 +36,7 @@
                 :key="item.key"
                 :uiEdit="uiEdit"
                 :data="item"
+                :uiActive="item.uiActive"
                 uiText="删除"
                 @choose="uiChoose(item)"
                 @config="uiConfig(item)"
@@ -56,7 +57,7 @@
                   <span
                     slot="label"
                     :style="
-                      labelPosition == 'left' ? '' : 'white-space: nowrap;'
+                      labelPosition !== 'top' ? '' : 'white-space: nowrap;'
                     "
                   >
                     <Icon
@@ -265,6 +266,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .proform {
+  /deep/ .ivu-form-label-top .ivu-form-item-label {
+    display: flex;
+    align-items: center;
+  }
   .formContain {
     display: grid;
 
