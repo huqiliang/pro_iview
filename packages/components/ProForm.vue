@@ -48,6 +48,9 @@
                   :style="{
                     'grid-column-start': `span ${item.formLineNum}`
                   }"
+                  :label-width="
+                    labelPosition !== 'top' && item.title ? labelWidth : 0
+                  "
                   class="item"
                   :prop="propItem(item)"
                   :rules="ruleChange(item)"
@@ -56,6 +59,7 @@
                 >
                   <span
                     slot="label"
+                    v-if="item.title"
                     :style="
                       labelPosition !== 'top' ? '' : 'white-space: nowrap;'
                     "

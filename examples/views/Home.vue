@@ -425,10 +425,10 @@ export default {
       map: {
         dataPath: "data",
         totalPath: "totalRows",
-        message: "message",
-        success: "code===3004"
+        message: "message"
+        // success: "code===3004"
       },
-      submitForm: "http://192.168.0.38:3000/mock/106/api/test"
+      submitForm: "http://192.168.0.38:3000/mock/106/api/save"
     };
   },
   async mounted() {

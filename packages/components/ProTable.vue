@@ -621,8 +621,15 @@ export default {
       this.$Message.success(_.get(res, this.map.message) || "成功");
       this.finish();
     },
+    submitLoading() {
+      setTimeout(() => {
+        this.formDialog.formLoading = false; //改变loading状态
+        this.$nextTick(() => {
+          this.formDialog.formLoading = true;
+        });
+      });
+    },
     submit() {
-      this.formDialog.formLoading = false;
       if (this.formDialog.type !== "view") {
         this.$refs["proForm"].validate(async valid => {
           if (valid) {
@@ -638,6 +645,7 @@ export default {
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
+              console.log("res", res);
               if (res) {
                 const mapSuccess =
                   _.get(this.$attrs?.form, "success") ||
@@ -653,18 +661,17 @@ export default {
                     );
                   }
                 } else if (res.success) {
+                  console.log("succ");
                   this.success(res);
                 }
-                this.formDialog.formLoading = true;
+                this.submitLoading();
               }
             } catch (error) {
               console.log("致命错误:", error);
-              this.formDialog.formLoading = true;
+              this.submitLoading();
             }
           } else {
-            setTimeout(() => {
-              this.formDialog.formLoading = true;
-            }, 100);
+            this.submitLoading();
           }
         });
       } else {
