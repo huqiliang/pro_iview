@@ -147,6 +147,9 @@ export default {
     }
   },
   watch: {
+    request() {
+      this.init();
+    },
     list(value) {
       this.innerList = value;
     },
