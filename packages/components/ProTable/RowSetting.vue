@@ -10,15 +10,18 @@
       <DropdownMenu slot="list">
         <div class="dropHeader">
           <Checkbox
-            :indeterminate="indeterminate"
+            :indeterminate="
+              myColumns.length > 0 && myColumns.length !== columns.length
+            "
             :value="checkAll"
             @click.prevent.native="handleCheckAll"
             >{{ rowContent }}</Checkbox
           >
           <a @click="reset">{{ resetContent }}</a>
         </div>
-        <CheckboxGroup v-model="checkAllGroup" @on-change="checkAllGroupChange">
-          <DropdownItem v-for="item in firstColumns" :key="item.key">
+
+        <CheckboxGroup v-model="myColumns" @on-change="checkAllGroupChange">
+          <DropdownItem v-for="item in columns" :key="item.key">
             <Checkbox :label="item.key">
               <span>{{ item.title }}</span>
             </Checkbox>
@@ -48,71 +51,79 @@ export default {
   },
   data() {
     return {
-      indeterminate: false,
       visible: false,
       firstColumns: [],
       checkAll: true,
-      checkAllGroup: [],
       first: true
     };
   },
   mounted() {
     if (this.columns && this.columns.length > 0 && this.first) {
       this.firstColumns = _.cloneDeep(this.columns);
-      this.checkAllGroup = _.map(this.firstColumns, "key");
       this.first = false;
     }
   },
+  computed: {
+    myColumns: {
+      get() {
+        return _.map(
+          _.filter(this.columns, val => !val.notShowTable),
+          "key"
+        );
+      },
+      set(val) {
+        this.$emit("change", val);
+      }
+    }
+  },
   methods: {
-    reset(e) {
-      e.preventDefault();
-      this.checkAll = true;
-      this.checkAllGroup = _.map(this.firstColumns, "key");
-      this.indeterminate = false;
-      this.$emit("change", this.checkAllGroup);
+    reset() {
+      this.setShowTableAll(false);
+    },
+    setShowTableAll(notShowTable) {
+      let arr = [];
+      _.map(this.columns, item => {
+        arr.push({
+          ...item,
+          notShowTable
+        });
+      });
+      this.checkAll = !notShowTable;
+      this.$emit("change", arr);
     },
     handleOpen() {
       this.visible = !this.visible;
     },
     handleCheckAll() {
-      if (this.indeterminate) {
-        this.checkAll = false;
+      console.log(this.myColumns.length, this.columns.length);
+      if (this.myColumns.length != this.columns.length) {
+        this.reset();
       } else {
-        this.checkAll = !this.checkAll;
+        this.setShowTableAll(true);
       }
-      this.indeterminate = false;
-
-      if (this.checkAll) {
-        this.checkAllGroup = _.map(this.firstColumns, "key");
-      } else {
-        this.checkAllGroup = [];
-      }
-      this.$emit("change", this.checkAllGroup);
     },
     checkAllGroupChange(data) {
-      if (data.length === this.firstColumns.length) {
-        this.indeterminate = false;
-        this.checkAll = true;
-      } else if (data.length > 0) {
-        this.indeterminate = true;
-        this.checkAll = false;
-      } else {
-        this.indeterminate = false;
-        this.checkAll = false;
-      }
       console.log(this.columns);
-      this.$emit("change", data);
-    }
-  },
-  watch: {
-    columns(value) {
-      if (value && value.length > 0 && this.first) {
-        this.firstColumns = _.cloneDeep(value);
-        this.checkAllGroup = _.map(this.firstColumns, "key");
-        this.first = false;
-      }
+      let arr = [];
+      _.map(this.columns, item => {
+        arr.push({
+          ...item,
+          notShowTable: _.includes(data, item.key) ? false : true
+        });
+      });
+      console.log("arr", arr);
+      this.$emit("change", arr);
     }
   }
+  // watch: {
+  //   columns(value) {
+  //     if (value && value.length > 0 && this.first) {
+  //       this.firstColumns = _.cloneDeep(value);
+  //       this.checkAllGroup = _.map(this.firstColumns, "key");
+  //       this.first = false;
+  //     }
+  //   }
+  // }
 };
 </script>
 <style lang="less" scoped>

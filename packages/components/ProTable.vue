@@ -109,6 +109,7 @@ export default {
   mixins: [Locale],
   data() {
     return {
+      showTableColumns: [],
       resData: {}, //后端返回的所有数据
       formDialog: {
         show: false,
@@ -282,16 +283,22 @@ export default {
               <RowSetting
                 rowContent={this.t("pro.table.rowSetting")}
                 resetContent={this.t("pro.common.reset")}
-                columns={this.tableColumns}
-                onChange={keys => {
-                  console.log(keys);
-                  _.map(this.columns, item => {
-                    this.$set(
-                      item,
-                      "notShowTable",
-                      _.includes(keys, item.key) ? false : true
-                    );
-                  });
+                columns={
+                  _.isEmpty(this.showTableColumns)
+                    ? this.columns
+                    : this.showTableColumns
+                }
+                onChange={value => {
+                  console.log(value);
+
+                  this.showTableColumns = value;
+                  // _.map(this.columns, item => {
+                  //   this.$set(
+                  //     item,
+                  //     "notShowTable",
+                  //     _.includes(keys, item.key) ? false : true
+                  //   );
+                  // });
                 }}
               ></RowSetting>
             );
@@ -317,7 +324,12 @@ export default {
       return this.title || this.t("pro.table.title");
     },
     tableColumns() {
-      return this.columnFilter("notShowTable", "renderTable");
+      console.log("aaa");
+      return this.columnFilter(
+        "notShowTable",
+        "renderTable",
+        this.showTableColumns
+      );
     },
     searchColumns() {
       return this.columnFilter("notShowSearch", "renderSearch");
@@ -373,8 +385,10 @@ export default {
     dataChange() {
       this.$emit("dataChange", this.proData);
     },
-    columnFilter(showType, renderType) {
-      const columns = _.cloneDeep(this.columns);
+    columnFilter(showType, renderType, value) {
+      const columns = _.isEmpty(value)
+        ? _.cloneDeep(this.columns)
+        : _.cloneDeep(value);
       let arr = [];
       map(columns, value => {
         if (!value[showType]) {

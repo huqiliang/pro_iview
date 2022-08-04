@@ -186,6 +186,7 @@ export default {
   .left {
     display: flex;
     text-align: left;
+    position: relative;
   }
   .top {
     position: relative;

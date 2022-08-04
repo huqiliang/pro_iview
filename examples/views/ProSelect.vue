@@ -2,6 +2,7 @@
   <div style="width:250px">
     {{ value2 }}
     <Button @click="value2 = ['aaa']">修改</Button>
+    <Button @click="changeList">修改list</Button>
     <pro-select
       :clearable="false"
       v-model="value2"
@@ -44,6 +45,12 @@ export default {
         }
       }
     };
+  },
+  methods: {
+    changeList() {
+      this.value2 = [];
+      this.config.list = [];
+    }
   }
 };
 </script>
