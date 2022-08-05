@@ -25,15 +25,19 @@ export default {
       },
       config: [
         {
-          renderForm: {
-            type: "pro-select",
-            props: {
-              list: [
-                { value: "large", title: "大" },
-                { value: "small", title: "小" },
-                { value: "default", title: "默认" }
-              ]
-            }
+          renderForm({ value, input }) {
+            console.log("aaa");
+            return (
+              <pro-select
+                value={value}
+                onInput={input}
+                list={[
+                  { value: "large", title: "大" },
+                  { value: "small", title: "小" },
+                  { value: "default", title: "默认" }
+                ]}
+              ></pro-select>
+            );
           },
           default_value: null,
           formLineNum: 2,
