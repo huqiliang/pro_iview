@@ -88,7 +88,6 @@ export default {
             notShowTable: _.includes(val, item.key) ? false : true
           });
         });
-        console.log("arr", arr);
         this.$emit("change", arr);
         // this.$emit("change", val);
       }
