@@ -189,7 +189,14 @@ export default {
         return { search: false, table: false, pages: false, toolBar: false };
       }
     },
-    submitForm: {}
+    submitForm: {},
+    storage: {
+      default() {
+        return {
+          rowSetting: ""
+        };
+      }
+    }
   },
   model: {
     prop: "data",
@@ -281,6 +288,7 @@ export default {
           renderItem: () => {
             return (
               <RowSetting
+                storage={this.storage.rowSetting}
                 rowContent={this.t("pro.table.rowSetting")}
                 resetContent={this.t("pro.common.reset")}
                 columns={
@@ -289,8 +297,16 @@ export default {
                     : this.showTableColumns
                 }
                 onChange={value => {
-                  console.log(value);
-
+                  if (this.storage.rowSetting) {
+                    try {
+                      localStorage.setItem(
+                        `ProRowSetting:${this.storage.rowSetting}`,
+                        JSON.stringify(value)
+                      );
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }
                   this.showTableColumns = value;
                   // _.map(this.columns, item => {
                   //   this.$set(

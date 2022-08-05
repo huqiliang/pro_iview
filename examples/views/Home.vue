@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    {{ search }}
+    {{ $route.name }}
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">修改数据并刷新</Button>
     <Button @click="getDatas">获取所有数据</Button>
@@ -9,6 +9,7 @@
       @modal:on-visible-change="change"
       @on-row-click="tableAction"
       ref="table"
+      :storage="{ rowSetting: $route.name }"
       :request="request"
       :map="map"
       :columns="columns"

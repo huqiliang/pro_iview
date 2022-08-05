@@ -20,7 +20,7 @@
           <a @click="reset">{{ resetContent }}</a>
         </div>
 
-        <CheckboxGroup v-model="myColumns" @on-change="checkAllGroupChange">
+        <CheckboxGroup v-model="myColumns">
           <DropdownItem v-for="item in columns" :key="item.key">
             <Checkbox :label="item.key">
               <span>{{ item.title }}</span>
@@ -47,23 +47,32 @@ export default {
       default() {
         return [];
       }
+    },
+    storage: {
+      type: String
     }
   },
   data() {
     return {
-      visible: false,
-      firstColumns: [],
-      checkAll: true,
-      first: true
+      visible: false
     };
   },
   mounted() {
-    if (this.columns && this.columns.length > 0 && this.first) {
-      this.firstColumns = _.cloneDeep(this.columns);
-      this.first = false;
+    if (this.storage) {
+      try {
+        const lc = JSON.parse(
+          localStorage.getItem(`ProRowSetting:${this.storage}`)
+        );
+        this.$emit("change", lc);
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   computed: {
+    checkAll() {
+      return this.myColumns.length == this.columns.length;
+    },
     myColumns: {
       get() {
         return _.map(
@@ -72,7 +81,16 @@ export default {
         );
       },
       set(val) {
-        this.$emit("change", val);
+        let arr = [];
+        _.map(this.columns, item => {
+          arr.push({
+            ...item,
+            notShowTable: _.includes(val, item.key) ? false : true
+          });
+        });
+        console.log("arr", arr);
+        this.$emit("change", arr);
+        // this.$emit("change", val);
       }
     }
   },
@@ -88,7 +106,7 @@ export default {
           notShowTable
         });
       });
-      this.checkAll = !notShowTable;
+      // this.checkAll = !notShowTable;
       this.$emit("change", arr);
     },
     handleOpen() {
@@ -101,29 +119,8 @@ export default {
       } else {
         this.setShowTableAll(true);
       }
-    },
-    checkAllGroupChange(data) {
-      console.log(this.columns);
-      let arr = [];
-      _.map(this.columns, item => {
-        arr.push({
-          ...item,
-          notShowTable: _.includes(data, item.key) ? false : true
-        });
-      });
-      console.log("arr", arr);
-      this.$emit("change", arr);
     }
   }
-  // watch: {
-  //   columns(value) {
-  //     if (value && value.length > 0 && this.first) {
-  //       this.firstColumns = _.cloneDeep(value);
-  //       this.checkAllGroup = _.map(this.firstColumns, "key");
-  //       this.first = false;
-  //     }
-  //   }
-  // }
 };
 </script>
 <style lang="less" scoped>
