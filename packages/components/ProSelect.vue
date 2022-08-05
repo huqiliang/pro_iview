@@ -152,9 +152,6 @@ export default {
     },
     list(value) {
       this.innerList = value;
-    },
-    value(value) {
-      this.innerValue = value;
     }
   }
 };
