@@ -340,7 +340,6 @@ export default {
       return this.title || this.t("pro.table.title");
     },
     tableColumns() {
-      console.log("aaa");
       return this.columnFilter(
         "notShowTable",
         "renderTable",
