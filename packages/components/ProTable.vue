@@ -109,6 +109,7 @@ export default {
   mixins: [Locale],
   data() {
     return {
+      innerValue: [],
       showTableColumns: [],
       resData: {}, //后端返回的所有数据
       formDialog: {
@@ -181,7 +182,7 @@ export default {
     format: {
       type: Object
     },
-    data: {
+    value: {
       type: Array
     },
     hide: {
@@ -198,10 +199,10 @@ export default {
       }
     }
   },
-  model: {
-    prop: "data",
-    event: "dataChange"
-  },
+  // model: {
+  //   prop: "data",
+  //   event: "dataChange"
+  // },
   computed: {
     modalListeners() {
       return this.buildListeners("modal");
@@ -365,10 +366,13 @@ export default {
     },
     proData: {
       get() {
-        return this.data || [];
+        return this.value ? this.value : this.innerValue;
       },
       set(value) {
-        this.$emit("dataChange", value);
+        if (!this.value) {
+          this.innerValue = value;
+        }
+        this.$emit("input", value);
       }
     }
   },
@@ -405,9 +409,9 @@ export default {
       });
       return obj;
     },
-    dataChange() {
-      this.$emit("dataChange", this.proData);
-    },
+    // dataChange() {
+    //   this.$emit("input", this.proData);
+    // },
     columnFilter(showType, renderType, value) {
       const columns = _.isEmpty(value)
         ? _.cloneDeep(this.columns)

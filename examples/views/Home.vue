@@ -1,10 +1,13 @@
 <template>
   <div class="home">
     {{ $route.name }}
+    {{ value3 }}
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">修改数据并刷新</Button>
     <Button @click="getDatas">获取所有数据</Button>
+    <Button @click="push">插入</Button>
     <pro-table
+      v-model="value3"
       @search:searchReset="searchReset"
       @modal:on-visible-change="change"
       @on-row-click="tableAction"
@@ -34,6 +37,7 @@ export default {
   name: "Home",
   data() {
     return {
+      value3:[],
       pageSize: 30,
       hide: { table: false },
       toolBarActions: [
@@ -455,6 +459,9 @@ export default {
     // this.$success(res);
   },
   methods: {
+    push(){
+      this.value3.push({})
+    },
     change(a) {
       console.log(a);
     },
