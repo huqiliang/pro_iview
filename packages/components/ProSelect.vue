@@ -65,6 +65,12 @@ export default {
   props: {
     //请求数据
     request: {},
+    method: {
+      type: String,
+      default() {
+        return "GET";
+      }
+    },
     //数据路径映射
     map: {
       type: Object,
@@ -108,7 +114,8 @@ export default {
       } else {
         if (this.request) {
           const res = await customRequest({
-            request: this.request
+            request: this.request,
+            method: this.method
           });
           if (res) {
             this.innerList = this.map.dataPath
@@ -152,9 +159,6 @@ export default {
     },
     list(value) {
       this.innerList = value;
-    },
-    value(value) {
-      this.innerValue = value;
     }
   }
 };

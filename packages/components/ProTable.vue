@@ -119,7 +119,7 @@ export default {
       },
       fullscreen: false,
       loading: false,
-      proData: [],
+      // proData: [],
       searchForm: {},
       // defaultSearchValue: null,
       total: 0,
@@ -361,6 +361,14 @@ export default {
         if (this.$attrs.search && this.$attrs.search.value) {
           this.$attrs.search.value = value;
         }
+      }
+    },
+    proData: {
+      get() {
+        return this.data || [];
+      },
+      set(value) {
+        this.$emit("dataChange", value);
       }
     }
   },
@@ -709,12 +717,13 @@ export default {
     }
   },
   watch: {
-    data: {
-      handler() {
-        this.$emit("dataChange", this.proData);
-      },
-      deep: true
-    },
+    // data: {
+    //   handler(value) {
+    //     this.proData = value;
+    //     this.$emit("dataChange", this.proData);
+    //   },
+    //   deep: true
+    // },
     pageSize(value) {
       this.page.pageSize = value;
     }
