@@ -52,13 +52,38 @@ export default {
           descript: "开关的尺寸"
         },
         {
-          renderForm() {
+          renderForm({ value, input }) {
             return (
               <pro-select
                 request={{
                   url: "http://192.168.0.38:3000/mock/106/api/table",
-                  method: "POST"
+                  method: "get"
                 }}
+                method="POST"
+                value={value}
+                onInput={input}
+                map={{
+                  // 请求数据路径映射
+                  dataPath: "data",
+                  // 数据显示 支持es6表达式 例如${descriptEn} - ${descript} 或者 (${descriptEn})
+                  titlePath: "remark",
+                  // 链接v-model定义的数据项
+                  valuePath: "isHalt"
+                }}
+              ></pro-select>
+            );
+          }
+        },
+        {
+          renderForm({ value, input }) {
+            return (
+              <pro-select
+                request={{
+                  url: "http://192.168.0.38:3000/mock/106/api/table2",
+                  method: "get"
+                }}
+                value={value}
+                onInput={input}
                 map={{
                   // 请求数据路径映射
                   dataPath: "data",
@@ -69,16 +94,7 @@ export default {
                 }}
               ></pro-select>
             );
-          },
-          default_value: null,
-          uuid: "3",
-          component_id: "71f67661c7d34249aa38d263fe7dea97",
-          title: "打开背景",
-          required: false,
-          key: "true-color",
-          values: null,
-          value_type: null,
-          descript: "自定义打开时的背景色\t"
+          }
         }
       ]
     };
