@@ -1,10 +1,18 @@
 ### 快速开始
 
-快速生成一个 名为 my_project 项目
+一、快速生成一个 名为 my_project 项目
 
 ```
 vue create -p huqiliang/tpl my_project
+```
+or
 
+```
+vue create --preset direct:https://git.ihotel.cn:8087/hql/tpl.git --clone my-project
+```
+
+二、启动项目
+```
 cd my_project 
 
 yarn serve

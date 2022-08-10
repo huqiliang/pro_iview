@@ -16,5 +16,5 @@ import http from "./libs/http"; // 使用拦截器
 
 Vue.use(iView); // step 3:use iView
 Vue.use(proIview, {
-  http     // 注入你的请求拦截器 注意:需要导出axios对象
+  http     // 如无法拦截,请在查注入你的请求拦截器 注意:拦截器需要导出axios对象
 }); // step 4:use proIview
