@@ -174,6 +174,8 @@ export default {
     map: {
       default() {
         return {
+          current: "current",
+          pageSize: "pageSize",
           dataPath: "data",
           totalPath: "totalRows"
         };
@@ -576,7 +578,11 @@ export default {
     async fetch(fn) {
       if (!_.isUndefined(this.request)) {
         this.loading = true;
-        let pageValue = this.page;
+        const { current, pageSize } = this.page;
+        let pageValue = {
+          [this.map.current || "current"]: current,
+          [this.map.pageSize || "pageSize"]: pageSize
+        };
         if (this.format && this.format.formatCurrent) {
           if (_.isFunction(this.format.formatCurrent)) {
             pageValue = this.format.formatCurrent(this.page);
@@ -585,9 +591,9 @@ export default {
             const fn = new Function(
               "page",
               "return  " +
-                `Object.assign(${JSON.stringify(this.page)}, { current:${
-                  this.format.formatCurrent
-                } });`
+                `Object.assign(${JSON.stringify(pageValue)}, { ${
+                  this.map.current
+                }:${this.format.formatCurrent} });`
             );
             pageValue = fn(this.page);
           }

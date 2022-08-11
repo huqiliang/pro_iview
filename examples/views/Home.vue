@@ -428,6 +428,8 @@ export default {
       //   });
       // },
       map: {
+        current:"firstResult",
+        pageSize:"page",
         dataPath: "data",
         totalPath: "totalRows",
         message: "message"
