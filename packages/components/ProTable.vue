@@ -591,9 +591,8 @@ export default {
             const fn = new Function(
               "page",
               "return  " +
-                `Object.assign(${JSON.stringify(pageValue)}, { ${
-                  this.map.current
-                }:${this.format.formatCurrent} });`
+                `Object.assign(${JSON.stringify(pageValue)}, { ${this.map
+                  .current || "current"}:${this.format.formatCurrent} });`
             );
             pageValue = fn(this.page);
           }
