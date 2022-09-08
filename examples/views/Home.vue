@@ -25,6 +25,7 @@
       :toolBarActions="toolBarActions"
       :pageSize="pageSize"
     >
+      <div slot="tableTip">222</div>
     </pro-table>
   </div>
 </template>

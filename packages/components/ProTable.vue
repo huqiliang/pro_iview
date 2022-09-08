@@ -33,6 +33,7 @@
         ></UIEditFrame>
         <div class="tableTable">
           <UIEditFrame type="table" :uiEdit="uiEdit" @config="uiConfig">
+            <slot name="tableTip"></slot>
             <Table
               :loading="loading"
               :columns="tableColumns"
