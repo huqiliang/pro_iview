@@ -38,7 +38,7 @@ export default {
   name: "Home",
   data() {
     return {
-      value3:[],
+      value3: [],
       pageSize: 30,
       hide: { table: false },
       toolBarActions: [
@@ -122,8 +122,7 @@ export default {
       columns: [
         {
           rules: [{ required: true, message: "手机号信息必填" }],
-          title:
-            "中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文gggggg手机号信息必填手机号信息必填手机号信息必填",
+          title: "信息必填手机号信息必填",
           group: "B",
           key: "cataLog",
           disabled: true,
@@ -181,7 +180,7 @@ export default {
           }
         },
         {
-          title: "form",
+          title: "ccc",
           key: "form",
           width: 100,
           renderForm() {
@@ -201,7 +200,7 @@ export default {
           title: "createUser2",
           width: 100,
           searchLineNum: 1,
-          disabled: true,
+          disabled: true,  
           renderSearch: {
             type: "Slider"
           },
@@ -211,6 +210,14 @@ export default {
               width: "100%"
             }
           },
+          //   renderTable: {
+          //   type: "span",
+          //   useExp: true,
+          //   text: "value===200?'成功':'失败';console.log(value);",
+          //   style: {
+          //     color: "value==200?'#19be6b':'#ed4014'"
+          //   }
+          // },
           renderTable: (h, params) => {
             return (
               <span>{params.row.isAllow === "F" ? "黑名单" : "白名单"}</span>
@@ -314,6 +321,7 @@ export default {
         },
         {
           width: 100,
+          title: "aaa",
           key: "descript",
           rules: [{ required: true, message: "手机号信息必填" }],
           renderTable: {
@@ -429,8 +437,8 @@ export default {
       //   });
       // },
       map: {
-        current:"firstResult",
-        pageSize:"page",
+        current: "firstResult",
+        pageSize: "page",
         dataPath: "data",
         totalPath: "totalRows",
         message: "message"
@@ -462,8 +470,8 @@ export default {
     // this.$success(res);
   },
   methods: {
-    push(){
-      this.value3.push({})
+    push() {
+      this.value3.push({});
     },
     change(a) {
       console.log(a);

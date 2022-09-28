@@ -98,6 +98,7 @@
 import { component } from "vue-fullscreen";
 import _, { get, map, has } from "lodash";
 import customRequest from "../libs/request";
+import { JSONStringify } from "../libs/util";
 import ProSearch from "./ProSearch";
 import ProForm from "./ProForm";
 import Locale from "../mixin/locale";
@@ -305,7 +306,7 @@ export default {
                     try {
                       localStorage.setItem(
                         `ProRowSetting:${this.storage.rowSetting}`,
-                        JSON.stringify(value)
+                        JSONStringify(value)
                       );
                     } catch (error) {
                       console.log(error);

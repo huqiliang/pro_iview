@@ -34,6 +34,8 @@
 
 <script>
 import _ from "lodash";
+import { JSONParse } from "../../libs/util";
+
 export default {
   props: {
     rowContent: {
@@ -59,9 +61,11 @@ export default {
   },
   mounted() {
     if (this.storage) {
+      console.log(this.$createElement);
       try {
-        const lc = JSON.parse(
-          localStorage.getItem(`ProRowSetting:${this.storage}`)
+        const lc = JSONParse(
+          localStorage.getItem(`ProRowSetting:${this.storage}`),
+          this.$createElement
         );
         this.$emit("change", lc);
       } catch (error) {
@@ -82,6 +86,7 @@ export default {
       },
       set(val) {
         let arr = [];
+        console.log(this.columns);
         _.map(this.columns, item => {
           arr.push({
             ...item,
