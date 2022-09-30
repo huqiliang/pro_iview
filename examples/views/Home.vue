@@ -43,6 +43,7 @@ export default {
       hide: { table: false },
       toolBarActions: [
         "new",
+        "fullscreen",
         {
           key: "test",
           renderItem(a) {
@@ -141,8 +142,8 @@ export default {
               return value ? dayjs(value).format("YYYY-MM-DD hh:mm:ss") : "";
             }
           },
-          renderTable: () => {
-            return (
+          renderTable: row => {
+            return row.show ? (
               <Button
                 onclick={() => {
                   console.log("aaa");
@@ -150,7 +151,7 @@ export default {
               >
                 aaa
               </Button>
-            );
+            ) : null;
           }
         },
         {
@@ -200,7 +201,7 @@ export default {
           title: "createUser2",
           width: 100,
           searchLineNum: 1,
-          disabled: true,  
+          disabled: true,
           renderSearch: {
             type: "Slider"
           },
@@ -378,10 +379,21 @@ export default {
           key: "action",
           actions: [
             {
-              type: "edit",
               title: "编辑2",
-              request: "/api/users/${cataLog}",
-              method: "PUT"
+              render: (params, action) => {
+                return params.row.yourShow ? (
+                  <a
+                    style="margin-right:10px"
+                    onClick={() => {
+                      action({
+                        type: "edit",
+                      });
+                    }}
+                  >
+                    编辑
+                  </a>
+                ) : null;
+              }
             },
             {
               title: "新增",
