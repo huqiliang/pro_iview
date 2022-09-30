@@ -1,13 +1,18 @@
 <template>
   <Tooltip transfer placement="top" :content="rowContent">
-    <Dropdown class="rowSetting" transfer trigger="custom" :visible="visible">
+    <Dropdown
+      class="rowSetting"
+      trigger="custom"
+      :visible="visible"
+      v-click-outside="onClickOutside"
+    >
       <Icon
         size="20"
         class="table_icon"
         @click="handleOpen"
         type="ios-settings"
       ></Icon>
-      <DropdownMenu slot="list">
+      <DropdownMenu slot="list" class="proDownMenus">
         <div class="dropHeader">
           <Checkbox
             :indeterminate="
@@ -33,8 +38,12 @@
 </template>
 
 <script>
+import Vue from "vue";
+
 import _ from "lodash";
 import { JSONParse } from "../../libs/util";
+import vClickOutside from "v-click-outside";
+Vue.use(vClickOutside);
 
 export default {
   props: {
@@ -61,7 +70,6 @@ export default {
   },
   mounted() {
     if (this.storage) {
-      console.log(this.$createElement);
       try {
         const lc = JSONParse(
           localStorage.getItem(`ProRowSetting:${this.storage}`),
@@ -86,7 +94,6 @@ export default {
       },
       set(val) {
         let arr = [];
-        console.log(this.columns);
         _.map(this.columns, item => {
           arr.push({
             ...item,
@@ -99,6 +106,9 @@ export default {
     }
   },
   methods: {
+    onClickOutside() {
+      this.visible = false;
+    },
     reset() {
       this.setShowTableAll(false);
     },
@@ -117,7 +127,6 @@ export default {
       this.visible = !this.visible;
     },
     handleCheckAll() {
-      console.log(this.myColumns.length, this.columns.length);
       if (this.myColumns.length != this.columns.length) {
         this.reset();
       } else {
@@ -129,12 +138,18 @@ export default {
 </script>
 <style lang="less" scoped>
 .dropHeader {
-  padding: 5px 10px;
+  padding: 0 10px;
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
 }
-
+.rowSetting {
+  text-align: left;
+  .proDownMenus {
+    height: 200px;
+    overflow: auto;
+  }
+}
 .table_icon {
   cursor: pointer;
 }

@@ -19,6 +19,7 @@
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
     "qs": "^6.10.3",
+    "v-click-outside": "^3.2.0",
     "view-design": "^4.7.0",
     "vue": "2.6.12",
     "vue-fullscreen": "^2.6.1",
