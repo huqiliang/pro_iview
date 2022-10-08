@@ -133,10 +133,11 @@ export default {
     },
     getValue() {
       const { multiple } = this.$attrs;
+
       return multiple
         ? _.isArray(this.value)
           ? this.value
-          : this.value?.split(",")
+          : _.split(this.value, ",")
         : this.value;
     }
   },
