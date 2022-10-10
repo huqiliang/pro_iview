@@ -38,7 +38,13 @@ export const JSONStringify = option => {
 // 对象序列化解析
 export const JSONParse = (objStr, h) => {
   return JSON.parse(objStr, (k, v) => {
-    if (typeof v === "string" && v.indexOf && v.indexOf("function") > -1) {
+    if (
+      typeof v === "string" &&
+      v.indexOf &&
+      (v.indexOf("function") > -1 ||
+        v.indexOf("=>") > -1 ||
+        v.indexOf("){") > -1)
+    ) {
       // eval 可能在eslint中报错，需要加入下行注释
       // eslint-disable-next-line
       return new Function("h", "return  " + `${v}`)(h);

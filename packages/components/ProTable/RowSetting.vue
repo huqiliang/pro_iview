@@ -38,14 +38,14 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 import _ from "lodash";
 import { JSONParse } from "../../libs/util";
 import vClickOutside from "v-click-outside";
-Vue.use(vClickOutside);
 
 export default {
+  directives: {
+    clickOutside: vClickOutside.directive
+  },
   props: {
     rowContent: {
       type: String
