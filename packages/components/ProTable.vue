@@ -63,32 +63,34 @@
             /></UIEditFrame>
           </div>
         </div>
-        <Modal
-          :transfer="false"
-          :loading="formDialog.formLoading"
-          @on-ok="submit"
-          @on-cancel="cancel"
-          v-model="formDialog.show"
-          :transition-names="['pro-modal']"
-          :width="$attrs.form ? $attrs.form.modalWidth : '400'"
-          :title="formDialog.title"
-          v-bind="$attrs.modal"
-          v-on="modalListeners"
-        >
-          <transition name="pro-modal-content">
-            <div class="content" v-if="formDialog.show">
-              <ProForm
-                ref="proForm"
-                :columns="formColumns"
-                :type="formDialog.type"
-                :dialog="formDialog"
-                v-model="formDialog.proFormData"
-                v-bind="$attrs.form"
-                v-on="formListeners"
-              ></ProForm>
-            </div>
-          </transition>
-        </Modal>
+        <div v-if="formDialog.show">
+          <Modal
+            :transfer="fullscreen ? false : true"
+            :loading="formDialog.formLoading"
+            @on-ok="submit"
+            @on-cancel="cancel"
+            v-model="formDialog.show"
+            :transition-names="['pro-modal']"
+            :width="$attrs.form ? $attrs.form.modalWidth : '400'"
+            :title="formDialog.title"
+            v-bind="$attrs.modal"
+            v-on="modalListeners"
+          >
+            <transition name="pro-modal-content">
+              <div class="content" v-if="formDialog.show">
+                <ProForm
+                  ref="proForm"
+                  :columns="formColumns"
+                  :type="formDialog.type"
+                  :dialog="formDialog"
+                  v-model="formDialog.proFormData"
+                  v-bind="$attrs.form"
+                  v-on="formListeners"
+                ></ProForm>
+              </div>
+            </transition>
+          </Modal>
+        </div>
       </VueFullscreen>
     </UIEditFrame>
   </div>

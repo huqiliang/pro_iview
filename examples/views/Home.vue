@@ -6,27 +6,35 @@
     <Button @click="click">修改数据并刷新</Button>
     <Button @click="getDatas">获取所有数据</Button>
     <Button @click="push">插入</Button>
-    <pro-table
-      v-model="value3"
-      @search:searchReset="searchReset"
-      @modal:on-visible-change="change"
-      @on-row-click="tableAction"
-      ref="table"
-      :storage="{ rowSetting: $route.name }"
-      :request="request"
-      :map="map"
-      :columns="columns"
-      :search="search"
-      :submitForm="submitForm"
-      :format="format"
-      :form="form"
-      :autoFetch="true"
-      :hide="hide"
-      :toolBarActions="toolBarActions"
-      :pageSize="pageSize"
-    >
-      <div slot="tableTip">this is tableTip Value</div>
-    </pro-table>
+    <Tabs v-model="tabValue">
+      <TabPane label="标签一" name="name1">
+        <pro-table v-if="tabValue === 'name1'"></pro-table>
+      </TabPane>
+      <TabPane label="标签二" name="name2">
+        <pro-table
+          v-if="tabValue === 'name2'"
+          v-model="value3"
+          @search:searchReset="searchReset"
+          @modal:on-visible-change="change"
+          @on-row-click="tableAction"
+          ref="table"
+          :storage="{ rowSetting: $route.name }"
+          :request="request"
+          :map="map"
+          :columns="columns"
+          :search="search"
+          :submitForm="submitForm"
+          :format="format"
+          :form="form"
+          :autoFetch="true"
+          :hide="hide"
+          :toolBarActions="toolBarActions"
+          :pageSize="pageSize"
+        >
+          <div slot="tableTip">this is tableTip Value</div>
+        </pro-table></TabPane
+      >
+    </Tabs>
   </div>
 </template>
 
@@ -38,6 +46,7 @@ export default {
   name: "Home",
   data() {
     return {
+      tabValue:"name1",
       value3: [],
       pageSize: 30,
       hide: { table: false },
@@ -380,20 +389,20 @@ export default {
           actions: [
             {
               title: "编辑2",
-              render: (params, action) => {
-                return params.row.yourShow ? (
-                  <a
-                    style="margin-right:10px"
-                    onClick={() => {
-                      action({
-                        type: "edit",
-                      });
-                    }}
-                  >
-                    编辑
-                  </a>
-                ) : null;
-              }
+              // render: (params, action) => {
+              //   return params.row.yourShow ? (
+              //     <a
+              //       style="margin-right:10px"
+              //       onClick={() => {
+              //         action({
+              //           type: "edit",
+              //         });
+              //       }}
+              //     >
+              //       编辑
+              //     </a>
+              //   ) : null;
+              // }
             },
             {
               title: "新增",
@@ -411,7 +420,7 @@ export default {
               title: "编辑",
               method: "POST",
               type: "edit",
-              request: "https://yapi.ihotel.cn:8443/mock/106/api/save"
+              request: "http://192.168.0.38:3000/mock/106/api/save"
               // request(options) {
               //   console.log(options);
               //   return axios.post(
