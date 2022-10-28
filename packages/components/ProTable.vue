@@ -580,7 +580,7 @@ export default {
     cancel() {
       this.resetForm();
     },
-    async fetch(fn) {
+    async fetch(fn, options) {
       if (!_.isUndefined(this.request)) {
         this.loading = true;
         const { current, pageSize } = this.page;
@@ -609,7 +609,8 @@ export default {
           datas: {
             ...pageValue,
             ...this.form
-          }
+          },
+          ...options
         });
         this.loading = false;
         let msg = {
@@ -619,7 +620,7 @@ export default {
         };
         if (res) {
           this.resData = res;
-          const data = get(res, this.map.dataPath);
+          const data = get(res, this.map.dataPath, res);
           if (data) {
             this.proData = data;
             this.total = get(res, this.map.totalPath);
