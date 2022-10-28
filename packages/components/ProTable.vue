@@ -697,7 +697,6 @@ export default {
                 method: method || "POST",
                 datas: this.formDialog.proFormData
               });
-              console.log("res", res);
               if (res) {
                 const mapSuccess =
                   _.get(this.$attrs?.form, "success") ||
@@ -713,7 +712,6 @@ export default {
                     );
                   }
                 } else if (res.success) {
-                  console.log("succ");
                   this.success(res);
                 }
                 this.submitLoading();
