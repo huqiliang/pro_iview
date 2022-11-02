@@ -8,11 +8,8 @@
     <Button @click="push">插入</Button>
     <Tabs v-model="tabValue">
       <TabPane label="标签一" name="name1">
-        <pro-table v-if="tabValue === 'name1'"></pro-table>
-      </TabPane>
-      <TabPane label="标签二" name="name2">
         <pro-table
-          v-if="tabValue === 'name2'"
+          v-if="tabValue === 'name1'"
           v-model="value3"
           @search:searchReset="searchReset"
           @modal:on-visible-change="change"
@@ -32,8 +29,11 @@
           :pageSize="pageSize"
         >
           <div slot="tableTip">this is tableTip Value</div>
-        </pro-table></TabPane
-      >
+        </pro-table>
+      </TabPane>
+      <TabPane label="标签二" name="name2">
+        <pro-table v-if="tabValue === 'name2'"></pro-table>
+      </TabPane>
     </Tabs>
   </div>
 </template>
@@ -46,7 +46,7 @@ export default {
   name: "Home",
   data() {
     return {
-      tabValue:"name1",
+      tabValue: "name1",
       value3: [],
       pageSize: 30,
       hide: { table: false },
@@ -137,6 +137,9 @@ export default {
           key: "cataLog",
           disabled: true,
           width: 100,
+          ellipsis: true,
+          tooltip: true,
+          tooltipMaxWidth: 300,
           toolTips: { form: true },
           renderSearch: {
             type: "Radio"
@@ -150,18 +153,18 @@ export default {
             format(value) {
               return value ? dayjs(value).format("YYYY-MM-DD hh:mm:ss") : "";
             }
-          },
-          renderTable: row => {
-            return row.show ? (
-              <Button
-                onclick={() => {
-                  console.log("aaa");
-                }}
-              >
-                aaa
-              </Button>
-            ) : null;
           }
+          // renderTable: row => {
+          //   return row.show ? (
+          //     <Button
+          //       onclick={() => {
+          //         console.log("aaa");
+          //       }}
+          //     >
+          //       aaa
+          //     </Button>
+          //   ) : null;
+          // }
         },
         {
           title: "中文公共中文",
@@ -388,7 +391,7 @@ export default {
           key: "action",
           actions: [
             {
-              title: "编辑2",
+              title: "编辑2"
               // render: (params, action) => {
               //   return params.row.yourShow ? (
               //     <a
