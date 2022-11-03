@@ -62,8 +62,29 @@ export default {
       // } else {
       //   children.push([this.value]);
       // }
-      const { useExp, text, type, style, props, on } = this.renderItem;
+      const {
+        useExp,
+        text,
+        type,
+        style,
+        props,
+        on,
+        scopedSlots
+      } = this.renderItem;
       const myStyle = useExp && style ? this.evalUse(style, this.value) : style;
+
+      //如果scopedSlots 是个数组 转化下
+      let myScopedSlots = scopedSlots;
+      if (_.isArray(scopedSlots)) {
+        let obj = {};
+        _.map(scopedSlots, val => {
+          obj[val.name] = () =>
+            _.isFunction(val.title)
+              ? val.title(h, { value: this.value, props, val })
+              : h("span", val.title);
+        });
+        myScopedSlots = obj;
+      }
       return (
         <span>
           {h(
@@ -74,6 +95,7 @@ export default {
                 clearable: true,
                 ...props
               },
+              scopedSlots: myScopedSlots,
               class: {
                 w100: !_.includes(componetsFillAll, type)
               },

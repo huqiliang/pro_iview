@@ -275,6 +275,21 @@ export default {
           renderSearch: {
             type: "InputNumber"
           },
+          renderTable: {
+            type: "i-switch",
+            scopedSlots: [
+              {
+                name: "open",
+                title(h, params) {
+                  return <span>{params.value ? "开" : "关"}</span>;
+                }
+              },
+              {
+                name: "close",
+                title: "关"
+              }
+            ]
+          },
           renderForm: {
             type: "i-switch"
           },
