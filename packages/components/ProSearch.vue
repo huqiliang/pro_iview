@@ -35,6 +35,7 @@
           >{{ item.title }}:
         </label>
         <ProTypeItem
+          :item="item"
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"

@@ -24,6 +24,7 @@
                 <template v-for="item in toolBarList">
                   <ProTypeItem
                     class="item_buttons"
+                    :item="item"
                     :key="item.key"
                     :renderItem="item.renderItem"
                   ></ProTypeItem>
@@ -434,6 +435,7 @@ export default {
               value.render = (h, params) => {
                 return (
                   <ProTypeItem
+                    item={params.row}
                     v-model={params.row[value.key]}
                     renderItem={value[renderType]}
                   ></ProTypeItem>

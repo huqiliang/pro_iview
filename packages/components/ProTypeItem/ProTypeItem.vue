@@ -41,27 +41,6 @@ export default {
   },
   render(h) {
     if (_.isObjectLike(this.renderItem)) {
-      // let children = [];
-      // if (this.renderItem.children) {
-      //   _.map(this.renderItem.children, val => {
-      //     if (_.isString(val)) {
-      //       children.push(val);
-      //     } else {
-      //       console.log(val.text);
-      //       children.push(
-      //         h(val.type, {
-      //           props: val.props,
-      //           class: {
-      //             w100: !_.includes(componetsFillAll, this.renderItem.type)
-      //           }
-      //         }),
-      //         val.text
-      //       );
-      //     }
-      //   });
-      // } else {
-      //   children.push([this.value]);
-      // }
       const {
         useExp,
         text,
@@ -93,6 +72,7 @@ export default {
               props: {
                 value: this.value,
                 clearable: true,
+                placeholder: this.item?.title || this.item?.value || "",
                 ...props
               },
               scopedSlots: myScopedSlots,
