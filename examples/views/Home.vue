@@ -383,13 +383,7 @@ export default {
         {
           title: "defValue",
           width: 100,
-          key: "defValue",
-          renderTable: {
-            type: "i-button",
-            props: {
-              type: "primary"
-            }
-          }
+          key: "defValue"
         },
         {
           title: "createUser10f",

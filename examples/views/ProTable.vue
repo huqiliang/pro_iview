@@ -1,11 +1,15 @@
 <template>
-  <pro-table v-bind="config"></pro-table>
+  <div class="table">
+    <div>datas:{{ datas }}</div>
+    <pro-table v-bind="config" v-model="datas"></pro-table>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      datas: [],
       config: {
         modal: {
           "mask-closable": false
