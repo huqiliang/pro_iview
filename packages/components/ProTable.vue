@@ -429,7 +429,7 @@ export default {
         : _.cloneDeep(value);
       let arr = [];
       map(columns, value => {
-        if (!value[showType]) {
+        if (!!value && !value[showType]) {
           if (has(value, renderType)) {
             // value.render = value[renderType];
             if (_.isFunction(value[renderType])) {
