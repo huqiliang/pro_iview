@@ -16,7 +16,8 @@ export default {
       no: "取消",
       refresh: "刷新",
       fullscreen: "全屏",
-      enter: "请输入"
+      enter: "请输入",
+      error: "未知错误"
     },
     table: {
       title: "查询列表",

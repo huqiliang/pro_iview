@@ -188,7 +188,10 @@ export default {
       }
     },
     format: {
-      type: Object
+      type: Object,
+      default() {
+        return this.$PRO_IVIEW.format || {};
+      }
     },
     value: {
       type: Array
@@ -636,6 +639,7 @@ export default {
               msg: "请检查数据路径和分页配置"
             };
           }
+          this.successHandle(res);
         } else {
           this.proData = [];
           this.total = 0;
@@ -672,8 +676,17 @@ export default {
       this.fetch();
     },
     success(res) {
-      this.$Message.success(_.get(res, this.map.message) || "成功");
+      const message =
+        _.get(this.map, "message") || _.get(this.$PRO_IVIEW, "map.message");
+      this.$Message.success(
+        _.get(res, message) || this.t("pro.common.success")
+      );
       this.finish();
+    },
+    error(res) {
+      const message =
+        _.get(this.map, "message") || _.get(this.$PRO_IVIEW, "map.message");
+      this.$Message.error(_.get(res, message) || this.t("pro.common.error"));
     },
     submitLoading() {
       setTimeout(() => {
@@ -682,6 +695,23 @@ export default {
           this.formDialog.formLoading = true;
         });
       });
+    },
+    successHandle(res, fn) {
+      const mapSuccess =
+        _.get(this.$attrs?.form, "success") ||
+        _.get(this.map, "success") ||
+        _.get(this.$PRO_IVIEW, "map.success");
+      if (mapSuccess) {
+        const arr = mapSuccess.split(/=+/);
+        const succData = _.get(res, _.trim(arr[0]));
+        if (succData == _.trim(arr[1])) {
+          fn && fn(res);
+        } else {
+          this.error(res);
+        }
+      } else if (res.success) {
+        fn && fn(res);
+      }
     },
     submit() {
       if (this.formDialog.type !== "view") {
@@ -700,22 +730,7 @@ export default {
                 datas: this.formDialog.proFormData
               });
               if (res) {
-                const mapSuccess =
-                  _.get(this.$attrs?.form, "success") ||
-                  _.get(this.map, "success");
-                if (mapSuccess) {
-                  const arr = mapSuccess.split(/=+/);
-                  const succData = _.get(res, _.trim(arr[0]));
-                  if (succData == _.trim(arr[1])) {
-                    this.success(res);
-                  } else {
-                    this.$Message.error(
-                      _.get(res, this.map?.message) || "未知错误"
-                    );
-                  }
-                } else if (res.success) {
-                  this.success(res);
-                }
+                this.successHandle(res, this.success);
                 this.submitLoading();
               }
             } catch (error) {

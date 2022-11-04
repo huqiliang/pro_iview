@@ -16,7 +16,8 @@ export default {
       no: "No",
       refresh: "Refresh",
       fullscreen: "Fullscreen",
-      enter: "Please Enter "
+      enter: "Please Enter ",
+      error: "Unknow Error"
     },
     table: {
       title: "Table Title",

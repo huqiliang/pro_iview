@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import ViewUI, { Message } from "view-design";
+import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
 import VueI18n from "vue-i18n";
 import en from "view-design/dist/locale/en-US";
@@ -23,7 +23,19 @@ Vue.use(ViewUI, {
     return "";
   }
 });
-Vue.use(ProComponents);
+Vue.use(ProComponents, {
+  pro_iview: {
+    format: {
+      formatCurrent: "(page.current - 1) * page.pageSize" // 格式化分页 fn 或 string
+    },
+    map: {
+      current: "firstResult", // 分页请求 current 字段映射
+      pageSize: "page", // 分页请求 pageSize 字段映射
+      message: "message", //消息提醒路径映射
+      success: "code===0" // pro_iview中的接口错误请求判断
+    }
+  }
+});
 
 Vue.locale = () => {};
 // 注册组件库
@@ -32,19 +44,19 @@ const messages = {
   "zh-CN": Object.assign(zh, pro_zh)
 };
 const i18n = new VueI18n({
-  locale: "zh-CN", // set locale
+  locale: "en-US", // set locale
   messages, // set locale messages
   silentTranslationWarn: true
 });
 
-Vue.config.errorHandler = err => {
-  Message.error({ content: err, duration: 5 });
-  console.error(err);
-};
-Vue.config.warnHandler = err => {
-  Message.error({ content: err, duration: 5 });
-  console.error(err);
-};
+// Vue.config.errorHandler = err => {
+//   Message.error({ content: err, duration: 5 });
+//   console.error(err);
+// };
+// Vue.config.warnHandler = err => {
+//   Message.error({ content: err, duration: 5 });
+//   console.error(err);
+// };
 new Vue({
   router,
   store,

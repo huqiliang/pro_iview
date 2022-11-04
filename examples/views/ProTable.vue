@@ -43,14 +43,6 @@ export default {
             align: "center",
             title: "状态",
             key: "createUser8",
-            renderTable: {
-              type: "i-switch",
-              props: {
-                disabled: true,
-                "true-value": "T",
-                "false-value": "F"
-              }
-            },
             // renderSearch: { type: "Select", props: {} },
             renderSearch: ({ value, input }) => {
               return (
@@ -91,15 +83,15 @@ export default {
             //   );
             // }
           }
-        ],
-        map: {
-          current: "firstResult",
-          pageSize: "page",
-          dataPath: "data",
-          totalPath: "totalRows",
-          message: "message"
-          // success: "code===3004"
-        }
+        ]
+        // map: {
+        //   current: "firstResult",
+        //   pageSize: "page",
+        //   dataPath: "data",
+        //   totalPath: "totalRows",
+        //   message: "message"
+        //   // success: "code===3004"
+        // }
       }
     };
   }

@@ -30,7 +30,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   res => {
     const { nomsg } = res.config.headers;
-    if (res.status && (res.status != 200 || res.data.code != 0)) {
+    if (res.status && res.status != 200) {
       if (!nomsg) {
         Message.error({
           content: res.data.message || "未知错误"

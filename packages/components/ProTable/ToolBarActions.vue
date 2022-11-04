@@ -27,7 +27,7 @@ export default {
             <Tooltip
               transfer
               placement="top"
-              content={this.$t("pro.common.refresh")}
+              content={this.t("pro.common.refresh")}
             >
               <Icon
                 onclick={() => {
