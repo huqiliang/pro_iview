@@ -253,18 +253,15 @@ export default {
         });
       }
     },
-    wapperInput(item, { wapper, value }) {
-      console.log(item, value);
+    wapperInput(item, { wapper }) {
       const copyValue = _.cloneDeep(this.value);
-      _.set(copyValue, item.key, _.isString(value) ? _.trim(value) : value);
-      console.log(copyValue);
       this.$emit("input", { ...copyValue, ...wapper });
       //单项验证 避免验证问题
-      // if (this.propItem(item)) {
-      //   this.$nextTick(() => {
-      //     this.validateField(this.propItem(item));
-      //   });
-      // }
+      if (this.propItem(item)) {
+        this.$nextTick(() => {
+          this.validateField(this.propItem(item));
+        });
+      }
     },
     reset(fn) {
       this.$refs["form"].resetFields(fn);
