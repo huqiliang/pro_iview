@@ -52,3 +52,27 @@ export const JSONParse = (objStr, h) => {
     return v;
   });
 };
+
+// 通用函数 ---- 自定义字符串转函数
+const nomalFn = (that, format, value) => {
+  if (_.isFunction(format)) {
+    return format(value);
+  }
+  if (_.isString(format)) {
+    const fn = new Function("value", `return ${format};`).bind(that);
+    return fn(value);
+  }
+  return false;
+};
+// 自定义字符串转函数
+export const commonToFn = (that, format, value) => {
+  let myValue = value;
+  const result = nomalFn(that, format, value);
+  if (!result && _.isObject(format)) {
+    myValue = nomalFn(that, format.value, value);
+    // pageValue = fn(this.page);
+  } else {
+    myValue = result;
+  }
+  return myValue;
+};

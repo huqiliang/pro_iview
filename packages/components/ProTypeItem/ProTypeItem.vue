@@ -1,6 +1,7 @@
 <script>
 import _ from "lodash";
 import componetsFillAll from "./comFillArr";
+import { commonToFn } from "../../libs/util";
 export default {
   props: {
     item: null,
@@ -33,7 +34,13 @@ export default {
     },
     input(value) {
       if (_.has(this.renderItem, "format")) {
-        this.$emit("input", this.renderItem.format(value));
+        const { format } = this.renderItem;
+        const wapper = commonToFn(this, format, value);
+        if (format && format.formatWapper) {
+          this.$emit("wapperInput", { wapper, value });
+        } else {
+          this.$emit("input", wapper);
+        }
       } else {
         this.$emit("input", value);
       }
@@ -67,7 +74,7 @@ export default {
       return (
         <span>
           {h(
-            type,
+            type || "i-input",
             {
               props: {
                 value: this.value,

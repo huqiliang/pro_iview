@@ -77,6 +77,7 @@
                     :renderItem="item.renderForm"
                     :value="getValue(value, item)"
                     @input="change(item, $event)"
+                    @wapperInput="wapperInput(item, $event)"
                     class="input ivu-input-wrapper"
                     :style="{
                       width: `${
@@ -251,6 +252,19 @@ export default {
           this.validateField(this.propItem(item));
         });
       }
+    },
+    wapperInput(item, { wapper, value }) {
+      console.log(item, value);
+      const copyValue = _.cloneDeep(this.value);
+      _.set(copyValue, item.key, _.isString(value) ? _.trim(value) : value);
+      console.log(copyValue);
+      this.$emit("input", { ...copyValue, ...wapper });
+      //单项验证 避免验证问题
+      // if (this.propItem(item)) {
+      //   this.$nextTick(() => {
+      //     this.validateField(this.propItem(item));
+      //   });
+      // }
     },
     reset(fn) {
       this.$refs["form"].resetFields(fn);

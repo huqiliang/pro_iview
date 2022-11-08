@@ -39,6 +39,7 @@
           :renderItem="item.renderSearch"
           v-if="item.renderSearch"
           v-model="value[item.key]"
+          @wapperInput="wapperInput"
           @keypress.native.enter="search"
           class="renderInput"
         ></ProTypeItem>
@@ -124,6 +125,9 @@ export default {
     }
   },
   methods: {
+    wapperInput({ wapper }) {
+      this.$emit("input", { ...this.value, ...wapper });
+    },
     itemShow(i) {
       if (this.isDown) {
         return true;

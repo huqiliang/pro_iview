@@ -11,6 +11,46 @@ export default {
     return {
       datas: [],
       config: {
+        toolBarActions: ["new", "refresh", "fullscreen", "rowSetting"],
+        request: "http://192.168.0.38:3000/mock/106/api/table",
+        columns: [
+          {
+            title: "isHalt",
+            key: "isHalt",
+            renderSearch: {
+              type: "DatePicker",
+              props: { type: "daterange" },
+              format: {
+                formatWapper: true,
+                value:
+                  "{start:this.$dayjs(value[0]).format('YYYY-MM-DD'),end:this.$dayjs(value[1]).format('YYYY-MM-DD')}"
+              }
+            }
+          },
+          { title: "descriptEn", key: "descriptEn" },
+          { title: "createUser", key: "createUser" },
+          { title: "createDatetime", key: "createDatetime" },
+          { title: "modifyUser", key: "modifyUser" },
+          { title: "modifyDatetime", key: "modifyDatetime" },
+          { title: "id", key: "id" },
+          { title: "cataLog", key: "cataLog" },
+          { title: "item", key: "item" },
+          { title: "setValue", key: "setValue" },
+          { title: "defValue", key: "defValue" },
+          { title: "isMod", key: "isMod" },
+          { title: "remark", key: "remark" },
+          { title: "descript", key: "descript" },
+          { title: "createUser8", key: "createUser8" }
+        ],
+        map: { dataPath: "data", totalPath: "data[1].descript" },
+        hide: { search: false },
+        search: { position: "left" },
+        submitForm: {
+          request: "http://192.168.0.38:3000/mock/106/api/save",
+          method: "POST"
+        }
+      },
+      config2: {
         modal: {
           "mask-closable": false
         },
@@ -21,26 +61,89 @@ export default {
             title: "userId",
             key: "userId",
             notShowLabel: true,
-            renderForm: { type: "Input" },
+            renderSearch: {
+              type: "DatePicker",
+              props: {
+                type: "daterange"
+              },
+              format: {
+                formatWapper: true,
+                value:
+                  "{start:this.$dayjs(value[0]).format('YYYY-MM-DD'),end:this.$dayjs(value[1]).format('YYYY-MM-DD')}"
+              }
+            },
+            renderForm: {
+              type: "DatePicker"
+              // props: {
+              //   type: "daterange"
+              // }
+              // format: {
+              //   formatWapper: true,
+              //   value:
+              //     "{start:this.$dayjs(value[0]).format('YYYY-MM-DD'),end:this.$dayjs(value[1]).format('YYYY-MM-DD')}"
+              // }
+            },
             form: {
               labelPosition: "right",
               formLineNum: 2,
               value: { createUser8: false }
             },
             formWidth: 60,
-            validate: [
+            rules: [
+              {
+                title: "必填",
+                code: "required",
+                required: true,
+                pattern: ".+",
+                message: "输入框必填",
+                trigger: "blur,change"
+              }
+            ]
+          },
+          {
+            title: "id",
+            key: "id",
+            renderForm: {
+              type: "DatePicker",
+              props: {
+                type: "daterange"
+              }
+            },
+            renderSearch: {
+              type: "DatePicker",
+              format: "this.$dayjs(value).format('YYYY-MM-DD')"
+            },
+            rules: [
+              {
+                title: "日期起止必填",
+                code: "requiredDatePicker",
+                type: "array",
+                required: true,
+                fields: {
+                  0: {
+                    type: "date",
+                    required: true,
+                    message: "请选择起止日期"
+                  },
+                  1: { type: "date", required: true, message: "请选择起止日期" }
+                },
+                trigger: "blur,change"
+              }
+            ]
+          },
+          {
+            title: "body",
+            key: "body",
+            rules: [
               {
                 title: "必填",
                 code: "required",
                 required: true,
                 message: "输入框必填",
-                trigger: "change",
-                type: null
+                trigger: "blur,change"
               }
             ]
           },
-          { title: "id", key: "id" },
-          { title: "body", key: "body" },
           {
             minWidth: 90,
             formWidth: 20,
