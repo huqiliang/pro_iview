@@ -1,6 +1,6 @@
 {
   "name": "pro_iview",
-  "version": "1.8.7",
+  "version": "1.8.8",
   "main": "lib/pro-iview.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,10 +15,10 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^1.1.3",
     "core-js": "^3.6.5",
-    "lodash": "^4.17.20",
-    "qs": "^6.10.3",
+    "lodash": "^4.17.21",
+    "qs": "^6.11.0",
     "v-click-outside": "^3.2.0",
     "view-design": "^4.7.0",
     "vue": "2.6.12",
@@ -56,10 +56,10 @@
     "webpack-bundle-analyzer": "^4.4.2"
   },
   "peerDependencies": {
-    "axios": "^0.21.1",
-    "lodash": "^4.17.20",
-    "qs": "^6.10.3",
-    "view-design": "^4.5.0"
+    "axios": "^1.1.3",
+    "lodash": "^4.17.21",
+    "qs": "^6.11.0",
+    "view-design": "^4.7.0"
   },
   "eslintConfig": {
     "root": true,
