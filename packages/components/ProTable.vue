@@ -41,7 +41,7 @@
               :data="proData"
               v-if="!hide.table"
               ref="table"
-              border
+              :border="tableBorder"
               v-bind="$attrs.table"
               v-on="tableListeners"
             >
@@ -215,6 +215,12 @@ export default {
   //   event: "dataChange"
   // },
   computed: {
+    tableBorder() {
+      if (_.has(this.$attrs?.table, "border")) {
+        return this.$attrs?.table?.border;
+      }
+      return true;
+    },
     modalListeners() {
       return this.buildListeners("modal");
     },
