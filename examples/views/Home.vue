@@ -73,7 +73,11 @@ export default {
       ],
       search: {
         searchLineNum: 2,
-        value: { createUser3: "gg", createUser: "ggg" }
+        value: {
+          createUser3: "gg",
+          createUser: "ggg2",
+          createUser10: "2012-12-10"
+        }
       },
       form: {
         labelPosition: "right",
@@ -389,7 +393,11 @@ export default {
           title: "createUser10f",
           width: 100,
           renderSearch: {
-            type: "input"
+            type: "DatePicker",
+            format(val) {
+              // 格式化数据
+              return dayjs(val).format("YYYY-MM-DD");
+            }
           },
           key: "createUser10"
         },
