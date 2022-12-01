@@ -22,7 +22,7 @@ export default {
     table: {
       title: "Table Title",
       deleteTip: "Are you sure delete this row?",
-      rowSetting: "Row Settings"
+      rowSetting: "Rows"
     }
   }
 };

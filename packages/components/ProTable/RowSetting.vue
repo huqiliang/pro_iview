@@ -1,6 +1,7 @@
 <template>
   <Tooltip transfer placement="top" :content="rowContent">
     <Dropdown
+      transfer
       class="rowSetting"
       trigger="custom"
       :visible="visible"
@@ -12,9 +13,10 @@
         @click="handleOpen"
         type="ios-settings"
       ></Icon>
-      <DropdownMenu slot="list" class="proDownMenus">
-        <div class="dropHeader">
+      <DropdownMenu slot="list" class="proDownMenus" trigger_out="true">
+        <div class="dropHeader" trigger_out="true">
           <Checkbox
+            trigger_out="true"
             :indeterminate="
               myColumns.length > 0 && myColumns.length !== columns.length
             "
@@ -22,13 +24,17 @@
             @click.prevent.native="handleCheckAll"
             >{{ rowContent }}</Checkbox
           >
-          <a @click="reset">{{ resetContent }}</a>
+          <a trigger_out="true" @click="reset">{{ resetContent }}</a>
         </div>
 
-        <CheckboxGroup v-model="myColumns">
-          <DropdownItem v-for="item in columns" :key="item.key">
-            <Checkbox :label="item.key">
-              <span>{{ item.title }}</span>
+        <CheckboxGroup v-model="myColumns" trigger_out="true">
+          <DropdownItem
+            v-for="item in computedColumns"
+            :key="item.key"
+            trigger_out="true"
+          >
+            <Checkbox :label="item.key" trigger_out="true">
+              <span trigger_out="true">{{ item.title }}</span>
             </Checkbox>
           </DropdownItem>
         </CheckboxGroup>
@@ -85,16 +91,22 @@ export default {
     checkAll() {
       return this.myColumns.length == this.columns.length;
     },
+    computedColumns() {
+      const arr = _.filter(_.uniqBy(this.columns, "key"), val => {
+        return val.title;
+      });
+      return arr;
+    },
     myColumns: {
       get() {
         return _.map(
-          _.filter(this.columns, val => !val.notShowTable),
+          _.filter(this.computedColumns, val => !val.notShowTable),
           "key"
         );
       },
       set(val) {
         let arr = [];
-        _.map(this.columns, item => {
+        _.map(this.computedColumns, item => {
           arr.push({
             ...item,
             notShowTable: _.includes(val, item.key) ? false : true
@@ -106,8 +118,15 @@ export default {
     }
   },
   methods: {
-    onClickOutside() {
-      this.visible = false;
+    onClickOutside(e) {
+      const parent = e.target.parentNode.parentNode;
+      if (
+        !e.target.getAttribute("trigger_out") &&
+        !parent.getAttribute("trigger_out")
+      ) {
+        this.visible = false;
+      }
+      //
     },
     reset() {
       this.setShowTableAll(false);
@@ -144,6 +163,7 @@ export default {
   justify-content: space-between;
 }
 .rowSetting {
+  position: relative;
   text-align: left;
   .proDownMenus {
     height: 200px;

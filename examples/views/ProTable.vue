@@ -27,10 +27,16 @@ export default {
               }
             }
           },
-          { title: "descriptEn", key: "descriptEn" },
+          { title: "descriptEn", key: "descriptEn", notShowTable: true },
+          { title: "sss", key: "descriptEn", notShowSearch: true },
+          {
+            title: "descriptEn",
+            key: "descriptEn",
+            notShowTable: true,
+            notShowSearch: true
+          },
           { title: "createUser", key: "createUser" },
           { title: "createDatetime", key: "createDatetime" },
-          { title: "modifyUser", key: "modifyUser" },
           { title: "modifyDatetime", key: "modifyDatetime" },
           { title: "id", key: "id" },
           { title: "cataLog", key: "cataLog" },
@@ -38,7 +44,7 @@ export default {
           { title: "setValue", key: "setValue" },
           { title: "defValue", key: "defValue" },
           { title: "isMod", key: "isMod" },
-          { title: "remark", key: "remark" },
+          { title: "", key: "remark" },
           { title: "descript", key: "descript" },
           { title: "createUser8", key: "createUser8" }
         ],
