@@ -4,7 +4,7 @@ import locale from "./locale";
 import axios from "axios";
 import _ from "lodash";
 import dayjs from "dayjs";
-
+import directives from "./directive/index";
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = (Vue, opts = {}) => {
   global.$http = Vue.$axios = Vue.prototype.$http =
@@ -28,6 +28,11 @@ const install = (Vue, opts = {}) => {
     } else {
       console.warn(`请编写'${component.__file}'组件的名字`);
     }
+  });
+
+  // 自定义指令
+  Object.keys(directives).forEach(key => {
+    Vue.directive(key, directives[key]);
   });
 };
 

@@ -31,8 +31,8 @@ Vue.use(ProComponents, {
     map: {
       current: "firstResult", // 分页请求 current 字段映射
       pageSize: "page", // 分页请求 pageSize 字段映射
-      message: "message", //消息提醒路径映射
-      success: "code===0" // pro_iview中的接口错误请求判断
+      message: "message" //消息提醒路径映射
+      // success: "code===0" // pro_iview中的接口错误请求判断
     }
   }
 });

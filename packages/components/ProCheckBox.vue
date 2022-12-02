@@ -137,8 +137,13 @@ export default {
     }
   },
   watch: {
-    request() {
-      this.init();
+    request: {
+      handler(newValue, oldValue) {
+        if (!_.isEqual(newValue, oldValue) && !_.isFunction(oldValue)) {
+          this.init();
+        }
+      },
+      deep: true
     },
     list(value) {
       this.innerList = value;

@@ -157,7 +157,7 @@ export default {
   watch: {
     request: {
       handler(newValue, oldValue) {
-        if (!_.isEqual(newValue, oldValue)) {
+        if (!_.isEqual(newValue, oldValue) && !_.isFunction(oldValue)) {
           this.init();
         }
       },
