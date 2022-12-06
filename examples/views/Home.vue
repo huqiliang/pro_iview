@@ -387,7 +387,10 @@ export default {
         {
           title: "defValue",
           width: 100,
-          key: "defValue"
+          key: "defValue",
+          renderSearch() {
+            return <DatePicker></DatePicker>;
+          }
         },
         {
           title: "createUser10f",

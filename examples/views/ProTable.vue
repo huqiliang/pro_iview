@@ -159,7 +159,7 @@ export default {
             title: "状态",
             key: "createUser8",
             // renderSearch: { type: "Select", props: {} },
-            renderSearch: () => {
+            renderSearch() {
               return (
                 <Select>
                   <Option value="F">开</Option>
