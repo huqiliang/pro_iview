@@ -1,7 +1,8 @@
 <template>
   <div class="table">
     <div>datas:{{ datas }}</div>
-    <pro-table v-bind="config" v-model="datas"></pro-table>
+    <div>{{ gg }}</div>
+    <pro-table v-bind="config2" v-model="datas"></pro-table>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 export default {
   data() {
     return {
+      gg: "gg",
       datas: [],
       config: {
         toolBarActions: ["new", "refresh", "fullscreen", "rowSetting"],
@@ -157,9 +159,9 @@ export default {
             title: "状态",
             key: "createUser8",
             // renderSearch: { type: "Select", props: {} },
-            renderSearch: ({ value, input }) => {
+            renderSearch: () => {
               return (
-                <Select value={value} oninput={input} clearable>
+                <Select>
                   <Option value="F">开</Option>
                   <Option value="T">关</Option>
                 </Select>
