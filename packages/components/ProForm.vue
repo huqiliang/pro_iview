@@ -236,11 +236,14 @@ export default {
       return _.get(value, item.key);
     },
     propItem(item) {
-      let key = item.key;
-      if (key && key.indexOf(".") > -1) {
-        key = _.replace(key, ".", "-");
+      if (
+        _.has(item, "key") &&
+        item.key.indexOf(".") > -1 &&
+        !_.has(this.value, _.dropRight(item.key.split(".")))
+      ) {
+        console.log(`请配置form的以下属性 ${item.key} 的值`);
       }
-      return key;
+      return item.key;
     },
     change(item, value) {
       const copyValue = _.cloneDeep(this.value);

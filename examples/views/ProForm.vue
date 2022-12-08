@@ -15,7 +15,7 @@
 export default {
   data() {
     return {
-      form: {},
+      form: { gg: "" },
       submitForm: {
         position: "left",
         request: "/api/pages",
@@ -24,6 +24,26 @@ export default {
         }
       },
       config: [
+        {
+          title: "cc",
+          key: "gg.cc",
+          rules: [{ required: true, message: "报表类型必填" }],
+          renderForm: {
+            type: "ProSelect",
+            props: {
+              list: [
+                {
+                  title: "数据报表",
+                  value: "REPORT"
+                },
+                {
+                  title: "数据看板",
+                  value: "LOOKUP"
+                }
+              ]
+            }
+          }
+        },
         {
           renderForm({ value, input }) {
             console.log("aaa");
