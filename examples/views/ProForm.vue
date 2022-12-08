@@ -45,12 +45,9 @@ export default {
           }
         },
         {
-          renderForm({ value, input }) {
-            console.log("aaa");
+          renderForm() {
             return (
               <pro-select
-                value={value}
-                onInput={input}
                 list={[
                   { value: "large", title: "大" },
                   { value: "small", title: "小" },
@@ -70,6 +67,11 @@ export default {
           values: "large,small,default",
           value_type: null,
           descript: "开关的尺寸"
+        },
+        {
+          renderForm() {
+            return <span>aaa</span>;
+          }
         },
         {
           renderForm({ value, input }) {

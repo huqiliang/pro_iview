@@ -109,14 +109,12 @@ export default {
         row: this.item,
         outData: this.outData
       });
-      const { propsData, listeners } = renderRes.componentOptions;
       // 如果没有自动挂载 v-model
-      if (!_.has(propsData, "value") && !_.has(listeners, "input")) {
-        renderRes.componentOptions.propsData.value = this.value;
-        renderRes.componentOptions.listeners = {
-          input: this.input,
-          ...renderRes.componentOptions.listeners
-        };
+      if (!_.has(renderRes.componentOptions, "propsData.value")) {
+        _.set(renderRes.componentOptions, "propsData.value", this.value);
+      }
+      if (!_.has(renderRes.componentOptions, "listeners.input")) {
+        _.set(renderRes.componentOptions, "listeners.input", this.input);
       }
       return renderRes;
     }
