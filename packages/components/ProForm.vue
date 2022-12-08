@@ -68,7 +68,7 @@
                       type="md-bookmark"
                       v-if="item.icons && item.icons.form"
                     />
-                    {{ item.title ? item.title + " :" : "" }}
+                    {{ title(item) }}
                   </span>
                   <ProTypeItem
                     v-if="item.renderForm"
@@ -187,6 +187,13 @@ export default {
     }
   },
   methods: {
+    title(item) {
+      return item.title
+        ? _.isEmpty(_.trim(item.title))
+          ? item.title
+          : item.title + " :"
+        : "";
+    },
     submit() {
       this.$refs["form"].validate(async valid => {
         if (valid) {

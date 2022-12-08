@@ -61,7 +61,7 @@ export default {
           uuid: "2",
           component_id: "71f67661c7d34249aa38d263fe7dea97",
           type: "pro-select",
-          title: "大小",
+          title: " ",
           required: false,
           key: "size",
           values: "large,small,default",
@@ -70,7 +70,11 @@ export default {
         },
         {
           renderForm() {
-            return <span>aaa</span>;
+            return (
+              <div class="flex" style={{ color: "red" }} readable>
+                aaa
+              </div>
+            );
           }
         },
         {
