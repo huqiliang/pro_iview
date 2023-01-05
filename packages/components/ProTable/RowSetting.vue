@@ -93,7 +93,7 @@ export default {
     },
     computedColumns() {
       const arr = _.filter(_.uniqBy(this.columns, "key"), val => {
-        return val.title;
+        return val.title && !_.has(val, "notShowRowSetting");
       });
       return arr;
     },

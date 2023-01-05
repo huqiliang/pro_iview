@@ -137,6 +137,7 @@ export default {
         {
           rules: [{ required: true, message: "手机号信息必填" }],
           title: "信息必填手机号信息必填",
+          notShowRowSetting: true,
           group: "B",
           key: "cataLog",
           disabled: true,
