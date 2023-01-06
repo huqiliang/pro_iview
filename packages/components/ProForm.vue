@@ -39,6 +39,7 @@
                 :uiActive="item.uiActive"
                 uiText="删除"
                 @choose="uiChoose(item)"
+                v-if="showColumns(item)"
                 @config="uiConfig(item)"
                 :style="{
                   'grid-column-start': `span ${item.formLineNum}`
@@ -54,7 +55,6 @@
                   class="item"
                   :prop="propItem(item)"
                   :rules="ruleChange(item)"
-                  v-if="showColumns(item)"
                   @click.native="itemClick(item)"
                 >
                   <span
