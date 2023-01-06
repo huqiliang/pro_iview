@@ -18,7 +18,8 @@
           <Checkbox
             trigger_out="true"
             :indeterminate="
-              myColumns.length > 0 && myColumns.length !== columns.length
+              myColumns.length > 0 &&
+                myColumns.length !== computedColumns.length
             "
             :value="checkAll"
             @click.prevent.native="handleCheckAll"
@@ -89,7 +90,7 @@ export default {
   },
   computed: {
     checkAll() {
-      return this.myColumns.length == this.columns.length;
+      return this.myColumns.length == this.computedColumns.length;
     },
     computedColumns() {
       const arr = _.filter(_.uniqBy(this.columns, "key"), val => {
@@ -146,7 +147,7 @@ export default {
       this.visible = !this.visible;
     },
     handleCheckAll() {
-      if (this.myColumns.length != this.columns.length) {
+      if (this.myColumns.length != this.computedColumns.length) {
         this.reset();
       } else {
         this.setShowTableAll(true);

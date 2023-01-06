@@ -173,6 +173,8 @@ export default {
         },
         {
           title: "中文公共中文",
+          notShowRowSetting: true,
+
           showForm(form) {
             return form.type == "new";
           },
