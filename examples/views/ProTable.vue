@@ -12,52 +12,6 @@ export default {
     return {
       gg: "gg",
       datas: [],
-      config: {
-        toolBarActions: ["new", "refresh", "fullscreen", "rowSetting"],
-        request: "http://192.168.0.38:3000/mock/106/api/table",
-        columns: [
-          {
-            title: "isHalt",
-            key: "isHalt",
-            renderSearch: {
-              type: "DatePicker",
-              props: { type: "daterange" },
-              format: {
-                formatWapper: true,
-                value:
-                  "{start:this.$dayjs(value[0]).format('YYYY-MM-DD'),end:this.$dayjs(value[1]).format('YYYY-MM-DD')}"
-              }
-            }
-          },
-          { title: "descriptEn", key: "descriptEn", notShowTable: true },
-          { title: "sss", key: "descriptEn", notShowSearch: true },
-          {
-            title: "descriptEn",
-            key: "descriptEn",
-            notShowTable: true,
-            notShowSearch: true
-          },
-          { title: "createUser", key: "createUser" },
-          { title: "createDatetime", key: "createDatetime" },
-          { title: "modifyDatetime", key: "modifyDatetime" },
-          { title: "id", key: "id" },
-          { title: "cataLog", key: "cataLog" },
-          { title: "item", key: "item" },
-          { title: "setValue", key: "setValue" },
-          { title: "defValue", key: "defValue" },
-          { title: "isMod", key: "isMod" },
-          { title: "", key: "remark" },
-          { title: "descript", key: "descript" },
-          { title: "createUser8", key: "createUser8" }
-        ],
-        map: { dataPath: "data", totalPath: "data[1].descript" },
-        hide: { search: false },
-        search: { position: "left" },
-        submitForm: {
-          request: "http://192.168.0.38:3000/mock/106/api/save",
-          method: "POST"
-        }
-      },
       config2: {
         modal: {
           "mask-closable": false
@@ -111,6 +65,8 @@ export default {
           {
             title: "id",
             key: "id",
+            notShowTable: true,
+            notShowRowSetting: true,
             renderForm: {
               type: "DatePicker",
               props: {
@@ -120,28 +76,12 @@ export default {
             renderSearch: {
               type: "DatePicker",
               format: "this.$dayjs(value).format('YYYY-MM-DD')"
-            },
-            rules: [
-              {
-                title: "日期起止必填",
-                code: "requiredDatePicker",
-                type: "array",
-                required: true,
-                fields: {
-                  0: {
-                    type: "date",
-                    required: true,
-                    message: "请选择起止日期"
-                  },
-                  1: { type: "date", required: true, message: "请选择起止日期" }
-                },
-                trigger: "blur,change"
-              }
-            ]
+            }
           },
           {
             title: "body",
             key: "body",
+            notShowTable: true,
             rules: [
               {
                 title: "必填",

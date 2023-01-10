@@ -134,7 +134,7 @@ export default {
     },
     setShowTableAll(notShowTable) {
       let arr = [];
-      _.map(this.columns, item => {
+      _.map(this.computedColumns, item => {
         arr.push({
           ...item,
           notShowTable
