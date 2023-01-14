@@ -8,6 +8,7 @@
     <Button @click="push">插入</Button>
     <Tabs v-model="tabValue">
       <TabPane label="标签一" name="name1">
+        {{ columns }}
         <pro-table
           v-if="tabValue === 'name1'"
           v-model="value3"
@@ -15,6 +16,7 @@
           @modal:on-visible-change="change"
           @on-row-click="tableAction"
           ref="table"
+          :table="{ border: true }"
           :storage="{ rowSetting: $route.name }"
           :request="request"
           :map="map"
@@ -72,6 +74,7 @@ export default {
         "rowSetting"
       ],
       search: {
+        upDown:false,
         searchLineNum: 2,
         value: {
           createUser3: "gg",
@@ -179,6 +182,7 @@ export default {
             return form.type == "new";
           },
           key: "createUser",
+          resizable:true,
           width: 100,
           renderForm: ({ value, input }) => {
             return (

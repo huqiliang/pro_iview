@@ -81,7 +81,7 @@
           <a
             v-if="columns && columns.length > searchLineNum"
             class="text"
-            @click="upDown"
+            @click="upDownHandle"
           >
             {{ isDown ? t("pro.common.packUp") : t("pro.common.spread") }}
             <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
@@ -122,7 +122,16 @@ export default {
     searchLableWidth: {},
     searchLineNum: {
       default: 3
+    },
+    upDown: {
+      type: Boolean,
+      default() {
+        return true;
+      }
     }
+  },
+  mounted() {
+    this.isDown = this.upDown;
   },
   methods: {
     wapperInput({ wapper }) {
@@ -138,7 +147,7 @@ export default {
         return true;
       }
     },
-    upDown() {
+    upDownHandle() {
       this.isDown = !this.isDown;
     },
     reset() {
