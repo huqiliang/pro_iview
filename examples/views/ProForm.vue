@@ -69,12 +69,21 @@ export default {
           descript: "开关的尺寸"
         },
         {
+          title: "aa",
+          key: "aa",
           renderForm() {
             return (
-              <div class="flex" style={{ color: "red" }} readable>
-                aaa
-              </div>
+              <span>
+                <Button>确定</Button>
+              </span>
             );
+          }
+        },
+        {
+          title: "Bbb",
+          key: "cbb",
+          renderForm() {
+            return <DatePicker></DatePicker>;
           }
         },
         {

@@ -102,22 +102,36 @@ export default {
         </span>
       );
     } else if (_.isFunction(this.renderItem)) {
-      const renderRes = this.renderItem({
-        h,
-        input: this.input,
-        value: this.value,
-        row: this.item,
-        outData: this.outData
-      });
-      // 如果没有自动挂载 v-model
-      if (!_.has(renderRes.componentOptions, "propsData.value")) {
-        _.set(renderRes.componentOptions, "propsData.value", this.value);
+      try {
+        const renderRes = this.renderItem({
+          h,
+          input: this.input,
+          value: this.value,
+          row: this.item,
+          outData: this.outData
+        });
+
+        // 如果没有自动挂载 v-model
+        if (!_.has(renderRes.componentOptions, "propsData.value")) {
+          _.set(renderRes.componentOptions, "propsData.value", this.value);
+        }
+        if (!_.has(renderRes.componentOptions, "listeners.input")) {
+          _.set(renderRes.componentOptions, "listeners.input", this.input);
+        }
+
+        if (_.includes(componetsFillAll, renderRes?.tag?.split("-")[3])) {
+          return <span>{renderRes}</span>;
+        } else {
+          return renderRes;
+        }
+      } catch (error) {
+        console.log("宽度修改失败", error);
       }
-      if (!_.has(renderRes.componentOptions, "listeners.input")) {
-        _.set(renderRes.componentOptions, "listeners.input", this.input);
-      }
-      return renderRes;
+      // return renderRes;
     }
+    //  if (!_.has(renderRes.componentOptions, "propsData.value")) {
+    //     _.set(renderRes.componentOptions, "propsData.value", this.value);
+    //   }
     return null;
   }
 };

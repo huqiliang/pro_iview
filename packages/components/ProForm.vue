@@ -295,6 +295,9 @@ export default {
     display: flex;
     align-items: center;
   }
+  .item {
+    text-align: left;
+  }
   .formContain {
     display: grid;
 

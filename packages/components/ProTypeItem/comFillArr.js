@@ -1,1 +1,11 @@
-export default ["Radio", "radio", "i-switch", "i-button"];
+export default [
+  "Radio",
+  "radio",
+  "Button",
+  "i-button",
+  "Switch",
+  "i-switch",
+  "iSwitch",
+  "Icon",
+  "ColorPicker"
+];

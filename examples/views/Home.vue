@@ -137,6 +137,16 @@ export default {
         formatCurrent: "(page.current - 1) * page.pageSize"
       },
       columns: [
+         {
+          title: "bbb",
+          key: 'arr',
+          searchLineNum: '3',
+          renderSearch: {
+            type: 'DatePicker',
+            props: { type: 'daterange', 'split-panels': true, editable: true }
+          },
+          width: '200',
+        },
         {
           rules: [{ required: true, message: "手机号信息必填" }],
           title: "信息必填手机号信息必填",
@@ -224,16 +234,20 @@ export default {
           title: "createUser2",
           width: 100,
           searchLineNum: 1,
+          formLineNum:2,
           disabled: true,
           renderSearch: {
             type: "Slider"
           },
-          renderForm: {
-            type: "DatePicker",
-            style: {
-              width: "100%"
-            }
+          renderForm(){
+            return <DatePicker />
           },
+          // renderForm: {
+          //   type: "DatePicker",
+          //   style: {
+          //     width: "100%"
+          //   }
+          // },
           //   renderTable: {
           //   type: "span",
           //   useExp: true,
