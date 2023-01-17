@@ -115,6 +115,7 @@ export default {
   mixins: [Locale],
   data() {
     return {
+      tableColumns: [],
       innerValue: [],
       showTableColumns: [],
       resData: {}, //后端返回的所有数据
@@ -326,13 +327,7 @@ export default {
                     }
                   }
                   this.showTableColumns = value;
-                  // _.map(this.columns, item => {
-                  //   this.$set(
-                  //     item,
-                  //     "notShowTable",
-                  //     _.includes(keys, item.key) ? false : true
-                  //   );
-                  // });
+                  this.changeTableColumns();
                 }}
               ></RowSetting>
             );
@@ -357,13 +352,13 @@ export default {
     tableTitle() {
       return this.title || this.t("pro.table.title");
     },
-    tableColumns() {
-      return this.columnFilter(
-        "notShowTable",
-        "renderTable",
-        this.showTableColumns
-      );
-    },
+    // tableColumns() {
+    //   return this.columnFilter(
+    //     "notShowTable",
+    //     "renderTable",
+    //     this.showTableColumns
+    //   );
+    // },
     searchColumns() {
       return this.columnFilter("notShowSearch", "renderSearch");
     },
@@ -412,6 +407,7 @@ export default {
         this.fetch();
       }
     }
+    this.changeTableColumns();
   },
   methods: {
     uiConfig(options) {
@@ -750,6 +746,13 @@ export default {
       } else {
         this.formDialog.show = false;
       }
+    },
+    changeTableColumns() {
+      this.tableColumns = this.columnFilter(
+        "notShowTable",
+        "renderTable",
+        this.showTableColumns
+      );
     }
   },
   watch: {

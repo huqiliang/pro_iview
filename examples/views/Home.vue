@@ -1,14 +1,11 @@
 <template>
   <div class="home">
-    {{ $route.name }}
-    {{ value3 }}
     <!-- <pro-form :columns="autoData.columns" v-model="autoData.value"></pro-form> -->
     <Button @click="click">修改数据并刷新</Button>
     <Button @click="getDatas">获取所有数据</Button>
     <Button @click="push">插入</Button>
     <Tabs v-model="tabValue">
       <TabPane label="标签一" name="name1">
-        {{ columns }}
         <pro-table
           v-if="tabValue === 'name1'"
           v-model="value3"
@@ -17,7 +14,6 @@
           @on-row-click="tableAction"
           ref="table"
           :table="{ border: true }"
-          :storage="{ rowSetting: $route.name }"
           :request="request"
           :map="map"
           :columns="columns"
