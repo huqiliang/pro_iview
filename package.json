@@ -1,6 +1,6 @@
 {
   "name": "pro_iview",
-  "version": "1.9.6",
+  "version": "1.9.7",
   "main": "lib/pro-iview.umd.min.js",
   "license": "ISC",
   "scripts": {
