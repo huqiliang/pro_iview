@@ -120,14 +120,15 @@ export default {
   },
   methods: {
     onClickOutside(e) {
-      const parent = e.target.parentNode.parentNode;
-      if (
-        !e.target.getAttribute("trigger_out") &&
-        !parent.getAttribute("trigger_out")
-      ) {
-        this.visible = false;
+      if (this.visible) {
+        const parent = _.get(e, "target.parentNode.parentNode");
+        if (
+          !e.target.getAttribute("trigger_out") &&
+          !parent.getAttribute("trigger_out")
+        ) {
+          this.visible = false;
+        }
       }
-      //
     },
     reset() {
       this.setShowTableAll(false);
@@ -163,14 +164,17 @@ export default {
   display: flex;
   justify-content: space-between;
 }
+
 .rowSetting {
   position: relative;
   text-align: left;
+
   .proDownMenus {
     height: 200px;
     overflow: auto;
   }
 }
+
 .table_icon {
   cursor: pointer;
 }
