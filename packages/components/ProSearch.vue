@@ -1,101 +1,117 @@
 <template>
-  <Form v-on="$listeners" class="prosearch" @submit.native.prevent>
-    <div
-      class="search"
-      :style="{
-        'grid-template-columns': `repeat(${searchLineNum}, minmax(auto,${100 /
-          searchLineNum +
-          '%'}))`
-      }"
-    >
+  <UIEditFrame
+    type="all"
+    :uiEdit="uiEdit"
+    uiText="全局配置"
+    :noBorder="true"
+    @config="$emit('uiConfig', 'all')"
+  >
+    <Form v-on="$listeners" class="prosearch" @submit.native.prevent>
       <div
-        class="item"
-        v-for="(item, i) in columns"
-        v-show="itemShow(i)"
+        class="search"
         :style="{
-          'grid-column-start': `span ${
-            item.searchLineNum ? item.searchLineNum : 1
-          }`
+          'grid-template-columns': `repeat(${searchLineNum}, minmax(auto,${100 /
+            searchLineNum +
+            '%'}))`
         }"
-        :class="position"
-        :key="item.key"
-        :label="item.title ? item.title + ' :' : ''"
       >
-        <label
-          v-if="item.title"
-          class="ivu-form-item-label itemLabel"
+        <UIEditFrame
+          :uiEdit="uiEdit"
+          :key="item.key"
+          :data="item"
+          :uiActive="item.uiActive"
+          uiText="删除"
+          @choose="$emit('uiChoose', item)"
+          @config="$emit('uiConfig', item)"
+          class="item"
+          v-for="(item, i) in columns"
           :style="{
-            width:
-              position === 'top'
-                ? '100%'
-                : searchLableWidth
-                ? `${searchLableWidth}px`
-                : 'auto'
+            'grid-column-start': `span ${
+              item.searchLineNum ? item.searchLineNum : 1
+            }`
           }"
-          >{{ item.title }}:
-        </label>
-        <ProTypeItem
-          :item="item"
-          :renderItem="item.renderSearch"
-          v-if="item.renderSearch"
-          v-model="value[item.key]"
-          @wapperInput="wapperInput"
-          @keypress.native.enter="search"
-          class="renderInput"
-        ></ProTypeItem>
-        <Input
-          clearable
-          :placeholder="
-            `${t('pro.common.enter')}${item.title ? item.title : ''}`
-          "
-          v-model="value[item.key]"
-          @keypress.native.enter="search"
-          v-else
-        />
-      </div>
-      <div
-        class="item"
-        :style="{
-          'grid-column-start': `span ${downItemSapn}`
-        }"
-      >
-        <label
-          v-if="position !== 'left'"
-          class="ivu-form-item-label itemLabel"
-          style="height:34px"
-        ></label>
-        <div class="input" style="clear:both;text-align:right">
-          <Button @click="reset" class="ml10">
-            <Icon type="md-refresh" class="buttonIcon" />
-            <span>{{ t("pro.common.reset") }}</span>
-          </Button>
-          <Button
-            @click="search"
-            :loading="loading"
-            class="ml10"
-            type="primary"
-          >
-            <Icon v-if="!loading" type="ios-search" class="buttonIcon" />
-            <span>{{ t("pro.common.search") }}</span>
-          </Button>
-          <a
-            v-if="columns && columns.length > searchLineNum"
-            class="text"
-            @click="upDownHandle"
-          >
-            {{ isDown ? t("pro.common.packUp") : t("pro.common.spread") }}
-            <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
-          </a>
+          v-show="itemShow(i)"
+        >
+          <div :class="position" :label="item.title ? item.title + ' :' : ''">
+            <label
+              v-if="item.title"
+              class="ivu-form-item-label itemLabel"
+              :style="{
+                width:
+                  position === 'top'
+                    ? '100%'
+                    : searchLableWidth
+                    ? `${searchLableWidth}px`
+                    : 'auto'
+              }"
+              >{{ item.title }}:
+            </label>
+            <ProTypeItem
+              :item="item"
+              :renderItem="item.renderSearch"
+              v-if="item.renderSearch"
+              v-model="value[item.key]"
+              @wapperInput="wapperInput"
+              @keypress.native.enter="search"
+              class="renderInput"
+            ></ProTypeItem>
+            <Input
+              clearable
+              :placeholder="
+                `${t('pro.common.enter')}${item.title ? item.title : ''}`
+              "
+              v-model="value[item.key]"
+              @keypress.native.enter="search"
+              v-else
+            />
+          </div>
+        </UIEditFrame>
+        <div
+          class="item"
+          :style="{
+            'grid-column-start': `span ${downItemSapn}`
+          }"
+        >
+          <label
+            v-if="position !== 'left'"
+            class="ivu-form-item-label itemLabel"
+            style="height:34px"
+          ></label>
+          <div class="input" style="clear:both;text-align:right">
+            <Button @click="reset" class="ml10">
+              <Icon type="md-refresh" class="buttonIcon" />
+              <span>{{ t("pro.common.reset") }}</span>
+            </Button>
+            <Button
+              @click="search"
+              :loading="loading"
+              class="ml10"
+              type="primary"
+            >
+              <Icon v-if="!loading" type="ios-search" class="buttonIcon" />
+              <span>{{ t("pro.common.search") }}</span>
+            </Button>
+            <a
+              v-if="columns && columns.length > searchLineNum"
+              class="text"
+              @click="upDownHandle"
+            >
+              {{ isDown ? t("pro.common.packUp") : t("pro.common.spread") }}
+              <Icon :type="isDown ? 'ios-arrow-up' : 'ios-arrow-down'" />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </Form>
+    </Form>
+  </UIEditFrame>
 </template>
 
 <script>
 import ProTypeItem from "./ProTypeItem/ProTypeItem";
 import Locale from "../mixin/locale";
 import _ from "lodash";
+import UIEditFrame from "../components/LayOut/UIEditFrame.vue";
+
 export default {
   name: "ProSearch",
   mixins: [Locale],
@@ -105,6 +121,7 @@ export default {
     };
   },
   props: {
+    uiEdit: Boolean,
     position: {
       default: "left"
     },
@@ -159,7 +176,8 @@ export default {
     }
   },
   components: {
-    ProTypeItem
+    ProTypeItem,
+    UIEditFrame
   },
   computed: {
     downItemSapn() {
