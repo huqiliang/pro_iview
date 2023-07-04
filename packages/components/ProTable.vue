@@ -763,6 +763,16 @@ export default {
     //   },
     //   deep: true
     // },
+    columns: {
+      handler(value) {
+        this.tableColumns = this.columnFilter(
+          "notShowTable",
+          "renderTable",
+          value
+        );
+      },
+      deep: true
+    },
     pageSize(value) {
       this.page.pageSize = value;
     }
