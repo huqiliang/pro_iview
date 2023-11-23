@@ -20,6 +20,16 @@ export default {
         request: "http://192.168.0.38:3000/mock/106/api/table",
         columns: [
           {
+            type: "selection",
+            width: 60,
+            align: "center"
+          },
+          {
+            title: "test2",
+            key: "test",
+            notShowRowSetting: true
+          },
+          {
             title: "userId",
             key: "userId",
             notShowLabel: true,

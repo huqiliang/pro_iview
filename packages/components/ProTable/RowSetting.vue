@@ -107,14 +107,18 @@ export default {
       },
       set(val) {
         let arr = [];
-        _.map(this.computedColumns, item => {
+        _.map(this.columns, item => {
           arr.push({
             ...item,
-            notShowTable: _.includes(val, item.key) ? false : true
+            notShowTable:
+              item.notShowRowSetting || item.type
+                ? item.notShowTable
+                : _.includes(val, item.key)
+                ? false
+                : true
           });
         });
         this.$emit("change", arr);
-        // this.$emit("change", val);
       }
     }
   },
@@ -135,10 +139,13 @@ export default {
     },
     setShowTableAll(notShowTable) {
       let arr = [];
-      _.map(this.computedColumns, item => {
+      _.map(this.columns, item => {
         arr.push({
           ...item,
-          notShowTable
+          notShowTable:
+            item.notShowRowSetting || item.type
+              ? item.notShowTable
+              : notShowTable
         });
       });
       // this.checkAll = !notShowTable;
