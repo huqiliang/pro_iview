@@ -662,6 +662,11 @@ export default {
       return {
         search: this.form,
         table: this.proData,
+        columns: {
+          table: this.tableColumns,
+          search: this.searchColumns,
+          form: this.formColumns
+        },
         page: { ...this.page, total: this.total },
         form: this.formDialog.proFormData,
         attr: this.$attrs,

@@ -70,7 +70,7 @@ export default {
         "rowSetting"
       ],
       search: {
-        upDown:false,
+        upDown: false,
         searchLineNum: 2,
         value: {
           createUser3: "gg",
@@ -133,15 +133,15 @@ export default {
         formatCurrent: "(page.current - 1) * page.pageSize"
       },
       columns: [
-         {
+        {
           title: "bbb",
-          key: 'arr',
-          searchLineNum: '3',
+          key: "arr",
+          searchLineNum: "3",
           renderSearch: {
-            type: 'DatePicker',
-            props: { type: 'daterange', 'split-panels': true, editable: true }
+            type: "DatePicker",
+            props: { type: "daterange", "split-panels": true, editable: true }
           },
-          width: '200',
+          width: "200"
         },
         {
           rules: [{ required: true, message: "手机号信息必填" }],
@@ -188,7 +188,7 @@ export default {
             return form.type == "new";
           },
           key: "createUser",
-          resizable:true,
+          resizable: true,
           width: 100,
           renderForm: ({ value, input }) => {
             return (
@@ -230,13 +230,13 @@ export default {
           title: "createUser2",
           width: 100,
           searchLineNum: 1,
-          formLineNum:2,
+          formLineNum: 2,
           disabled: true,
           renderSearch: {
             type: "Slider"
           },
-          renderForm(){
-            return <DatePicker />
+          renderForm() {
+            return <DatePicker />;
           },
           // renderForm: {
           //   type: "DatePicker",
@@ -277,7 +277,7 @@ export default {
                 clearable
                 multiple
                 value={arr}
-                onInput={val => {
+                onInput={(val) => {
                   console.log("val", val);
                   input(val);
                   this.$refs.addForm.validateField("unitScene");
